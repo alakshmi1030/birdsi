@@ -26,7 +26,7 @@ var iconWidth = 50;
 var iconHeight = 50;
 var pictureWidth = 325;
 var pictureHeight = 325;
-var leftValue = 25;
+
 
 var MainCon = Column.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: whiteS, active: true, name: "column", 
@@ -55,12 +55,14 @@ var MainCon = Column.template(function($) { return {
 	]
 }});
 
-var setPathCon = Column.template(function($) { return {
+var leftValue = 25;
+var setPathCon = Container.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: whiteS, active: true, name: "setPathColumn",
 	contents: [
-		new Picture({left: leftValue, width: iconWidth, height: iconHeight, url: "back.png"}),
-		new Label({string: "Set Path", style: labelStyle}),
-		new Picture({left: 20, right: 20, width: pictureWidth, height: pictureHeight, url: "map.jpg"})
+		//new Picture({left: leftValue, width: iconWidth, height: iconHeight, url: "back.png"}),
+		new Label({top: 10, string: "Set Path", style: labelStyle}),
+		new Picture({top: 30,left: 20, right: 20, width: pictureWidth, height: pictureHeight, url: "map.jpg"}),
+		fromField, toField
 	],
 	behavior: Object.create(Container.prototype, {
 		onTouchEnded: { value: function(content){
@@ -81,8 +83,8 @@ var aButton = BUTTONS.Button.template(function($){ return{
 				application.remove(main);
 				var pathCon = new setPathCon();
 				application.add(pathCon);
-				pathCon.add(fromField);
-				pathCon.add(toField);
+				//pathCon.add(fromField);
+				//pathCon.add(toField);
 			}
 			else{
 				trace($.title + " button pressed\n");
@@ -92,7 +94,7 @@ var aButton = BUTTONS.Button.template(function($){ return{
 }});
 
 var myField = Container.template(function($) { return { 
-	top: 20, width: 250, height: 36, skin: nameInputSkin, name: "myField", contents: [
+	top: $.top, width: 250, height: 40, skin: nameInputSkin, name: "myField", contents: [
 		Scroller($, { 
 			left: 4, right: 4, top: 4, bottom: 4, active: true, name: "myScroller",
 			behavior: Object.create(CONTROL.FieldScrollerBehavior.prototype), clip: true, contents: [
@@ -115,7 +117,7 @@ var myField = Container.template(function($) { return {
 	]
 }});
 
-var fromField = new myField({ name: "From:" });
-var toField = new myField({ name: "To: " });
+var fromField = new myField({ name: "From:", top: 300 });
+var toField = new myField({ name: "To: ", top: 350 });
 var main = new MainCon()
 application.add(main);
