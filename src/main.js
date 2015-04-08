@@ -12,8 +12,8 @@ var fieldHintStyle = new Style({ color: '#aaa', font: '24px', horizontal: 'left'
 var whiteS = new Skin({fill:"white"});
 var typeStyle = new Style({ color: 'white', font: 'bold 24px', horizontal: 'center', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
 var smallTypeStyle = new Style({ color: 'white', font: '18px', horizontal: 'center', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
-var actionTitleStyle = new Style({ color: 'white', font: 'bold 24px', horizontal: 'left', vertical: 'middle', left: 0, right: 240, top: 5, bottom: 5, });
 var whiteS = new Skin({fill:"white"});
+var blackS = new Skin({fill:"black"});
 var redS = new Skin({fill:"#ee2c2c"});
 var yellowS = new Skin({fill:"#ffbd4a"});
 var greenS = new Skin({fill:"#05cb83"});
@@ -58,8 +58,13 @@ var MainCon = Column.template(function($) { return {
 var setPathCon = Column.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: whiteS, active: true, name: "setPathColumn",
 	contents: [
-		new Picture({left: leftValue, width: iconWidth, height: iconHeight, url: "back.png"}),
-		new Label({string: "Set Path", style: labelStyle}),
+		Line($, 
+			{ left: 0, right:0, top: 50, bottom: 0, skin: blackS, name: "mainLine",
+			contents: [
+				new bButton(),
+				new Label({string: "Set Path", style: labelStyle}),
+			] 
+		}),
 		new Picture({left: 20, right: 20, width: pictureWidth, height: pictureHeight, url: "map.jpg"})
 	],
 	behavior: Object.create(Container.prototype, {
@@ -79,15 +84,25 @@ var aButton = BUTTONS.Button.template(function($){ return{
 		onTap: { value: function(content){
 			if($.action == "setPath"){
 				application.remove(main);
-				var pathCon = new setPathCon();
 				application.add(pathCon);
-				pathCon.add(fromField);
-				pathCon.add(toField);
 			}
 			else{
 				trace($.title + " button pressed\n");
 			}
 		}},
+	})
+}});
+
+var bButton = BUTTONS.Button.template(function($){ return{
+	left: 0, right: 150,
+	contents: [
+		new Label({height:30, string: "<", style: labelStyle}),
+	],
+	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
+		onTap: { value: function(content){
+			application.remove(pathCon);
+			application.add(main);
+		}}
 	})
 }});
 
@@ -115,7 +130,11 @@ var myField = Container.template(function($) { return {
 	]
 }});
 
+
+var main = new MainCon()
+var pathCon = new setPathCon();
 var fromField = new myField({ name: "From:" });
 var toField = new myField({ name: "To: " });
-var main = new MainCon()
+pathCon.add(fromField);
+pathCon.add(toField);
 application.add(main);
