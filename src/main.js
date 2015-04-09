@@ -14,10 +14,10 @@ var typeStyle = new Style({ color: 'white', font: 'bold 24px', horizontal: 'cent
 var smallTypeStyle = new Style({ color: 'white', font: '18px', horizontal: 'center', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
 var whiteS = new Skin({fill:"white"});
 var blackS = new Skin({fill:"black"});
-var redS = new Skin({fill:"#ee2c2c"});
-var yellowS = new Skin({fill:"#ffbd4a"});
-var greenS = new Skin({fill:"#05cb83"});
-var blueS = new Skin({fill:"#20b2aa"});
+var redS = new Skin({fill:"#ea9999"});
+var yellowS = new Skin({fill: "#fbdd8d"});
+var greenS = new Skin({fill:"#‎b6d7a7"});
+var blueS = new Skin({fill:"#99B6BC"});
 var purpleS = new Skin({fill:"#ae5dae"});
 var borderS = new Skin({ borders: {left: 2, right: 2, top: 2, bottom: 2}, stroke: "white"})
 var labelStyle = new Style( { font: "bold 40px", color:"black" } );
@@ -34,7 +34,7 @@ var MainCon = Column.template(function($) { return {
 		Line($, {
 			left:0, right:0, top:0, bottom:0, skin: redS, name: "lineF",
 			contents: [
-				new Picture({left: leftValue, width: iconWidth, height: iconHeight, url:"locicon.jpg"}),
+				new Picture({left: leftValue, width: iconWidth, height: iconHeight, url:"locicon.png"}),
 				new aButton({title: "Fly Drone", action: "flyDrone"})
 			]
 		}),
@@ -46,7 +46,7 @@ var MainCon = Column.template(function($) { return {
 			]
 		}),
 		Line($, {
-			left:0, right:0, top:0, bottom:0, skin: greenS,name: "lineK",
+			left:0, right:0, top:0, bottom:0, skin: blueS, name: "lineK",
 			contents: [
 				new Picture({left: leftValue, width: iconWidth, height: iconHeight, url: "people.png"}),
 				new aButton({title: "Find People", action: "findPeople"})
