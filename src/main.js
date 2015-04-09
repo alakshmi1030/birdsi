@@ -20,6 +20,7 @@ var greenS = new Skin({fill:"#‎b6d7a7"});
 var blueS = new Skin({fill:"#99B6BC"});
 var purpleS = new Skin({fill:"#ae5dae"});
 var borderS = new Skin({ borders: {left: 2, right: 2, top: 2, bottom: 2}, stroke: "white"})
+var smLabelStyle = new Style( { font: "30px", color:"black" } );
 var labelStyle = new Style( { font: "bold 40px", color:"black" } );
 
 var iconWidth = 50;
@@ -62,6 +63,8 @@ var setPathCon = Container.template(function($) { return {
 		new bButton(),
 		new Label({top: 20, string: "Set Path", style: labelStyle}),
 		new Picture({top: 30,left: 20, right: 20, width: pictureWidth, height: pictureHeight, url: "map.jpg"}),
+		new Label({top: 280, left: 20, string: "From:", style: smLabelStyle}),
+		new Label({top: 330, left: 20, string: "To:", style: smLabelStyle}),
 		fromField, toField
 	],
 	behavior: Object.create(Container.prototype, {
@@ -91,7 +94,7 @@ var aButton = BUTTONS.Button.template(function($){ return{
 }});
 
 var bButton = BUTTONS.Button.template(function($){ return{
-	left: 20, top: 20,
+	left: 20, top: 25,
 	contents: [
 		new Label({height:30, string: "<", style: labelStyle}),
 	],
@@ -104,7 +107,7 @@ var bButton = BUTTONS.Button.template(function($){ return{
 }});
 
 var myField = Container.template(function($) { return { 
-	top: $.top, width: 250, height: 40, skin: nameInputSkin, name: "myField", contents: [
+	top: $.top, width: 250, left: 100, right: 10, height: 44, skin: nameInputSkin, name: "myField", contents: [
 		Scroller($, { 
 			left: 4, right: 4, top: 4, bottom: 4, active: true, name: "myScroller",
 			behavior: Object.create(CONTROL.FieldScrollerBehavior.prototype), clip: true, contents: [
@@ -120,15 +123,15 @@ var myField = Container.template(function($) { return {
 				 	}),
 				 }),
 				 Label($, {
-	 			 	left:4, right:4, top:4, bottom:4, style:fieldHintStyle, string:"Tap to add name...", name:"hint"
+	 			 	left:4, right:4, style:fieldHintStyle, string:"Address", name:"hint"
 				 })
 			]
 		})
 	]
 }});
 
-var fromField = new myField({ name: "From:", top: 300 });
-var toField = new myField({ name: "To: ", top: 350 });
+var fromField = new myField({ name: "", top: 270 });
+var toField = new myField({ name: "", top: 320 });
 
 var main = new MainCon()
 var pathCon = new setPathCon();
