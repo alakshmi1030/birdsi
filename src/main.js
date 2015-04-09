@@ -77,6 +77,8 @@ var setPathCon = Container.template(function($) { return {
 	})
 }});
 
+//Template for button that's just an icon you click. Takes in url to icon and
+//title for button.
 var iconButton = BUTTONS.Button.template(function($){ return{
 	left: 0, right: 0,
 	contents: [
