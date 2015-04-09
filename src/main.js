@@ -67,7 +67,7 @@ var setPathCon = Container.template(function($) { return {
 		new Label({top: 330, left: 20, string: "To:", style: smLabelStyle}),
 		fromField, toField,
 		new sButton({title: "start", left: 40, bottom: 70, skin: greenS}),
-		new sButton({title: "stop", right: 40, bottom: 70, skin: redS}),
+		new sButton({title: "stop", right: 40, bottom: 70, skin: redS})
 	],
 	behavior: Object.create(Container.prototype, {
 		onTouchEnded: { value: function(content){
@@ -76,6 +76,19 @@ var setPathCon = Container.template(function($) { return {
 		}}
 	})
 }});
+
+var iconButton = BUTTONS.Button.template(function($){ return{
+	left: 0, right: 0,
+	contents: [
+		new Picture({left: leftValue, width: iconWidth, height: iconHeight, url: $.url}),
+	],
+	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
+		onTap: { value: function(content){
+			trace($.title + " button pressed\n");
+		}},
+	})
+}});
+
 
 var aButton = BUTTONS.Button.template(function($){ return{
 	left: 0, right: 0, height: 170,
