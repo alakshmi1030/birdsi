@@ -65,7 +65,9 @@ var setPathCon = Container.template(function($) { return {
 		new Picture({top: 30,left: 20, right: 20, width: pictureWidth, height: pictureHeight, url: "map.jpg"}),
 		new Label({top: 280, left: 20, string: "From:", style: smLabelStyle}),
 		new Label({top: 330, left: 20, string: "To:", style: smLabelStyle}),
-		fromField, toField
+		fromField, toField,
+		new sButton({title: "start", left: 40, bottom: 70, skin: greenS}),
+		new sButton({title: "stop", right: 40, bottom: 70, skin: redS}),
 	],
 	behavior: Object.create(Container.prototype, {
 		onTouchEnded: { value: function(content){
@@ -76,9 +78,9 @@ var setPathCon = Container.template(function($) { return {
 }});
 
 var aButton = BUTTONS.Button.template(function($){ return{
-	left: 0, right: 0,
+	left: 0, right: 0, height: 170,
 	contents: [
-		new Label({left:0, right:0,height:85, string: $.title, style: typeStyle}),
+		new Label({left:0, right:0, string: $.title, style: typeStyle}),
 	],
 	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
 		onTap: { value: function(content){
@@ -97,6 +99,20 @@ var bButton = BUTTONS.Button.template(function($){ return{
 	left: 20, top: 25,
 	contents: [
 		new Label({height:30, string: "<", style: labelStyle}),
+	],
+	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
+		onTap: { value: function(content){
+			application.remove(pathCon);
+			application.add(main);
+		}}
+	})
+}});
+
+/*start / stop button*/
+var sButton = BUTTONS.Button.template(function($){ return{
+	left: $.left, right: $.right, bottom : $.bottom, height: 50, width: 100, skin:$.skin,
+	contents: [
+		new Label({height:30, string: $.title, style: smLabelStyle}),
 	],
 	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
 		onTap: { value: function(content){
