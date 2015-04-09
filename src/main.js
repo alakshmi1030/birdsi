@@ -58,7 +58,7 @@ var MainCon = Column.template(function($) { return {
 
 var leftValue = 25;
 var setPathCon = Container.template(function($) { return {
-	left: 0, right: 0, top: 0, bottom: 0, skin: whiteS, active: true, name: "setPathColumn",
+	left: 0, right: 0, top: 0, bottom: 0, skin: whiteS, active: true, name: "setPathContainer",
 	contents: [
 		new bButton(),
 		new Label({top: 20, string: "Set Path", style: labelStyle}),
@@ -91,6 +91,24 @@ var iconButton = BUTTONS.Button.template(function($){ return{
 	})
 }});
 
+var flyDroneCon = Container.template(function($) { return {
+	left: 0, right: 0, top: 0, bottom: 0, skin: whiteS, active: true, name: "flyDroneContainer",
+	contents: [
+		new bButton(),
+		new Label({top: 20, string: "Fly Drone", style: labelStyle}),
+		new Picture({top: 30,left: 20, right: 20, width: pictureWidth, height: pictureHeight, url: "map.jpg"}),
+		new Label({top: 280, left: 20, string: "From:", style: smLabelStyle}),
+		new Label({top: 330, left: 20, string: "To:", style: smLabelStyle}),
+		new sButton({title: "Buttons", left: 40, bottom: 70, skin: greenS})
+	],
+	behavior: Object.create(Container.prototype, {
+		onTouchEnded: { value: function(content){
+			KEYBOARD.hide();
+			content.focus();
+		}}
+	})
+}});
+
 
 var aButton = BUTTONS.Button.template(function($){ return{
 	left: 0, right: 0, height: 170,
@@ -102,6 +120,10 @@ var aButton = BUTTONS.Button.template(function($){ return{
 			if($.action == "setPath"){
 				application.remove(main);
 				application.add(pathCon);
+			}
+			else if($.action == "flyDrone"){
+				application.remove(main);
+				application.add(flyCon);
 			}
 			else{
 				trace($.title + " button pressed\n");
@@ -166,4 +188,5 @@ var toField = new myField({ name: "", top: 320 });
 
 var main = new MainCon()
 var pathCon = new setPathCon();
+var flyCon = new flyDroneCon();
 application.add(main);
