@@ -173,6 +173,7 @@ var bButton = BUTTONS.Button.template(function($){ return{
 				application.remove(flyCon);
 			}
 			if (mode == "find") {
+			    // find has other pages. may need to play around with ifs here.
 				application.remove(findCon);
 			}
 			mode == "main";
