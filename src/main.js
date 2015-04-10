@@ -97,10 +97,22 @@ var flyDroneCon = Container.template(function($) { return {
 	contents: [
 		new bButton(),
 		new Label({top: 20, string: "Fly Drone", style: labelStyle}),
+		// to be replaced with diff pic. perhaps change width and height
 		new Picture({top: 30,left: 20, right: 20, width: pictureWidth, height: pictureHeight, url: "map.jpg"}),
-		new Label({top: 280, left: 20, string: "From:", style: smLabelStyle}),
-		new Label({top: 330, left: 20, string: "To:", style: smLabelStyle}),
-		new sButton({title: "Buttons", left: 40, bottom: 70, skin: greenS})
+		// to replace sButtons with urlbuttons
+		// possibly need an elevation control as well
+		new sButton({title: "Fwd", left: 40, bottom: 200, skin: greenS}),
+		new sButton({title: "Back", left: 40, bottom: 100, skin: greenS}),
+		new sButton({title: "Left", left: 0, bottom: 150, skin: greenS}),
+		new sButton({title: "Right", left: 80, bottom: 150, skin: greenS}),
+		
+		new sButton({title: "Zin", right: 20, bottom: 175, skin: greenS}),
+		new sButton({title: "Zout", right: 20, bottom: 125, skin: greenS}),
+		
+		new sButton({title: "Up", right: 20, bottom: 50, skin: greenS}),
+		new sButton({title: "Down", right: 20, bottom: 0, skin: greenS}),
+		
+		//new sButton({title: "Fwd", left: 40, bottom: 80, skin: greenS})
 	],
 	behavior: Object.create(Container.prototype, {
 		onTouchEnded: { value: function(content){
@@ -116,8 +128,8 @@ var findPeopleCon = Container.template(function($) { return {
 		new bButton(),
 		new Label({top: 20, string: "Find People", style: labelStyle}),
 		new Picture({top: 30,left: 20, right: 20, width: pictureWidth, height: pictureHeight, url: "map.jpg"}),
-		new Label({top: 280, left: 20, string: "From:", style: smLabelStyle}),
-		new Label({top: 330, left: 20, string: "To:", style: smLabelStyle}),
+		new Label({top: 280, left: 20, string: "Name:", style: smLabelStyle}),
+		new Label({top: 330, left: 20, string: "Etc:", style: smLabelStyle}),
 		new sButton({title: "Buttons", left: 40, bottom: 70, skin: greenS})
 	],
 	behavior: Object.create(Container.prototype, {
