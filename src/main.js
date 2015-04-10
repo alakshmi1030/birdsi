@@ -5,6 +5,7 @@ var CONTROL = require('mobile/control');
 var KEYBOARD = require('mobile/keyboard');
 
 var deviceURL = "";
+var mode="main";
 
 var nameInputSkin = new Skin({ borders: { left:2, right:2, top:2, bottom:2 }, stroke: 'gray',});
 var fieldStyle = new Style({ color: 'black', font: 'bold 24px', horizontal: 'left', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
@@ -109,6 +110,24 @@ var flyDroneCon = Container.template(function($) { return {
 	})
 }});
 
+var findPeopleCon = Container.template(function($) { return {
+	left: 0, right: 0, top: 0, bottom: 0, skin: whiteS, active: true, name: "flyDroneContainer",
+	contents: [
+		new bButton(),
+		new Label({top: 20, string: "Find People", style: labelStyle}),
+		new Picture({top: 30,left: 20, right: 20, width: pictureWidth, height: pictureHeight, url: "map.jpg"}),
+		new Label({top: 280, left: 20, string: "From:", style: smLabelStyle}),
+		new Label({top: 330, left: 20, string: "To:", style: smLabelStyle}),
+		new sButton({title: "Buttons", left: 40, bottom: 70, skin: greenS})
+	],
+	behavior: Object.create(Container.prototype, {
+		onTouchEnded: { value: function(content){
+			KEYBOARD.hide();
+			content.focus();
+		}}
+	})
+}});
+
 
 var aButton = BUTTONS.Button.template(function($){ return{
 	left: 0, right: 0, height: 170,
@@ -120,10 +139,17 @@ var aButton = BUTTONS.Button.template(function($){ return{
 			if($.action == "setPath"){
 				application.remove(main);
 				application.add(pathCon);
+				mode = "path";
 			}
 			else if($.action == "flyDrone"){
 				application.remove(main);
 				application.add(flyCon);
+				mode = "fly";
+			}
+			else if($.action == "findPeople"){
+				application.remove(main);
+				application.add(findCon);
+				mode = "find";
 			}
 			else{
 				trace($.title + " button pressed\n");
@@ -132,6 +158,7 @@ var aButton = BUTTONS.Button.template(function($){ return{
 	})
 }});
 
+
 var bButton = BUTTONS.Button.template(function($){ return{
 	left: 20, top: 25,
 	contents: [
@@ -139,7 +166,16 @@ var bButton = BUTTONS.Button.template(function($){ return{
 	],
 	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
 		onTap: { value: function(content){
-			application.remove(pathCon);
+		    if (mode == "path") {
+				application.remove(pathCon);
+			}
+			if (mode == "fly") {
+				application.remove(flyCon);
+			}
+			if (mode == "find") {
+				application.remove(findCon);
+			}
+			mode == "main";
 			application.add(main);
 		}}
 	})
@@ -189,4 +225,5 @@ var toField = new myField({ name: "", top: 320 });
 var main = new MainCon()
 var pathCon = new setPathCon();
 var flyCon = new flyDroneCon();
+var findCon = new findPeopleCon();
 application.add(main);
