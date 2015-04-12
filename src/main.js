@@ -196,7 +196,7 @@ var bButton = BUTTONS.Button.template(function($){ return{
 
 /*start / stop button*/
 var sButton = BUTTONS.Button.template(function($){ return{
-	left: $.left, right: $.right, top : $.top, height: 50, width: 100, skin:$.skin,
+	left: $.left, right: $.right, top : $.top, bottom: $.bottom, height: 50, width: 100, skin:$.skin,
 	contents: [
 		new Label({height:30, string: $.title, style: smLabelStyle}),
 	],
