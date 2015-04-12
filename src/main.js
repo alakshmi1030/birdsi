@@ -1,4 +1,4 @@
-// KPR Script file
+// phone app main.js file
 var THEME = require('themes/sample/theme');
 var BUTTONS = require('controls/buttons');
 var CONTROL = require('mobile/control');
@@ -207,9 +207,11 @@ var sButton = BUTTONS.Button.template(function($){ return{
 			var pressed = $.title;
 			if(pressed == "start"){
 				pathCon.mainMap.url = "maparrows.jpg";
+				content.invoke(new Message(deviceURL + "startPath", Message.TEXT));
 			}
 			else if(pressed == "stop"){
 				pathCon.mainMap.url = "map.jpg";
+				content.invoke(new Message(deviceURL + "stopPath", Message.TEXT));
 			}
 		}}
 	})
@@ -239,9 +241,36 @@ var myField = Container.template(function($) { return {
 	]
 }});
 
+Handler.bind("/discover", Behavior({
+	onInvoke: function(handler, message){
+		trace("Found the device.\n");
+		deviceURL = JSON.parse(message.requestText).url;	
+		handler.invoke(new Message(deviceURL + "connect"), Message.TEXT);
+	},
+	onComplete: function(handler, message, text){
+		trace("Response was: " + text + "\n");
+	}
+}));
+
+Handler.bind("/forget", Behavior({
+	onInvoke: function(handler, message){
+		deviceURL = "";
+	}
+}));
+
+var ApplicationBehavior = Behavior.template({
+	onDisplayed: function(application) {
+		application.discover("prototypedevice");
+	},
+	onQuit: function(application) {
+		application.forget("prototypedevice");
+	},
+})
+
+application.behavior = new ApplicationBehavior();
+
 var fromField = new myField({ name: "", top: 270 });
 var toField = new myField({ name: "", top: 320 });
-
 var main = new MainCon()
 var pathCon = new setPathCon();
 var flyCon = new flyDroneCon();
