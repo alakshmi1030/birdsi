@@ -81,9 +81,9 @@ var setPathCon = Container.template(function($) { return {
 //Template for button that's just an icon you click. Takes in url to icon and
 //title for button.
 var iconButton = BUTTONS.Button.template(function($){ return{
-	left: 0, right: 0,
+	left: $.left, right: $.right, top: $.top, bottom: $.bottom,
 	contents: [
-		new Picture({left: leftValue, width: iconWidth, height: iconHeight, url: $.url}),
+		new Picture({width: iconWidth, height: iconHeight, url: $.url}),
 	],
 	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
 		onTap: { value: function(content){
@@ -92,6 +92,8 @@ var iconButton = BUTTONS.Button.template(function($){ return{
 	})
 }});
 
+var centerL = 85;
+var centerB = 100;
 var flyDroneCon = Container.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: whiteS, active: true, name: "flyDroneContainer",
 	contents: [
@@ -101,16 +103,16 @@ var flyDroneCon = Container.template(function($) { return {
 		new Picture({top: 30,left: 20, right: 20, width: pictureWidth, height: pictureHeight, url: "map.jpg"}),
 		// to replace sButtons with urlbuttons
 		// possibly need an elevation control as well
-		new sButton({title: "Fwd", left: 40, bottom: 200, skin: greenS}),
-		new sButton({title: "Back", left: 40, bottom: 100, skin: greenS}),
-		new sButton({title: "Left", left: 0, bottom: 150, skin: greenS}),
-		new sButton({title: "Right", left: 80, bottom: 150, skin: greenS}),
+		new iconButton({title:"up", url: "up.png", left: centerL, bottom: centerB + 50}),
+		new iconButton({title:"down", url: "down.png", left: centerL, bottom: centerB - 50}),
+		new iconButton({title:"left", url: "left.png", left: centerL - 40, bottom: centerB}),
+		new iconButton({title:"right", url: "right.png", left: centerL + 40, bottom: centerB}),
 		
-		new sButton({title: "Zin", right: 20, bottom: 175, skin: greenS}),
-		new sButton({title: "Zout", right: 20, bottom: 125, skin: greenS}),
+		new iconButton({title: "Zin", url: "zoomin.jpg", right: 50, bottom: 210}),
+		new iconButton({title: "Zout", url: "zoomout.jpg", right: 100, bottom: 210}),
 		
-		new sButton({title: "Up", right: 20, bottom: 50, skin: greenS}),
-		new sButton({title: "Down", right: 20, bottom: 0, skin: greenS}),
+		new iconButton({title: "ascend", url:"rise.png", right: 50, bottom: centerB + 25, skin: greenS}),
+		new iconButton({title: "descend", url:"fall.png", right: 50, bottom: centerB - 25, skin: greenS}),
 		
 		//new sButton({title: "Fwd", left: 40, bottom: 80, skin: greenS})
 	],
