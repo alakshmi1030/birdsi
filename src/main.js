@@ -64,8 +64,8 @@ var setPathCon = Container.template(function($) { return {
 		new bButton(),
 		new Label({top: 20, string: "Set Path", style: labelStyle}),
 		new Picture({top: 30,left: 20, right: 20, width: pictureWidth, height: pictureHeight, url: "map.jpg", name: "mainMap"}),
-		new Label({top: 300, left: 20, string: "From:", style: smLabelStyle}),
-		new Label({top: 350, left: 20, string: "To:", style: smLabelStyle}),
+		new Label({top: 280, left: 20, string: "From:", style: smLabelStyle}),
+		new Label({top: 330, left: 20, string: "To:", style: smLabelStyle}),
 		fromField, toField,
 		new sButton({title: "start", left: 40, top: 420, skin: greenS}),
 		new sButton({title: "stop", right: 40, top: 420, skin: redS})
@@ -237,8 +237,8 @@ var myField = Container.template(function($) { return {
 	]
 }});
 
-var fromField = new myField({ name: "", top: 290 });
-var toField = new myField({ name: "", top: 340 });
+var fromField = new myField({ name: "", top: 270 });
+var toField = new myField({ name: "", top: 320 });
 
 var main = new MainCon()
 var pathCon = new setPathCon();
