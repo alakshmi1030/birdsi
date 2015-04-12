@@ -63,7 +63,7 @@ var setPathCon = Container.template(function($) { return {
 	contents: [
 		new bButton(),
 		new Label({top: 20, string: "Set Path", style: labelStyle}),
-		new Picture({top: 30,left: 20, right: 20, width: pictureWidth, height: pictureHeight, url: "map.jpg"}),
+		new Picture({top: 30,left: 20, right: 20, width: pictureWidth, height: pictureHeight, url: "map.jpg", name: "mainMap"}),
 		new Label({top: 280, left: 20, string: "From:", style: smLabelStyle}),
 		new Label({top: 330, left: 20, string: "To:", style: smLabelStyle}),
 		fromField, toField,
@@ -202,8 +202,13 @@ var sButton = BUTTONS.Button.template(function($){ return{
 	],
 	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
 		onTap: { value: function(content){
-			application.remove(pathCon);
-			application.add(main);
+			var pressed = $.title;
+			if(pressed == "start"){
+				pathCon.mainMap.url = "maparrows.jpg";
+			}
+			else if(pressed == "stop"){
+				pathCon.mainMap.url = "map.jpg";
+			}
 		}}
 	})
 }});
