@@ -64,6 +64,7 @@ var setPathCon = Container.template(function($) { return {
 	contents: [
 		new bButton(),
 		new Label({top: 20, string: "Set Path", style: labelStyle}),
+		new Line({left:0, right:0, top:80, bottom:450, skin: blackS}),
 		new Picture({top: 30,left: 20, right: 20, width: pictureWidth, height: pictureHeight, url: "map.jpg", name: "mainMap"}),
 		new Label({top: 280, left: 20, string: "From:", style: smLabelStyle}),
 		new Label({top: 330, left: 20, string: "To:", style: smLabelStyle}),
@@ -100,6 +101,7 @@ var flyDroneCon = Container.template(function($) { return {
 	contents: [
 		new bButton(),
 		new Label({top: 20, string: "Fly Drone", style: labelStyle}),
+		new Line({left:0, right:0, top:80, bottom:450, skin: blackS}),
 		// to be replaced with diff pic. perhaps change width and height
 		new Picture({top: 30,left: 20, right: 20, width: pictureWidth, height: pictureHeight, url: "map.jpg"}),
 		// to replace sButtons with urlbuttons
