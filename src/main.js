@@ -24,6 +24,11 @@ var borderS = new Skin({ borders: {left: 2, right: 2, top: 2, bottom: 2}, stroke
 var smLabelStyle = new Style( { font: "30px", color:"black" } );
 var labelStyle = new Style( { font: "bold 40px", color:"black" } );
 var plusStyle = new Style( { font: "bold 50px", color:"black" } );
+var whiteBorderSkin = new Skin({
+  fill:"white", 
+  borders:{left:5, right:5, top:5, bottom:5}, 
+  stroke:"black"
+});
 
 var iconWidth = 50;
 var iconHeight = 50;
@@ -69,28 +74,14 @@ var setPathCon = Container.template(function($) { return {
 		new Label({top: 280, left: 20, string: "From:", style: smLabelStyle}),
 		new Label({top: 330, left: 20, string: "To:", style: smLabelStyle}),
 		fromField, toField,
-		new sButton({title: "start", left: 40, top: 420, skin: greenS}),
-		new sButton({title: "stop", right: 40, top: 420, skin: redS})
+		new sButton({title: "start", left: 40, top: 420, width: 100, skin: greenS}),
+		new sButton({title: "stop", right: 40, top: 420, width: 100, skin: redS})
 	],
 	behavior: Object.create(Container.prototype, {
 		onTouchEnded: { value: function(content){
 			KEYBOARD.hide();
 			content.focus();
 		}}
-	})
-}});
-
-//Template for button that's just an icon you click. Takes in url to icon and
-//title for button.
-var iconButton = BUTTONS.Button.template(function($){ return{
-	left: $.left, right: $.right, top: $.top, bottom: $.bottom,
-	contents: [
-		new Picture({width: iconWidth, height: iconHeight, url: $.url}),
-	],
-	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
-		onTap: { value: function(content){
-			trace($.title + " button pressed\n");
-		}},
 	})
 }});
 
@@ -117,7 +108,7 @@ var flyDroneCon = Container.template(function($) { return {
 		new iconButton({title: "ascend", url:"rise.png", right: 50, bottom: centerB + 25, skin: greenS}),
 		new iconButton({title: "descend", url:"fall.png", right: 50, bottom: centerB - 25, skin: greenS}),
 		
-		//new sButton({title: "Fwd", left: 40, bottom: 80, skin: greenS})
+		//new sButton({title: "Fwd", left: 40, bottom: 80, width: 100, skin: greenS})
 	],
 	behavior: Object.create(Container.prototype, {
 		onTouchEnded: { value: function(content){
@@ -135,7 +126,7 @@ var findPeopleCon = Container.template(function($) { return {
 		new Picture({top: 30,left: 20, right: 20, width: pictureWidth, height: pictureHeight, url: "map.jpg"}),
 		new Label({top: 280, left: 20, string: "Name:", style: smLabelStyle}),
 		new Label({top: 330, left: 20, string: "Etc:", style: smLabelStyle}),
-		new sButton({title: "Buttons", left: 40, bottom: 70, skin: greenS})
+		new sButton({title: "Buttons", left: 40, bottom: 70, width: 100, skin: greenS})
 	],
 	behavior: Object.create(Container.prototype, {
 		onTouchEnded: { value: function(content){
@@ -158,6 +149,30 @@ var listPeopleCon = Container.template(function($) { return {
 		new Line({left:0, right:0, top:390, bottom:0, skin: yellowS}),
 		new Line({left:0, right:0, top:490, bottom:0, skin: redS}),
 		new Line({left:0, right:0, top:590, bottom:0, skin: yellowS}),
+	],
+	behavior: Object.create(Container.prototype, {
+		onTouchEnded: { value: function(content){
+			KEYBOARD.hide();
+			content.focus();
+		}}
+	})
+}});
+
+var addPeopleCon = Container.template(function($) { return {
+	left: 0, right: 0, top: 0, bottom: 0, skin: whiteS, active: true, name: "flyDroneContainer",
+	contents: [
+		new bButton(),
+		new Label({top: 20, string: "Add Person", style: labelStyle}),
+		new Line({left:0, right:0, top:100, bottom:200, skin: whiteBorderSkin,
+	      contents:[
+	        new Content({left:0, right:0, top:0, bottom:0, skin: whiteBorderSkin}),
+	        new iconButton({
+	        new Content({left:0, right:0, top:0, bottom:0, skin: whiteBorderSkin}),
+	      ]
+	    }),
+		new sButton({title: "Save & Search", left: 40, top: 420, width: 250, skin: greenS}),
+		
+		
 	],
 	behavior: Object.create(Container.prototype, {
 		onTouchEnded: { value: function(content){
@@ -215,7 +230,10 @@ var bButton = BUTTONS.Button.template(function($){ return{
 			    // find has other pages. may need to play around with ifs here.
 				application.remove(listCon);
 			}
-			mode == "main";
+			if (mode == "add") {
+				application.remove(addCon);
+			}
+			mode = "main";
 			application.add(main);
 		}}
 	})
@@ -230,23 +248,16 @@ var plusButton = BUTTONS.Button.template(function($){ return{
 		onTap: { value: function(content){
 		    if (mode == "find") {
 				application.remove(listCon);
+				mode = "add";
+				application.add(addCon);
 			}
-			if (mode == "fly") {
-				application.remove(flyCon);
-			}
-			if (mode == "find") {
-			    // find has other pages. may need to play around with ifs here.
-				application.remove(findCon);
-			}
-			mode == "main";
-			application.add(main);
 		}}
 	})
 }});
 
 /*start / stop button*/
 var sButton = BUTTONS.Button.template(function($){ return{
-	left: $.left, right: $.right, top : $.top, bottom: $.bottom, height: 50, width: 100, skin:$.skin,
+	left: $.left, right: $.right, top : $.top, bottom: $.bottom, height: 50, width: $.width, skin:$.skin,
 	contents: [
 		new Label({height:30, string: $.title, style: smLabelStyle}),
 	],
@@ -262,6 +273,21 @@ var sButton = BUTTONS.Button.template(function($){ return{
 				content.invoke(new Message(deviceURL + "stopPath", Message.TEXT));
 			}
 		}}
+	})
+}});
+
+//Template for button that's just an icon you click. Takes in url to icon and
+//title for button.
+var iconButton = BUTTONS.Button.template(function($){ return{
+	left: $.left, right: $.right, top: $.top, bottom: $.bottom,
+	contents: [
+		new Picture({width: iconWidth, height: iconHeight, url: $.url}),
+	],
+	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
+		onTap: { value: function(content){
+			
+			trace($.title + " button pressed\n");
+		}},
 	})
 }});
 
@@ -324,4 +350,5 @@ var pathCon = new setPathCon();
 var flyCon = new flyDroneCon();
 var findCon = new findPeopleCon();
 var listCon = new listPeopleCon();
+var addCon = new addPeopleCon();
 application.add(main);
