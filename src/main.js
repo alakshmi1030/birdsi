@@ -6,6 +6,7 @@ var KEYBOARD = require('mobile/keyboard');
 
 var deviceURL = "";
 var mode="main";
+var view="center";
 
 var nameInputSkin = new Skin({ borders: { left:2, right:2, top:2, bottom:2 }, stroke: 'gray',});
 var fieldStyle = new Style({ color: 'black', font: 'bold 24px', horizontal: 'left', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
@@ -100,8 +101,8 @@ var flyDroneCon = Container.template(function($) { return {
 		url: "china/ccenter.png", name:"chinapic"}),
 		// to replace sButtons with urlbuttons
 		// possibly need an elevation control as well
-		new iconButton({title:"up", url: "up.png", left: centerL, bottom: centerB + 50}),
-		new iconButton({title:"down", url: "down.png", left: centerL, bottom: centerB - 50}),
+		new iconButton({title:"forward", url: "up.png", left: centerL, bottom: centerB + 50}),
+		new iconButton({title:"back", url: "down.png", left: centerL, bottom: centerB - 50}),
 		new iconButton({title:"left", url: "left.png", left: centerL - 40, bottom: centerB}),
 		new iconButton({title:"right", url: "right.png", left: centerL + 40, bottom: centerB}),
 		
@@ -200,7 +201,6 @@ var aButton = BUTTONS.Button.template(function($){ return{
 	})
 }});
 
-
 var bButton = BUTTONS.Button.template(function($){ return{
 	left: 20, top: 25,
 	contents: [
@@ -282,23 +282,59 @@ var iconButton = BUTTONS.Button.template(function($){ return{
 			if ($.func) {
 				$.func(content);
 			}
-			if ($.title == "up") {
-				flyCon.chinapic.url = "china/cforward.png";
+			if ($.title == "forward") {
+			    if (view == "back") {
+			        flyCon.chinapic.url = "china/ccenter.png";
+			        view = "center";
+			    } else {
+				    flyCon.chinapic.url = "china/cforward.png";
+				    view = "forward";
+				}
 			}
-			if ($.title == "down") {
-				flyCon.chinapic.url = "china/cback.png";
+			if ($.title == "back") {
+			    if (view == "forward") {
+			        flyCon.chinapic.url = "china/ccenter.png";
+			        view = "center";
+			    } else {
+				    flyCon.chinapic.url = "china/cback.png";
+				    view = "back";
+				}
 			}
 			if ($.title == "left") {
-				flyCon.chinapic.url = "china/cleft.png";
+			    if (view == "right") {
+			        flyCon.chinapic.url = "china/ccenter.png";
+			        view = "center";
+			    } else {
+				    flyCon.chinapic.url = "china/cleft.png";
+				    view = "left";
+				}
 			}
 			if ($.title == "right") {
-				flyCon.chinapic.url = "china/cright.png";
+			    if (view == "left") {
+			        flyCon.chinapic.url = "china/ccenter.png";
+			        view = "center";
+			    } else {
+				    flyCon.chinapic.url = "china/cright.png";
+				    view = "right";
+				}
 			}
 			if ($.title == "ascend") {
-				flyCon.chinapic.url = "china/cup.png";
+			    if (view == "down") {
+			        flyCon.chinapic.url = "china/ccenter.png";
+			        view = "center";
+			    } else {
+				    flyCon.chinapic.url = "china/cup.png";
+				    view = "up";
+				}
 			}
 			if ($.title == "descend") {
-				flyCon.chinapic.url = "china/cdown.png";
+			    if (view == "up") {
+			        flyCon.chinapic.url = "china/ccenter.png";
+			        view = "center";
+			    } else {
+				    flyCon.chinapic.url = "china/cdown.png";
+				    view = "down";
+				}
 			}
 			trace($.title + " button pressed\n");
 		}},
