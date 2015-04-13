@@ -163,16 +163,19 @@ var addPeopleCon = Container.template(function($) { return {
 	contents: [
 		new bButton(),
 		new Label({top: 20, string: "Add Person", style: labelStyle}),
-		new Line({left:0, right:0, top:100, bottom:200, skin: whiteBorderSkin,
+		new Line({left:0, right:0, top:80, bottom:450, skin: blackS}),
+		new Line({left:20, right:20, top:100, bottom:200, skin: whiteBorderSkin,
 	      contents:[
-	        new Content({left:0, right:0, top:0, bottom:0, skin: whiteBorderSkin}),
-	        new iconButton({
-	        new Content({left:0, right:0, top:0, bottom:0, skin: whiteBorderSkin}),
+	        new iconButton({title: "person photo", top: 0, left:0, right: 0, bottom:0,
+	        				func: function(content) {
+	        					content.picture.width = 325;
+	        					content.picture.height = 205;
+	        					content.picture.load("kid.jpg");
+	        				}})
 	      ]
 	    }),
+	    
 		new sButton({title: "Save & Search", left: 40, top: 420, width: 250, skin: greenS}),
-		
-		
 	],
 	behavior: Object.create(Container.prototype, {
 		onTouchEnded: { value: function(content){
@@ -281,11 +284,13 @@ var sButton = BUTTONS.Button.template(function($){ return{
 var iconButton = BUTTONS.Button.template(function($){ return{
 	left: $.left, right: $.right, top: $.top, bottom: $.bottom,
 	contents: [
-		new Picture({width: iconWidth, height: iconHeight, url: $.url}),
+		new Picture({width: iconWidth, height: iconHeight, url: $.url, name: "picture"}),
 	],
 	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
 		onTap: { value: function(content){
-			
+			if ($.func) {
+				$.func(content);
+			}
 			trace($.title + " button pressed\n");
 		}},
 	})
