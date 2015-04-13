@@ -164,7 +164,8 @@ var addPeopleCon = Container.template(function($) { return {
 		new bButton(),
 		new Label({top: 20, string: "Add Person", style: labelStyle}),
 		new Line({left:0, right:0, top:80, bottom:450, skin: blackS}),
-		new Line({left:20, right:20, top:100, bottom:200, skin: whiteBorderSkin,
+		descriptionField,
+		new Line({left:20, right:20, top:150, bottom:150, skin: whiteBorderSkin,
 	      contents:[
 	        new iconButton({title: "person photo", top: 0, left:0, right: 0, bottom:0,
 	        				func: function(content) {
@@ -174,7 +175,6 @@ var addPeopleCon = Container.template(function($) { return {
 	        				}})
 	      ]
 	    }),
-	    
 		new sButton({title: "Save & Search", left: 40, top: 420, width: 250, skin: greenS}),
 	],
 	behavior: Object.create(Container.prototype, {
@@ -297,7 +297,7 @@ var iconButton = BUTTONS.Button.template(function($){ return{
 }});
 
 var myField = Container.template(function($) { return { 
-	top: $.top, width: 250, left: 100, right: 10, height: 44, skin: nameInputSkin, name: "myField", contents: [
+	top: $.top, width: $.width, left: $.left, right: $.right, height: $.height, skin: nameInputSkin, name: "myField", contents: [
 		Scroller($, { 
 			left: 4, right: 4, top: 4, bottom: 4, active: true, name: "myScroller",
 			behavior: Object.create(CONTROL.FieldScrollerBehavior.prototype), clip: true, contents: [
@@ -313,7 +313,7 @@ var myField = Container.template(function($) { return {
 				 	}),
 				 }),
 				 Label($, {
-	 			 	left:4, right:4, style:fieldHintStyle, string:"Address", name:"hint"
+	 			 	left:4, right:4, style:fieldHintStyle, string:$.hint, name:"hint"
 				 })
 			]
 		})
@@ -348,8 +348,9 @@ var ApplicationBehavior = Behavior.template({
 
 application.behavior = new ApplicationBehavior();
 
-var fromField = new myField({ name: "", top: 270 });
-var toField = new myField({ name: "", top: 320 });
+var fromField = new myField({ name: "", top: 270, width: 250, left: 100, right: 10, height: 44, hint: "address" });
+var toField = new myField({ name: "", top: 320, width: 250, left: 100, right: 10, height: 44, hint: "address" });
+var descriptionField = new myField({name: "", top: 100, width: 300, left: 10, right: 10, height: 44, hint: "description"});
 var main = new MainCon()
 var pathCon = new setPathCon();
 var flyCon = new flyDroneCon();
