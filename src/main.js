@@ -85,8 +85,8 @@ var setPathCon = Container.template(function($) { return {
 	})
 }});
 
-
-
+var camH = 250;
+var camW = 250;
 var centerL = 85;
 var centerB = 100;
 var flyDroneCon = Container.template(function($) { return {
@@ -96,8 +96,8 @@ var flyDroneCon = Container.template(function($) { return {
 		new Label({top: 20, string: "Fly Drone", style: labelStyle}),
 		new Line({left:0, right:0, top:80, bottom:450, skin: blackS}),
 		// to be replaced with diff pic. perhaps change width and height
-		new Picture({top: 30,left: 20, right: 20, width: pictureWidth, height: pictureHeight,
-		url: "chinastreet.png"}),
+		new Picture({top: 70, width: camW, height: camH,
+		url: "china/ccenter.png", name:"chinapic"}),
 		// to replace sButtons with urlbuttons
 		// possibly need an elevation control as well
 		new iconButton({title:"up", url: "up.png", left: centerL, bottom: centerB + 50}),
@@ -105,8 +105,8 @@ var flyDroneCon = Container.template(function($) { return {
 		new iconButton({title:"left", url: "left.png", left: centerL - 40, bottom: centerB}),
 		new iconButton({title:"right", url: "right.png", left: centerL + 40, bottom: centerB}),
 		
-		new iconButton({title: "Zin", url: "zoomin.png", right: 50, bottom: 180}),
-		new iconButton({title: "Zout", url: "zoomout.png", right: 100, bottom: 180}),
+		//new iconButton({title: "Zin", url: "zoomin.png", right: 50, bottom: 180}),
+		//new iconButton({title: "Zout", url: "zoomout.png", right: 100, bottom: 180}),
 		
 		new iconButton({title: "ascend", url:"rise.png", right: 50, bottom: centerB + 25, skin: greenS}),
 		new iconButton({title: "descend", url:"fall.png", right: 50, bottom: centerB - 25, skin: greenS}),
@@ -281,6 +281,24 @@ var iconButton = BUTTONS.Button.template(function($){ return{
 		onTap: { value: function(content){
 			if ($.func) {
 				$.func(content);
+			}
+			if ($.title == "up") {
+				flyCon.chinapic.url = "china/cforward.png";
+			}
+			if ($.title == "down") {
+				flyCon.chinapic.url = "china/cback.png";
+			}
+			if ($.title == "left") {
+				flyCon.chinapic.url = "china/cleft.png";
+			}
+			if ($.title == "right") {
+				flyCon.chinapic.url = "china/cright.png";
+			}
+			if ($.title == "ascend") {
+				flyCon.chinapic.url = "china/cup.png";
+			}
+			if ($.title == "descend") {
+				flyCon.chinapic.url = "china/cdown.png";
 			}
 			trace($.title + " button pressed\n");
 		}},
