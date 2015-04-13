@@ -94,7 +94,7 @@ var flyDroneCon = Container.template(function($) { return {
 		new Label({top: 20, string: "Fly Drone", style: labelStyle}),
 		new Line({left:0, right:0, top:80, bottom:450, skin: blackS}),
 		// to be replaced with diff pic. perhaps change width and height
-		new Picture({top: 30,left: 20, right: 20, width: pictureWidth, height: pictureHeight, url: "map.jpg"}),
+		new Picture({top: 30,left: 20, right: 20, width: pictureWidth, height: pictureHeight, url: "chinastreet.png"}),
 		// to replace sButtons with urlbuttons
 		// possibly need an elevation control as well
 		new iconButton({title:"up", url: "up.png", left: centerL, bottom: centerB + 50}),
