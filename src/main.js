@@ -149,10 +149,13 @@ var listPeopleCon = Container.template(function($) { return {
 		new bButton(),
 		new Label({top: 20, string: "Find People", style: labelStyle}),
 		new plusButton(),
-		new Picture({top: 30,left: 20, right: 20, width: pictureWidth, height: pictureHeight, url: "map.jpg"}),
-		new Label({top: 280, left: 20, string: "Name:", style: smLabelStyle}),
-		new Label({top: 330, left: 20, string: "Etc:", style: smLabelStyle}),
-		new sButton({title: "Buttons", left: 40, bottom: 70, skin: greenS})
+		new Line({left:0, right:0, top:80, bottom:0, skin: blackS}),
+		new Line({left:0, right:0, top:90, bottom:0, skin: redS}),
+		new Line({left:0, right:0, top:190, bottom:0, skin: yellowS}),
+		new Line({left:0, right:0, top:290, bottom:0, skin: redS}),
+		new Line({left:0, right:0, top:390, bottom:0, skin: yellowS}),
+		new Line({left:0, right:0, top:490, bottom:0, skin: redS}),
+		new Line({left:0, right:0, top:590, bottom:0, skin: yellowS}),
 	],
 	behavior: Object.create(Container.prototype, {
 		onTouchEnded: { value: function(content){
@@ -208,7 +211,7 @@ var bButton = BUTTONS.Button.template(function($){ return{
 			}
 			if (mode == "find") {
 			    // find has other pages. may need to play around with ifs here.
-				application.remove(findCon);
+				application.remove(listCon);
 			}
 			mode == "main";
 			application.add(main);
@@ -224,7 +227,7 @@ var plusButton = BUTTONS.Button.template(function($){ return{
 	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
 		onTap: { value: function(content){
 		    if (mode == "find") {
-				application.remove();
+				application.remove(listCon);
 			}
 			if (mode == "fly") {
 				application.remove(flyCon);
