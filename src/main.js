@@ -88,7 +88,7 @@ var setPathCon = Container.template(function($) { return {
 var centerL = 85;
 var centerB = 100;
 var flyDroneCon = Container.template(function($) { return {
-	left: 0, right: 0, top: 0, bottom: 0, skin: whiteS, active: true, name: "flyDroneContainer",
+	left: 0, right: 0, top: 0, bottom: 0, skin: redS, active: true, name: "flyDroneContainer",
 	contents: [
 		new bButton(),
 		new Label({top: 20, string: "Fly Drone", style: labelStyle}),
@@ -102,8 +102,8 @@ var flyDroneCon = Container.template(function($) { return {
 		new iconButton({title:"left", url: "left.png", left: centerL - 40, bottom: centerB}),
 		new iconButton({title:"right", url: "right.png", left: centerL + 40, bottom: centerB}),
 		
-		new iconButton({title: "Zin", url: "zoomin.jpg", right: 50, bottom: 210}),
-		new iconButton({title: "Zout", url: "zoomout.jpg", right: 100, bottom: 210}),
+		new iconButton({title: "Zin", url: "zoomin.png", right: 50, bottom: 210}),
+		new iconButton({title: "Zout", url: "zoomout.png", right: 100, bottom: 210}),
 		
 		new iconButton({title: "ascend", url:"rise.png", right: 50, bottom: centerB + 25, skin: greenS}),
 		new iconButton({title: "descend", url:"fall.png", right: 50, bottom: centerB - 25, skin: greenS}),
