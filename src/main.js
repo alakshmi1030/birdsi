@@ -163,9 +163,9 @@ var addPeopleCon = Container.template(function($) { return {
 	contents: [
 		new bButton(),
 		new Label({top: 20, string: "Add Person", style: labelStyle}),
-		new Line({left:0, right:0, top:80, bottom:450, skin: blackS}),
+		new Line({left:0, right:0, top:80, skin: blackS}),
 		descriptionField,
-		new Line({left:20, right:20, top:150, bottom:150, skin: whiteBorderSkin,
+		new Line({top:130, height:230, width: 250, skin: whiteBorderSkin,
 	      contents:[
 	        new iconButton({title: "person photo", top: 0, left:0, right: 0, bottom:0,
 	        				func: function(content) {
@@ -243,9 +243,9 @@ var bButton = BUTTONS.Button.template(function($){ return{
 }});
 
 var plusButton = BUTTONS.Button.template(function($){ return{
-	right: 20, top: 26,
+	right: 20, top: 20,
 	contents: [
-		new Label({height:30, string: "+", style: plusStyle}),
+		new Label({height:40, string: "+", style: plusStyle}),
 	],
 	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
 		onTap: { value: function(content){
@@ -354,7 +354,7 @@ application.behavior = new ApplicationBehavior();
 
 var fromField = new myField({ name: "", top: 270, width: 250, left: 100, right: 10, height: 44, hint: "address" });
 var toField = new myField({ name: "", top: 320, width: 250, left: 100, right: 10, height: 44, hint: "address" });
-var descriptionField = new myField({name: "", top: 100, width: 300, left: 10, right: 10, height: 44, hint: "description"});
+var descriptionField = new myField({name: "", top: 80, width: 300, left: 10, right: 10, height: 44, hint: "description"});
 var main = new MainCon()
 var pathCon = new setPathCon();
 var flyCon = new flyDroneCon();
