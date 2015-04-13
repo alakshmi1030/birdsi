@@ -265,6 +265,7 @@ var sButton = BUTTONS.Button.template(function($){ return{
 				application.remove(addCon);
 				mode = "fly";
 				application.add(flyCon);
+				content.invoke(new Message(deviceURL + "search"), Message.JSON);
 			}
 		}}
 	})
@@ -320,6 +321,7 @@ var iconButton = BUTTONS.Button.template(function($){ return{
 			}
 			if ($.title == "ascend") {
 			    if (view == "down") {
+			    	
 			        flyCon.chinapic.url = "china/ccenter.png";
 			        view = "center";
 			    } else {
@@ -336,6 +338,7 @@ var iconButton = BUTTONS.Button.template(function($){ return{
 				    view = "down";
 				}
 			}
+			content.invoke(new Message(deviceURL + $.title), Message.JSON);
 			trace($.title + " button pressed\n");
 		}},
 	})
