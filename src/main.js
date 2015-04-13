@@ -101,16 +101,16 @@ var flyDroneCon = Container.template(function($) { return {
 		url: "china/ccenter.png", name:"chinapic"}),
 		// to replace sButtons with urlbuttons
 		// possibly need an elevation control as well
-		new iconButton({title:"forward", url: "up.png", left: centerL, bottom: centerB + 50}),
-		new iconButton({title:"back", url: "down.png", left: centerL, bottom: centerB - 50}),
-		new iconButton({title:"left", url: "left.png", left: centerL - 40, bottom: centerB}),
-		new iconButton({title:"right", url: "right.png", left: centerL + 40, bottom: centerB}),
+		new iconButton({title:"forward", url: "up.png", left: centerL, bottom: centerB + 50, func: false}),
+		new iconButton({title:"back", url: "down.png", left: centerL, bottom: centerB - 50, func: false}),
+		new iconButton({title:"left", url: "left.png", left: centerL - 40, bottom: centerB, func: false}),
+		new iconButton({title:"right", url: "right.png", left: centerL + 40, bottom: centerB, func: false}),
 		
 		//new iconButton({title: "Zin", url: "zoomin.png", right: 50, bottom: 180}),
 		//new iconButton({title: "Zout", url: "zoomout.png", right: 100, bottom: 180}),
 		
-		new iconButton({title: "ascend", url:"rise.png", right: 50, bottom: centerB + 25, skin: greenS}),
-		new iconButton({title: "descend", url:"fall.png", right: 50, bottom: centerB - 25, skin: greenS}),
+		new iconButton({title: "ascend", url:"rise.png", right: 50, bottom: centerB + 25, skin: greenS, func: false}),
+		new iconButton({title: "descend", url:"fall.png", right: 50, bottom: centerB - 25, skin: greenS, func: false}),
 		
 		//new sButton({title: "Fwd", left: 40, bottom: 80, width: 100, skin: greenS})
 	],
@@ -264,6 +264,7 @@ var sButton = BUTTONS.Button.template(function($){ return{
 			} else if (pressed == "Save & Search") {
 				application.remove(addCon);
 				mode = "fly";
+				flyCon.chinapic.url = "china/ccenter.png";
 				application.add(flyCon);
 				content.invoke(new Message(deviceURL + "search"), Message.JSON);
 			}
