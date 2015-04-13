@@ -274,6 +274,10 @@ var sButton = BUTTONS.Button.template(function($){ return{
 			else if(pressed == "stop"){
 				pathCon.mainMap.url = "map.jpg";
 				content.invoke(new Message(deviceURL + "stopPath", Message.TEXT));
+			} else if (pressed == "Save & Search") {
+				application.remove(addCon);
+				mode = "fly";
+				application.add(flyCon);
 			}
 		}}
 	})
