@@ -65,7 +65,7 @@ var MainCon = Column.template(function($) { return {
 
 var leftValue = 25;
 var setPathCon = Container.template(function($) { return {
-	left: 0, right: 0, top: 0, bottom: 0, skin: whiteS, active: true, name: "setPathContainer",
+	left: 0, right: 0, top: 0, bottom: 0, skin: yellowS, active: true, name: "setPathContainer",
 	contents: [
 		new bButton(),
 		new Label({top: 20, string: "Set Path", style: labelStyle}),
@@ -118,26 +118,8 @@ var flyDroneCon = Container.template(function($) { return {
 	})
 }});
 
-var findPeopleCon = Container.template(function($) { return {
-	left: 0, right: 0, top: 0, bottom: 0, skin: whiteS, active: true, name: "flyDroneContainer",
-	contents: [
-		new bButton(),
-		new Label({top: 20, string: "Find People", style: labelStyle}),
-		new Picture({top: 30,left: 20, right: 20, width: pictureWidth, height: pictureHeight, url: "map.jpg"}),
-		new Label({top: 280, left: 20, string: "Name:", style: smLabelStyle}),
-		new Label({top: 330, left: 20, string: "Etc:", style: smLabelStyle}),
-		new sButton({title: "Buttons", left: 40, bottom: 70, width: 100, skin: greenS})
-	],
-	behavior: Object.create(Container.prototype, {
-		onTouchEnded: { value: function(content){
-			KEYBOARD.hide();
-			content.focus();
-		}}
-	})
-}});
-
 var listPeopleCon = Container.template(function($) { return {
-	left: 0, right: 0, top: 0, bottom: 0, skin: whiteS, active: true, name: "flyDroneContainer",
+	left: 0, right: 0, top: 0, bottom: 0, skin: blueS, active: true, name: "flyDroneContainer",
 	contents: [
 		new bButton(),
 		new Label({top: 20, string: "Find People", style: labelStyle}),
@@ -159,7 +141,7 @@ var listPeopleCon = Container.template(function($) { return {
 }});
 
 var addPeopleCon = Container.template(function($) { return {
-	left: 0, right: 0, top: 0, bottom: 0, skin: whiteS, active: true, name: "flyDroneContainer",
+	left: 0, right: 0, top: 0, bottom: 0, skin: blueS, active: true, name: "flyDroneContainer",
 	contents: [
 		new bButton(),
 		new Label({top: 20, string: "Add Person", style: labelStyle}),
@@ -360,7 +342,6 @@ var descriptionField = new myField({name: "", top: 80, width: 300, left: 10, rig
 var main = new MainCon()
 var pathCon = new setPathCon();
 var flyCon = new flyDroneCon();
-var findCon = new findPeopleCon();
 var listCon = new listPeopleCon();
 var addCon = new addPeopleCon();
 application.add(main);
