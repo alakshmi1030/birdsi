@@ -23,6 +23,7 @@ var purpleS = new Skin({fill:"#ae5dae"});
 var borderS = new Skin({ borders: {left: 2, right: 2, top: 2, bottom: 2}, stroke: "white"})
 var smLabelStyle = new Style( { font: "30px", color:"black" } );
 var labelStyle = new Style( { font: "bold 40px", color:"black" } );
+var plusStyle = new Style( { font: "bold 50px", color:"black" } );
 
 var iconWidth = 50;
 var iconHeight = 50;
@@ -142,6 +143,25 @@ var findPeopleCon = Container.template(function($) { return {
 	})
 }});
 
+var listPeopleCon = Container.template(function($) { return {
+	left: 0, right: 0, top: 0, bottom: 0, skin: whiteS, active: true, name: "flyDroneContainer",
+	contents: [
+		new bButton(),
+		new Label({top: 20, string: "Find People", style: labelStyle}),
+		new plusButton(),
+		new Picture({top: 30,left: 20, right: 20, width: pictureWidth, height: pictureHeight, url: "map.jpg"}),
+		new Label({top: 280, left: 20, string: "Name:", style: smLabelStyle}),
+		new Label({top: 330, left: 20, string: "Etc:", style: smLabelStyle}),
+		new sButton({title: "Buttons", left: 40, bottom: 70, skin: greenS})
+	],
+	behavior: Object.create(Container.prototype, {
+		onTouchEnded: { value: function(content){
+			KEYBOARD.hide();
+			content.focus();
+		}}
+	})
+}});
+
 
 var aButton = BUTTONS.Button.template(function($){ return{
 	left: 0, right: 0, height: 170,
@@ -162,7 +182,7 @@ var aButton = BUTTONS.Button.template(function($){ return{
 			}
 			else if($.action == "findPeople"){
 				application.remove(main);
-				application.add(findCon);
+				application.add(listCon);
 				mode = "find";
 			}
 			else{
@@ -182,6 +202,29 @@ var bButton = BUTTONS.Button.template(function($){ return{
 		onTap: { value: function(content){
 		    if (mode == "path") {
 				application.remove(pathCon);
+			}
+			if (mode == "fly") {
+				application.remove(flyCon);
+			}
+			if (mode == "find") {
+			    // find has other pages. may need to play around with ifs here.
+				application.remove(findCon);
+			}
+			mode == "main";
+			application.add(main);
+		}}
+	})
+}});
+
+var plusButton = BUTTONS.Button.template(function($){ return{
+	right: 20, top: 26,
+	contents: [
+		new Label({height:30, string: "+", style: plusStyle}),
+	],
+	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
+		onTap: { value: function(content){
+		    if (mode == "find") {
+				application.remove();
 			}
 			if (mode == "fly") {
 				application.remove(flyCon);
@@ -275,4 +318,5 @@ var main = new MainCon()
 var pathCon = new setPathCon();
 var flyCon = new flyDroneCon();
 var findCon = new findPeopleCon();
+var listCon = new listPeopleCon();
 application.add(main);
