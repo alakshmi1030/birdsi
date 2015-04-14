@@ -24,6 +24,7 @@ var purpleS = new Skin({fill:"#ae5dae"});
 var borderS = new Skin({ borders: {left: 2, right: 2, top: 2, bottom: 2}, stroke: "white"})
 var smLabelStyle = new Style( { font: "30px", color:"black" } );
 var labelStyle = new Style( { font: "bold 40px", color:"black" } );
+var whiteLabelStyle = new Style( { font: "bold 40px", color:"white" } );
 var plusStyle = new Style( { font: "bold 50px", color:"black" } );
 var whiteBorderSkin = new Skin({
   fill:"white", 
@@ -40,6 +41,12 @@ var pictureHeight = 325;
 var MainCon = Column.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: whiteS, active: true, name: "column", 
 	contents: [
+		Line($, {
+			left:0, right:0, top:0, bottom:0, height:75, skin: blackS, name: "lineF",
+			contents: [
+				new Label({left: 105, right: 0, string: "BIRDSi", style: whiteLabelStyle})
+			]
+		}),
 		Line($, {
 			left:0, right:0, top:0, bottom:0, skin: redS, name: "lineF",
 			contents: [
