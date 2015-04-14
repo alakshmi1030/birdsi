@@ -9,10 +9,10 @@ var mode="main";
 var view="center";
 
 var nameInputSkin = new Skin({ borders: { left:2, right:2, top:2, bottom:2 }, stroke: 'gray',});
-var fieldStyle = new Style({ color: 'black', font: 'bold 24px', horizontal: 'left', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
-var fieldHintStyle = new Style({ color: '#aaa', font: '24px', horizontal: 'left', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
+var fieldStyle = new Style({ color: 'white', font: 'bold 24px', horizontal: 'left', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
+var fieldHintStyle = new Style({ color: 'black', font: '24px', horizontal: 'left', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
 var whiteS = new Skin({fill:"white"});
-var typeStyle = new Style({ color: 'white', font: 'bold 24px', horizontal: 'center', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
+var typeStyle = new Style({ color: 'black', font: 'bold 24px', horizontal: 'center', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
 var smallTypeStyle = new Style({ color: 'white', font: '18px', horizontal: 'center', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
 var whiteS = new Skin({fill:"white"});
 var blackS = new Skin({fill:"black"});
@@ -151,9 +151,9 @@ var addPeopleCon = Container.template(function($) { return {
 		new Label({top: 20, string: "Add Person", style: labelStyle}),
 		new Line({left:0, right:0, top:80, skin: blackS}),
 		descriptionField,
-		new Line({top:130, height:230, width: 250, skin: whiteBorderSkin,
+		new Line({top:130, height:230, width: 250, skin: whiteBorderSkin, name: "photo",
 	      contents:[
-	        new iconButton({title: "person photo", top: 0, left:0, right: 0, bottom:0,
+	        new iconButton({title: "person photo", top: 0, left:0, right: 0, bottom:0, name: "missingPhoto",
 	        				func: function(content) {
 	        					content.picture.width = 325;
 	        					content.picture.height = 205;
@@ -164,7 +164,7 @@ var addPeopleCon = Container.template(function($) { return {
 		new sButton({title: "Save & Search", left: 40, top: 420, width: 250, skin: greenS}),
 	],
 	behavior: Object.create(Container.prototype, {
-		onTouchEnded: { value: function(content){
+		onTouchEnded: { value: function(content) {
 			KEYBOARD.hide();
 			content.focus();
 		}}
@@ -172,24 +172,24 @@ var addPeopleCon = Container.template(function($) { return {
 }});
 
 
-var aButton = BUTTONS.Button.template(function($){ return{
+var aButton = BUTTONS.Button.template(function($) { return {
 	left: 0, right: 0, height: 170,
 	contents: [
 		new Label({left:0, right:0, string: $.title, style: typeStyle}),
 	],
 	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
-		onTap: { value: function(content){
+		onTap: { value: function(content) {
 			if($.action == "setPath"){
 				application.remove(main);
 				application.add(pathCon);
 				mode = "path";
 			}
-			else if($.action == "flyDrone"){
+			else if($.action == "flyDrone") {
 				application.remove(main);
 				application.add(flyCon);
 				mode = "fly";
 			}
-			else if($.action == "findPeople"){
+			else if($.action == "findPeople") {
 				application.remove(main);
 				application.add(listCon);
 				mode = "find";
