@@ -9,7 +9,7 @@ var mode="main";
 var view="center";
 
 var nameInputSkin = new Skin({ borders: { left:2, right:2, top:2, bottom:2 }, stroke: 'gray',});
-var fieldStyle = new Style({ color: 'white', font: 'bold 24px', horizontal: 'left', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
+var fieldStyle = new Style({ color: 'black', font: 'bold 24px', horizontal: 'left', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
 var fieldHintStyle = new Style({ color: 'black', font: '24px', horizontal: 'left', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
 var whiteS = new Skin({fill:"white"});
 var typeStyle = new Style({ color: 'black', font: 'bold 24px', horizontal: 'center', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
@@ -72,8 +72,8 @@ var setPathCon = Container.template(function($) { return {
 		new Label({top: 20, string: "Set Path", style: labelStyle}),
 		new Line({left:0, right:0, top:80, bottom:450, skin: blackS}),
 		new Picture({top: 30,left: 20, right: 20, width: pictureWidth, height: pictureHeight, url: "map.jpg", name: "mainMap"}),
-		new Label({top: 280, left: 20, string: "From:", style: smLabelStyle}),
-		new Label({top: 330, left: 20, string: "To:", style: smLabelStyle}),
+		new Label({top: 277, left: 20, string: "From:", style: fieldStyle}),
+		new Label({top: 326, left: 20, string: "To:", style: fieldStyle}),
 		fromField, toField,
 		new sButton({title: "start", left: 40, top: 420, width: 100, skin: greenS}),
 		new sButton({title: "stop", right: 40, top: 420, width: 100, skin: redS})
@@ -362,7 +362,7 @@ var myField = Container.template(function($) { return {
 				 	}),
 				 }),
 				 Label($, {
-	 			 	left:4, right:4, style:fieldHintStyle, string:$.hint, name:"hint"
+	 			 	left:4, right:4, style:fieldStyle, string:$.hint, name:"hint"
 				 })
 			]
 		})
@@ -397,9 +397,9 @@ var ApplicationBehavior = Behavior.template({
 
 application.behavior = new ApplicationBehavior();
 
-var fromField = new myField({ name: "", top: 270, width: 250, left: 100, right: 10, height: 44, hint: "address" });
-var toField = new myField({ name: "", top: 320, width: 250, left: 100, right: 10, height: 44, hint: "address" });
-var descriptionField = new myField({name: "", top: 80, width: 300, left: 10, right: 10, height: 44, hint: "description"});
+var fromField = new myField({ name: "", top: 270, width: 250, left: 100, right: 10, height: 44, hint: "Address" });
+var toField = new myField({ name: "", top: 320, width: 250, left: 100, right: 10, height: 44, hint: "Address" });
+var descriptionField = new myField({name: "", top: 80, width: 300, left: 10, right: 10, height: 44, hint: "Description"});
 var main = new MainCon()
 var pathCon = new setPathCon();
 var flyCon = new flyDroneCon();
