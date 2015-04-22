@@ -116,8 +116,8 @@ var flyDroneCon = Container.template(function($) { return {
 		//new iconButton({title: "Zin", url: "zoomin.png", right: 50, bottom: 180}),
 		//new iconButton({title: "Zout", url: "zoomout.png", right: 100, bottom: 180}),
 		
-		new iconButton({title: "ascend", url:"ascendarrow.png", right: 50, bottom: centerB + 25, skin: greenS, func: false}),
-		new iconButton({title: "descend", url:"descendarrow.png", right: 50, bottom: centerB - 25, skin: greenS, func: false}),
+		new bigIconButton({title: "ascend", url:"ascendarrow.png", right: 25, bottom: centerB - 25 + 35, skin: greenS, func: false}),
+		new bigIconButton({title: "descend", url:"descendarrow.png", right: 25, bottom: centerB - 25 - 35, skin: greenS, func: false}),
 		
 		//new sButton({title: "Fwd", left: 40, bottom: 80, width: 100, skin: greenS})
 	],
@@ -351,6 +351,42 @@ var iconButton = BUTTONS.Button.template(function($){ return{
 		}},
 	})
 }});
+
+
+var bigIconButton = BUTTONS.Button.template(function($){ return{
+	left: $.left, right: $.right, top: $.top, bottom: $.bottom,
+	contents: [
+		new Picture({width: iconWidth*2, height: iconHeight*2, url: $.url, name: "picture"}),
+	],
+	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
+		onTap: { value: function(content){
+			if ($.func) {
+				$.func(content);
+			}
+			if ($.title == "ascend") {
+			    if (view == "down") {
+			        flyCon.chinapic.url = "china/ccenter.png";
+			        view = "center";
+			    } else {
+				    flyCon.chinapic.url = "china/cup.png";
+				    view = "up";
+				}
+			}
+			if ($.title == "descend") {
+			    if (view == "up") {
+			        flyCon.chinapic.url = "china/ccenter.png";
+			        view = "center";
+			    } else {
+				    flyCon.chinapic.url = "china/cdown.png";
+				    view = "down";
+				}
+			}
+			content.invoke(new Message(deviceURL + $.title), Message.JSON);
+			trace($.title + " button pressed\n");
+		}},
+	})
+}});
+
 
 
 var myField = Container.template(function($) { return { 
