@@ -397,8 +397,12 @@ var ApplicationBehavior = Behavior.template({
 	onDisplayed: function(application) {
 		application.discover("prototypedevice");
 	},
+	onLaunch: function(application) {
+		application.shared = true;
+	},
 	onQuit: function(application) {
 		application.forget("prototypedevice");
+		application.shared = false;
 	},
 })
 
