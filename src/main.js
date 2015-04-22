@@ -83,7 +83,8 @@ var setPathCon = Container.template(function($) { return {
 		new Label({top: 326, left: 20, string: "To:", style: fieldStyle}),
 		fromField, toField,
 		new sButton({title: "start", left: 40, top: 420, width: 100, skin: greenS}),
-		new sButton({title: "stop", right: 40, top: 420, width: 100, skin: redS})
+		new sButton({title: "stop", right: 40, top: 420, width: 100, skin: redS}),
+		//new Picture({left: currL, top: currT, width: 20, height: 20, url:"curr.png", name: "currxx"})
 	],
 	behavior: Object.create(Container.prototype, {
 		onTouchEnded: { value: function(content){
@@ -118,6 +119,7 @@ var flyDroneCon = Container.template(function($) { return {
 		
 		new bigIconButton({title: "ascend", url:"ascendarrow.png", right: 25, bottom: centerB - 25 + 35, skin: greenS, func: false}),
 		new bigIconButton({title: "descend", url:"descendarrow.png", right: 25, bottom: centerB - 25 - 35, skin: greenS, func: false}),
+		
 		
 		//new sButton({title: "Fwd", left: 40, bottom: 80, width: 100, skin: greenS})
 	],
@@ -430,6 +432,23 @@ Handler.bind("/forget", Behavior({
 	}
 }));
 
+Handler.bind("/updateCurr", Behavior({
+	onInvoke: function(handler, message){
+	    if (deviceURL != "") {
+			handler.invoke(new Message(deviceURL + "getData"), Message.JSON);\
+		}
+	},
+	onComplete: function(content, message, json){
+		if (json !== undefined) {
+			pathCon.remove(currX);
+			currX = new Picture({left: currL + json.x, top: currT - json.y, width: 20, height: 20, url:"curr.png"});
+			pathCon.add(currX);
+			//pathCon.currxx.height = currT + json.y;
+			//currX.width = currT - json.y;
+		}
+	}
+}));
+
 var ApplicationBehavior = Behavior.template({
 	onDisplayed: function(application) {
 		application.discover("prototypedevice");
@@ -445,11 +464,19 @@ var ApplicationBehavior = Behavior.template({
 
 application.behavior = new ApplicationBehavior();
 
+var currL = 20;
+var currT = 245;
+
 var fromField = new myField({ name: "", top: 270, width: 250, left: 100, right: 10, height: 44, hint: "Address" });
 var toField = new myField({ name: "", top: 320, width: 250, left: 100, right: 10, height: 44, hint: "Address" });
 var descriptionField = new myField({name: "", top: 80, width: 300, left: 10, right: 10, height: 44, hint: "Description"});
+
+var currX = new Picture({left: currL, top: currT, width: 20, height: 20, url:"curr.png"}); 
+
 var main = new MainCon()
 var pathCon = new setPathCon();
+pathCon.add(currX);
+
 var flyCon = new flyDroneCon();
 var listCon = new listPeopleCon();
 var addCon = new addPeopleCon();
