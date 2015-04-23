@@ -464,10 +464,6 @@ var ApplicationBehavior = Behavior.template({
 
 application.behavior = new ApplicationBehavior();
 
-<<<<<<< HEAD
-var fromField = new myField({ name: "", top: 290 });
-var toField = new myField({ name: "", top: 340 });
-=======
 var currL = 20;
 var currT = 245;
 
@@ -476,7 +472,6 @@ var toField = new myField({ name: "", top: 320, width: 250, left: 100, right: 10
 var descriptionField = new myField({name: "", top: 80, width: 300, left: 10, right: 10, height: 44, hint: "Description"});
 
 var currX = new Picture({left: currL, top: currT, width: 20, height: 20, url:"curr.png"}); 
->>>>>>> a19a494252cfc55a09be619c7793761b6485bf39
 
 var main = new MainCon()
 var pathCon = new setPathCon();

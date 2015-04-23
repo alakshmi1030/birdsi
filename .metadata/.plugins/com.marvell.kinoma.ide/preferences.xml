@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Preferences>
-   <SDKContainer>
-      <SDK plugin="true" editable="false" name="Kinoma Built-in SDK" location="com.marvell.kinoma.sdk:sdk"></SDK>
-   </SDKContainer>
    <Editor>
       <ContentAssist autoActivationDelay="250" autoActivation="true" insertSingleProposalAutomatically="true"></ContentAssist>
       <XML>
@@ -11,6 +8,9 @@
       <Folding enabled="true"></Folding>
       <ThemeStyles/>
    </Editor>
+   <SDKContainer>
+      <SDK plugin="true" editable="false" name="Kinoma Built-in SDK" location="com.marvell.kinoma.sdk:sdk"></SDK>
+   </SDKContainer>
    <RemoteDeviceManager>
       <UserDevices/>
    </RemoteDeviceManager>
