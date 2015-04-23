@@ -239,6 +239,7 @@ var myField = Container.template(function($) { return {
 	]
 }});
 
+<<<<<<< HEAD
 Handler.bind("/discover", Behavior({
 	onInvoke: function(handler, message){
 		trace("Found the device.\n");
@@ -269,6 +270,10 @@ application.behavior = new ApplicationBehavior();
 
 var fromField = new myField({ name: "", top: 290 });
 var toField = new myField({ name: "", top: 340 });
+=======
+var fromField = new myField({ name: "", top: 270 });
+var toField = new myField({ name: "", top: 320 });
+>>>>>>> 06c0d17a6a6d29fb3ab74125d01d65291890e506
 
 var main = new MainCon()
 var pathCon = new setPathCon();

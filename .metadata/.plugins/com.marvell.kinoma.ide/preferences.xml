@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Preferences>
+   <SDKContainer>
+      <SDK plugin="true" editable="false" name="Kinoma Built-in SDK" location="com.marvell.kinoma.sdk:sdk"></SDK>
+   </SDKContainer>
+   <Editor>
+      <ContentAssist autoActivationDelay="250" autoActivation="true" insertSingleProposalAutomatically="true"></ContentAssist>
+      <XML>
+         <Formatting clearBlank="false" alignEndBrackets="false" useSpaces="true" formatComments="true" tabWidth="4" endTagSpace="true" splitAttributes="false" preserveContent="false" lineWidth="72" joinCommentLines="true"></Formatting>
+      </XML>
+      <Folding enabled="true"></Folding>
+      <ThemeStyles/>
+   </Editor>
+   <RemoteDeviceManager>
+      <UserDevices/>
+   </RemoteDeviceManager>
+</Preferences>
