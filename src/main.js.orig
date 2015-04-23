@@ -6,12 +6,13 @@ var KEYBOARD = require('mobile/keyboard');
 
 var deviceURL = "";
 var mode="main";
+var view="center";
 
 var nameInputSkin = new Skin({ borders: { left:2, right:2, top:2, bottom:2 }, stroke: 'gray',});
 var fieldStyle = new Style({ color: 'black', font: 'bold 24px', horizontal: 'left', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
-var fieldHintStyle = new Style({ color: '#aaa', font: '24px', horizontal: 'left', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
+var fieldHintStyle = new Style({ color: 'black', font: '24px', horizontal: 'left', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
 var whiteS = new Skin({fill:"white"});
-var typeStyle = new Style({ color: 'white', font: 'bold 24px', horizontal: 'center', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
+var typeStyle = new Style({ color: 'black', font: 'bold 24px', horizontal: 'center', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
 var smallTypeStyle = new Style({ color: 'white', font: '18px', horizontal: 'center', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
 var whiteS = new Skin({fill:"white"});
 var blackS = new Skin({fill:"black"});
@@ -23,6 +24,13 @@ var purpleS = new Skin({fill:"#ae5dae"});
 var borderS = new Skin({ borders: {left: 2, right: 2, top: 2, bottom: 2}, stroke: "white"})
 var smLabelStyle = new Style( { font: "30px", color:"black" } );
 var labelStyle = new Style( { font: "bold 40px", color:"black" } );
+var whiteLabelStyle = new Style( { font: "bold 40px", color:"white" } );
+var plusStyle = new Style( { font: "bold 50px", color:"black" } );
+var whiteBorderSkin = new Skin({
+  fill:"white", 
+  borders:{left:5, right:5, top:5, bottom:5}, 
+  stroke:"black"
+});
 
 var iconWidth = 50;
 var iconHeight = 50;
@@ -33,6 +41,12 @@ var pictureHeight = 325;
 var MainCon = Column.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: whiteS, active: true, name: "column", 
 	contents: [
+		Line($, {
+			left:0, right:0, top:0, bottom:0, height:75, skin: blackS, name: "lineF",
+			contents: [
+				new Label({left: 105, right: 0, string: "BIRDSi", style: whiteLabelStyle})
+			]
+		}),
 		Line($, {
 			left:0, right:0, top:0, bottom:0, skin: redS, name: "lineF",
 			contents: [
@@ -59,16 +73,18 @@ var MainCon = Column.template(function($) { return {
 
 var leftValue = 25;
 var setPathCon = Container.template(function($) { return {
-	left: 0, right: 0, top: 0, bottom: 0, skin: whiteS, active: true, name: "setPathContainer",
+	left: 0, right: 0, top: 0, bottom: 0, skin: yellowS, active: true, name: "setPathContainer",
 	contents: [
 		new bButton(),
 		new Label({top: 20, string: "Set Path", style: labelStyle}),
+		new Line({left:0, right:0, top:80, bottom:450, skin: blackS}),
 		new Picture({top: 30,left: 20, right: 20, width: pictureWidth, height: pictureHeight, url: "map.jpg", name: "mainMap"}),
-		new Label({top: 280, left: 20, string: "From:", style: smLabelStyle}),
-		new Label({top: 330, left: 20, string: "To:", style: smLabelStyle}),
+		new Label({top: 277, left: 20, string: "From:", style: fieldStyle}),
+		new Label({top: 326, left: 20, string: "To:", style: fieldStyle}),
 		fromField, toField,
-		new sButton({title: "start", left: 40, top: 420, skin: greenS}),
-		new sButton({title: "stop", right: 40, top: 420, skin: redS})
+		new sButton({title: "start", left: 40, top: 420, width: 100, skin: greenS}),
+		new sButton({title: "stop", right: 40, top: 420, width: 100, skin: redS}),
+		//new Picture({left: currL, top: currT, width: 20, height: 20, url:"curr.png", name: "currxx"})
 	],
 	behavior: Object.create(Container.prototype, {
 		onTouchEnded: { value: function(content){
@@ -78,41 +94,34 @@ var setPathCon = Container.template(function($) { return {
 	})
 }});
 
-//Template for button that's just an icon you click. Takes in url to icon and
-//title for button.
-var iconButton = BUTTONS.Button.template(function($){ return{
-	left: 0, right: 0,
-	contents: [
-		new Picture({left: leftValue, width: iconWidth, height: iconHeight, url: $.url}),
-	],
-	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
-		onTap: { value: function(content){
-			trace($.title + " button pressed\n");
-		}},
-	})
-}});
-
+var camH = 250;
+var camW = 250;
+var centerL = 85;
+var centerB = 100;
 var flyDroneCon = Container.template(function($) { return {
-	left: 0, right: 0, top: 0, bottom: 0, skin: whiteS, active: true, name: "flyDroneContainer",
+	left: 0, right: 0, top: 0, bottom: 0, skin: redS, active: true, name: "flyDroneContainer",
 	contents: [
 		new bButton(),
 		new Label({top: 20, string: "Fly Drone", style: labelStyle}),
+		new Line({left:0, right:0, top:80, bottom:450, skin: blackS}),
 		// to be replaced with diff pic. perhaps change width and height
-		new Picture({top: 30,left: 20, right: 20, width: pictureWidth, height: pictureHeight, url: "map.jpg"}),
+		new Picture({top: 70, width: camW, height: camH,
+		url: "china/ccenter.png", name:"chinapic"}),
 		// to replace sButtons with urlbuttons
 		// possibly need an elevation control as well
-		new sButton({title: "Fwd", left: 40, bottom: 200, skin: greenS}),
-		new sButton({title: "Back", left: 40, bottom: 100, skin: greenS}),
-		new sButton({title: "Left", left: 0, bottom: 150, skin: greenS}),
-		new sButton({title: "Right", left: 80, bottom: 150, skin: greenS}),
+		new iconButton({title:"forward", url: "up.png", left: centerL, bottom: centerB + 50, func: false}),
+		new iconButton({title:"back", url: "down.png", left: centerL, bottom: centerB - 50, func: false}),
+		new iconButton({title:"left", url: "left.png", left: centerL - 40, bottom: centerB, func: false}),
+		new iconButton({title:"right", url: "right.png", left: centerL + 40, bottom: centerB, func: false}),
 		
-		new sButton({title: "Zin", right: 20, bottom: 175, skin: greenS}),
-		new sButton({title: "Zout", right: 20, bottom: 125, skin: greenS}),
+		//new iconButton({title: "Zin", url: "zoomin.png", right: 50, bottom: 180}),
+		//new iconButton({title: "Zout", url: "zoomout.png", right: 100, bottom: 180}),
 		
-		new sButton({title: "Up", right: 20, bottom: 50, skin: greenS}),
-		new sButton({title: "Down", right: 20, bottom: 0, skin: greenS}),
+		new bigIconButton({title: "ascend", url:"ascendarrow.png", right: 25, bottom: centerB - 25 + 35, skin: greenS, func: false}),
+		new bigIconButton({title: "descend", url:"descendarrow.png", right: 25, bottom: centerB - 25 - 35, skin: greenS, func: false}),
 		
-		//new sButton({title: "Fwd", left: 40, bottom: 80, skin: greenS})
+		
+		//new sButton({title: "Fwd", left: 40, bottom: 80, width: 100, skin: greenS})
 	],
 	behavior: Object.create(Container.prototype, {
 		onTouchEnded: { value: function(content){
@@ -122,15 +131,19 @@ var flyDroneCon = Container.template(function($) { return {
 	})
 }});
 
-var findPeopleCon = Container.template(function($) { return {
-	left: 0, right: 0, top: 0, bottom: 0, skin: whiteS, active: true, name: "flyDroneContainer",
+var listPeopleCon = Container.template(function($) { return {
+	left: 0, right: 0, top: 0, bottom: 0, skin: blueS, active: true, name: "flyDroneContainer",
 	contents: [
 		new bButton(),
 		new Label({top: 20, string: "Find People", style: labelStyle}),
-		new Picture({top: 30,left: 20, right: 20, width: pictureWidth, height: pictureHeight, url: "map.jpg"}),
-		new Label({top: 280, left: 20, string: "Name:", style: smLabelStyle}),
-		new Label({top: 330, left: 20, string: "Etc:", style: smLabelStyle}),
-		new sButton({title: "Buttons", left: 40, bottom: 70, skin: greenS})
+		new plusButton(),
+		new Line({left:0, right:0, top:80, bottom:0, skin: blackS}),
+		new Line({left:0, right:0, top:90, bottom:0, skin: redS}),
+		new Line({left:0, right:0, top:190, bottom:0, skin: yellowS}),
+		new Line({left:0, right:0, top:290, bottom:0, skin: redS}),
+		new Line({left:0, right:0, top:390, bottom:0, skin: yellowS}),
+		new Line({left:0, right:0, top:490, bottom:0, skin: redS}),
+		new Line({left:0, right:0, top:590, bottom:0, skin: yellowS}),
 	],
 	behavior: Object.create(Container.prototype, {
 		onTouchEnded: { value: function(content){
@@ -140,27 +153,54 @@ var findPeopleCon = Container.template(function($) { return {
 	})
 }});
 
+var addPeopleCon = Container.template(function($) { return {
+	left: 0, right: 0, top: 0, bottom: 0, skin: blueS, active: true, name: "flyDroneContainer",
+	contents: [
+		new bButton(),
+		new Label({top: 20, string: "Add Person", style: labelStyle}),
+		new Line({left:0, right:0, top:80, skin: blackS}),
+		descriptionField,
+		new Line({top:130, height:230, width: 250, skin: whiteBorderSkin, name: "photo",
+	      contents:[
+	        new iconButton({title: "person photo", top: 0, left:0, right: 0, bottom:0, name: "missingPhoto",
+	        				func: function(content) {
+	        					content.picture.width = 325;
+	        					content.picture.height = 205;
+	        					content.picture.load("kid.jpg");
+	        				}})
+	      ]
+	    }),
+		new sButton({title: "Save & Search", left: 40, top: 420, width: 250, skin: greenS}),
+	],
+	behavior: Object.create(Container.prototype, {
+		onTouchEnded: { value: function(content) {
+			KEYBOARD.hide();
+			content.focus();
+		}}
+	})
+}});
 
-var aButton = BUTTONS.Button.template(function($){ return{
+
+var aButton = BUTTONS.Button.template(function($) { return {
 	left: 0, right: 0, height: 170,
 	contents: [
 		new Label({left:0, right:0, string: $.title, style: typeStyle}),
 	],
 	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
-		onTap: { value: function(content){
+		onTap: { value: function(content) {
 			if($.action == "setPath"){
 				application.remove(main);
 				application.add(pathCon);
 				mode = "path";
 			}
-			else if($.action == "flyDrone"){
+			else if($.action == "flyDrone") {
 				application.remove(main);
 				application.add(flyCon);
 				mode = "fly";
 			}
-			else if($.action == "findPeople"){
+			else if($.action == "findPeople") {
 				application.remove(main);
-				application.add(findCon);
+				application.add(listCon);
 				mode = "find";
 			}
 			else{
@@ -169,7 +209,6 @@ var aButton = BUTTONS.Button.template(function($){ return{
 		}},
 	})
 }});
-
 
 var bButton = BUTTONS.Button.template(function($){ return{
 	left: 20, top: 25,
@@ -185,18 +224,39 @@ var bButton = BUTTONS.Button.template(function($){ return{
 				application.remove(flyCon);
 			}
 			if (mode == "find") {
-			    // find has other pages. may need to play around with ifs here.
-				application.remove(findCon);
+				application.remove(listCon);
 			}
-			mode == "main";
+			if (mode == "add") {
+				application.remove(addCon);
+				application.add(listCon);
+				mode = "find";
+				return;
+			}
+			mode = "main";
 			application.add(main);
+		}}
+	})
+}});
+
+var plusButton = BUTTONS.Button.template(function($){ return{
+	right: 20, top: 20,
+	contents: [
+		new Label({height:40, string: "+", style: plusStyle}),
+	],
+	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
+		onTap: { value: function(content){
+		    if (mode == "find") {
+				application.remove(listCon);
+				mode = "add";
+				application.add(addCon);
+			}
 		}}
 	})
 }});
 
 /*start / stop button*/
 var sButton = BUTTONS.Button.template(function($){ return{
-	left: $.left, right: $.right, top : $.top, bottom: $.bottom, height: 50, width: 100, skin:$.skin,
+	left: $.left, right: $.right, top : $.top, bottom: $.bottom, height: 50, width: $.width, skin:$.skin,
 	contents: [
 		new Label({height:30, string: $.title, style: smLabelStyle}),
 	],
@@ -210,13 +270,129 @@ var sButton = BUTTONS.Button.template(function($){ return{
 			else if(pressed == "stop"){
 				pathCon.mainMap.url = "map.jpg";
 				content.invoke(new Message(deviceURL + "stopPath", Message.TEXT));
+			} else if (pressed == "Save & Search") {
+				application.remove(addCon);
+				mode = "fly";
+				flyCon.chinapic.url = "china/ccenter.png";
+				application.add(flyCon);
+				content.invoke(new Message(deviceURL + "search"), Message.JSON);
 			}
 		}}
 	})
 }});
 
+//Template for button that's just an icon you click. Takes in url to icon and
+//title for button.
+var iconButton = BUTTONS.Button.template(function($){ return{
+	left: $.left, right: $.right, top: $.top, bottom: $.bottom,
+	contents: [
+		new Picture({width: iconWidth, height: iconHeight, url: $.url, name: "picture"}),
+	],
+	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
+		onTap: { value: function(content){
+			if ($.func) {
+				$.func(content);
+			}
+			if ($.title == "forward") {
+			    if (view == "back") {
+			        flyCon.chinapic.url = "china/ccenter.png";
+			        view = "center";
+			    } else {
+				    flyCon.chinapic.url = "china/cforward.png";
+				    view = "forward";
+				}
+			}
+			if ($.title == "back") {
+			    if (view == "forward") {
+			        flyCon.chinapic.url = "china/ccenter.png";
+			        view = "center";
+			    } else {
+				    flyCon.chinapic.url = "china/cback.png";
+				    view = "back";
+				}
+			}
+			if ($.title == "left") {
+			    if (view == "right") {
+			        flyCon.chinapic.url = "china/ccenter.png";
+			        view = "center";
+			    } else {
+				    flyCon.chinapic.url = "china/cleft.png";
+				    view = "left";
+				}
+			}
+			if ($.title == "right") {
+			    if (view == "left") {
+			        flyCon.chinapic.url = "china/ccenter.png";
+			        view = "center";
+			    } else {
+				    flyCon.chinapic.url = "china/cright.png";
+				    view = "right";
+				}
+			}
+			if ($.title == "ascend") {
+			    if (view == "down") {
+			    	
+			        flyCon.chinapic.url = "china/ccenter.png";
+			        view = "center";
+			    } else {
+				    flyCon.chinapic.url = "china/cup.png";
+				    view = "up";
+				}
+			}
+			if ($.title == "descend") {
+			    if (view == "up") {
+			        flyCon.chinapic.url = "china/ccenter.png";
+			        view = "center";
+			    } else {
+				    flyCon.chinapic.url = "china/cdown.png";
+				    view = "down";
+				}
+			}
+			content.invoke(new Message(deviceURL + $.title), Message.JSON);
+			trace($.title + " button pressed\n");
+		}},
+	})
+}});
+
+
+var bigIconButton = BUTTONS.Button.template(function($){ return{
+	left: $.left, right: $.right, top: $.top, bottom: $.bottom,
+	contents: [
+		new Picture({width: iconWidth*2, height: iconHeight*2, url: $.url, name: "picture"}),
+	],
+	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
+		onTap: { value: function(content){
+			if ($.func) {
+				$.func(content);
+			}
+			if ($.title == "ascend") {
+			    if (view == "down") {
+			        flyCon.chinapic.url = "china/ccenter.png";
+			        view = "center";
+			    } else {
+				    flyCon.chinapic.url = "china/cup.png";
+				    view = "up";
+				}
+			}
+			if ($.title == "descend") {
+			    if (view == "up") {
+			        flyCon.chinapic.url = "china/ccenter.png";
+			        view = "center";
+			    } else {
+				    flyCon.chinapic.url = "china/cdown.png";
+				    view = "down";
+				}
+			}
+			content.invoke(new Message(deviceURL + $.title), Message.JSON);
+			trace($.title + " button pressed\n");
+		}},
+	})
+}});
+
+
+
 var myField = Container.template(function($) { return { 
-	top: $.top, width: 250, left: 100, right: 10, height: 44, skin: nameInputSkin, name: "myField", contents: [
+	top: $.top, width: $.width, left: $.left, right: $.right, height: $.height, skin: nameInputSkin, name: "myField", contents: [
 		Scroller($, { 
 			left: 4, right: 4, top: 4, bottom: 4, active: true, name: "myScroller",
 			behavior: Object.create(CONTROL.FieldScrollerBehavior.prototype), clip: true, contents: [
@@ -232,14 +408,13 @@ var myField = Container.template(function($) { return {
 				 	}),
 				 }),
 				 Label($, {
-	 			 	left:4, right:4, style:fieldHintStyle, string:"Address", name:"hint"
+	 			 	left:4, right:4, style:fieldStyle, string:$.hint, name:"hint"
 				 })
 			]
 		})
 	]
 }});
 
-<<<<<<< HEAD
 Handler.bind("/discover", Behavior({
 	onInvoke: function(handler, message){
 		trace("Found the device.\n");
@@ -257,26 +432,57 @@ Handler.bind("/forget", Behavior({
 	}
 }));
 
+Handler.bind("/updateCurr", Behavior({
+	onInvoke: function(handler, message){
+	    if (deviceURL != "") {
+			handler.invoke(new Message(deviceURL + "getData"), Message.JSON);\
+		}
+	},
+	onComplete: function(content, message, json){
+		if (json !== undefined) {
+			pathCon.remove(currX);
+			currX = new Picture({left: currL + json.x, top: currT - json.y, width: 20, height: 20, url:"curr.png"});
+			pathCon.add(currX);
+			//pathCon.currxx.height = currT + json.y;
+			//currX.width = currT - json.y;
+		}
+	}
+}));
+
 var ApplicationBehavior = Behavior.template({
 	onDisplayed: function(application) {
 		application.discover("prototypedevice");
 	},
+	onLaunch: function(application) {
+		application.shared = true;
+	},
 	onQuit: function(application) {
 		application.forget("prototypedevice");
+		application.shared = false;
 	},
 })
 
 application.behavior = new ApplicationBehavior();
 
+<<<<<<< HEAD
 var fromField = new myField({ name: "", top: 290 });
 var toField = new myField({ name: "", top: 340 });
 =======
-var fromField = new myField({ name: "", top: 270 });
-var toField = new myField({ name: "", top: 320 });
->>>>>>> 06c0d17a6a6d29fb3ab74125d01d65291890e506
+var currL = 20;
+var currT = 245;
+
+var fromField = new myField({ name: "", top: 270, width: 250, left: 100, right: 10, height: 44, hint: "Address" });
+var toField = new myField({ name: "", top: 320, width: 250, left: 100, right: 10, height: 44, hint: "Address" });
+var descriptionField = new myField({name: "", top: 80, width: 300, left: 10, right: 10, height: 44, hint: "Description"});
+
+var currX = new Picture({left: currL, top: currT, width: 20, height: 20, url:"curr.png"}); 
+>>>>>>> a19a494252cfc55a09be619c7793761b6485bf39
 
 var main = new MainCon()
 var pathCon = new setPathCon();
+pathCon.add(currX);
+
 var flyCon = new flyDroneCon();
-var findCon = new findPeopleCon();
+var listCon = new listPeopleCon();
+var addCon = new addPeopleCon();
 application.add(main);
