@@ -7,6 +7,7 @@ var KEYBOARD = require('mobile/keyboard');
 var deviceURL = "";
 var mode="main";
 var view="center";
+var saved=false;
 var filled=false;
 
 var nameInputSkin = new Skin({ borders: { left:2, right:2, top:2, bottom:2 }, stroke: 'gray',});
@@ -229,7 +230,11 @@ var aButton = BUTTONS.Button.template(function($) { return {
 			}
 			else if($.action == "findPeople") {
 				application.remove(main);
-				application.add(listCon);
+				if (saved) {
+					application.add(listFilledCon);
+				} else {
+					application.add(listCon);
+				}
 				mode = "find";
 			}
 			else{
@@ -253,11 +258,21 @@ var bButton = BUTTONS.Button.template(function($){ return{
 				application.remove(flyCon);
 			}
 			if (mode == "find") {
-				application.remove(listCon);
+				if (saved) {
+					application.remove(listFilledCon);
+				} else {
+					application.remove(listCon);
+				}
+				
 			}
 			if (mode == "add") {
 				application.remove(addCon);
-				application.add(listCon);
+				if (!saved) {
+					filled = false;
+					application.add(listCon);
+				} else {
+					application.add(listFilledCon);
+				}
 				mode = "find";
 				return;
 			}
@@ -275,7 +290,11 @@ var plusButton = BUTTONS.Button.template(function($){ return{
 	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
 		onTap: { value: function(content){
 		    if (mode == "find") {
-				application.remove(listCon);
+		        if (saved) {
+		        	application.remove(listFilledCon);
+				} else {
+					application.remove(listCon);
+				}
 				mode = "add";
 				application.add(addCon);
 			}
@@ -304,6 +323,7 @@ var sButton = BUTTONS.Button.template(function($){ return{
 				mode = "find";
 				flyCon.chinapic.url = "china/ccenter.png";
 				if (filled) {
+					saved = true;
 					application.add(listFilledCon);
 				} else {
 					application.add(listCon);
