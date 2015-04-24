@@ -10,7 +10,7 @@ var view="center";
 var saved=false;
 var filled=false;
 
-var nameInputSkin = new Skin({ borders: { left:2, right:2, top:2, bottom:2 }, stroke: 'gray',});
+var nameInputSkin = new Skin({ borders: { left:2, right:2, top:2, bottom:2 }, stroke: 'gray', fill: 'white'});
 var fieldStyle = new Style({ color: 'black', font: 'bold 24px', horizontal: 'left', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
 var fieldHintStyle = new Style({ color: 'black', font: '24px', horizontal: 'left', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
 var whiteS = new Skin({fill:"white"});
@@ -191,7 +191,8 @@ var addPeopleCon = Container.template(function($) { return {
 		descriptionField,
 		new Line({top:130, height:230, width: 250, skin: whiteBorderSkin, name: "photo",
 	      contents:[
-	        new iconButton({title: "person photo", top: 0, left:0, right: 0, bottom:0, name: "missingPhoto",
+	        new bigIconButton({title: "person photo", top: 0, left:0, right: 0, bottom:0, name: "missingPhoto",
+	        				url: "tapload.jpg",
 	        				func: function(content) {
 	        					filled = true;
 	        					content.picture.width = 325;
