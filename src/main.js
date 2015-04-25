@@ -118,8 +118,8 @@ var flyDroneCon = Container.template(function($) { return {
 		//new iconButton({title: "Zin", url: "zoomin.png", right: 50, bottom: 180}),
 		//new iconButton({title: "Zout", url: "zoomout.png", right: 100, bottom: 180}),
 		
-		new bigIconButton({title: "ascend", url:"ascendarrow.png", right: 25, bottom: centerB - 25 + 35, skin: greenS, func: false}),
-		new bigIconButton({title: "descend", url:"descendarrow.png", right: 25, bottom: centerB - 25 - 35, skin: greenS, func: false}),
+		new bigIconButton({title: "ascend", url:"ascendwhite.png", right: 25, bottom: centerB - 25 + 35, skin: greenS, func: false}),
+		new bigIconButton({title: "descend", url:"descendwhite.png", right: 25, bottom: centerB - 25 - 35, skin: greenS, func: false}),
 		
 		
 		//new sButton({title: "Fwd", left: 40, bottom: 80, width: 100, skin: greenS})
