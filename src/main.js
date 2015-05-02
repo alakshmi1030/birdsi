@@ -7,8 +7,10 @@ var KEYBOARD = require('mobile/keyboard');
 var deviceURL = "";
 var mode="main";
 var view="center";
+var saved=false;
+var filled=false;
 
-var nameInputSkin = new Skin({ borders: { left:2, right:2, top:2, bottom:2 }, stroke: 'gray',});
+var nameInputSkin = new Skin({ borders: { left:2, right:2, top:2, bottom:2 }, stroke: 'gray', fill: 'white'});
 var fieldStyle = new Style({ color: 'black', font: 'bold 24px', horizontal: 'left', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
 var fieldHintStyle = new Style({ color: 'black', font: '24px', horizontal: 'left', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
 var whiteS = new Skin({fill:"white"});
@@ -37,7 +39,6 @@ var iconHeight = 50;
 var pictureWidth = 325;
 var pictureHeight = 325;
 
-
 var MainCon = Column.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: whiteS, active: true, name: "column", 
 	contents: [
@@ -65,7 +66,7 @@ var MainCon = Column.template(function($) { return {
 			left:0, right:0, top:0, bottom:0, skin: blueS, name: "lineK",
 			contents: [
 				new Picture({left: leftValue, width: iconWidth, height: iconHeight, url: "people.png"}),
-				new aButton({title: "Find People", action: "findPeople"})
+				new aButton({title: "Find People", action: "findPeople"}),
 			]
 		}),
 	]
@@ -117,8 +118,8 @@ var flyDroneCon = Container.template(function($) { return {
 		//new iconButton({title: "Zin", url: "zoomin.png", right: 50, bottom: 180}),
 		//new iconButton({title: "Zout", url: "zoomout.png", right: 100, bottom: 180}),
 		
-		new bigIconButton({title: "ascend", url:"ascendarrow.png", right: 25, bottom: centerB - 25 + 35, skin: greenS, func: false}),
-		new bigIconButton({title: "descend", url:"descendarrow.png", right: 25, bottom: centerB - 25 - 35, skin: greenS, func: false}),
+		new bigIconButton({title: "ascend", url:"ascendwhite.png", right: 25, bottom: centerB - 25 + 35, skin: greenS, func: false}),
+		new bigIconButton({title: "descend", url:"descendwhite.png", right: 25, bottom: centerB - 25 - 35, skin: greenS, func: false}),
 		
 		
 		//new sButton({title: "Fwd", left: 40, bottom: 80, width: 100, skin: greenS})
@@ -131,13 +132,19 @@ var flyDroneCon = Container.template(function($) { return {
 	})
 }});
 
+var topLine = new Line({
+			left:0, right:0, top:90, bottom:0, skin: redS, name: "top",
+			contents: [
+			new Picture({left:0, right:0, top:90, bottom:0, url: "person.png"}),
+			],
+}),
+
 var listPeopleCon = Container.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: blueS, active: true, name: "flyDroneContainer",
 	contents: [
 		new bButton(),
 		new Label({top: 20, string: "Find People", style: labelStyle}),
 		new plusButton(),
-		new Line({left:0, right:0, top:80, bottom:0, skin: blackS}),
 		new Line({left:0, right:0, top:90, bottom:0, skin: redS}),
 		new Line({left:0, right:0, top:190, bottom:0, skin: yellowS}),
 		new Line({left:0, right:0, top:290, bottom:0, skin: redS}),
@@ -153,6 +160,28 @@ var listPeopleCon = Container.template(function($) { return {
 	})
 }});
 
+var listPeopleConFilled = Container.template(function($) { return {
+	left: 0, right: 0, top: 0, bottom: 0, skin: blueS, active: true, name: "flyDroneContainer",
+	contents: [
+		new bButton(),
+		new Label({top: 20, string: "Find People", style: labelStyle}),
+		new plusButton(),
+		new Picture({left: 0, top: 90, url:"person.png"}),
+		new Line({left:0, right:0, top:190, bottom:0, skin: yellowS}),
+		new Line({left:0, right:0, top:290, bottom:0, skin: redS}),
+		new Line({left:0, right:0, top:390, bottom:0, skin: yellowS}),
+		new Line({left:0, right:0, top:490, bottom:0, skin: redS}),
+		new Line({left:0, right:0, top:590, bottom:0, skin: yellowS}),
+	],
+	behavior: Object.create(Container.prototype, {
+		onTouchEnded: { value: function(content){
+			KEYBOARD.hide();
+			content.focus();
+		}}
+	})
+}});
+
+
 var addPeopleCon = Container.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: blueS, active: true, name: "flyDroneContainer",
 	contents: [
@@ -162,15 +191,17 @@ var addPeopleCon = Container.template(function($) { return {
 		descriptionField,
 		new Line({top:130, height:230, width: 250, skin: whiteBorderSkin, name: "photo",
 	      contents:[
-	        new iconButton({title: "person photo", top: 0, left:0, right: 0, bottom:0, name: "missingPhoto",
+	        new bigIconButton({title: "person photo", top: 0, left:0, right: 0, bottom:0, name: "missingPhoto",
+	        				url: "tapload.jpg",
 	        				func: function(content) {
+	        					filled = true;
 	        					content.picture.width = 325;
 	        					content.picture.height = 205;
 	        					content.picture.load("kid.jpg");
 	        				}})
 	      ]
 	    }),
-		new sButton({title: "Save & Search", left: 40, top: 420, width: 250, skin: greenS}),
+		new sButton({title: "Save", left: 40, top: 420, width: 250, skin: greenS}),
 	],
 	behavior: Object.create(Container.prototype, {
 		onTouchEnded: { value: function(content) {
@@ -200,7 +231,11 @@ var aButton = BUTTONS.Button.template(function($) { return {
 			}
 			else if($.action == "findPeople") {
 				application.remove(main);
-				application.add(listCon);
+				if (saved) {
+					application.add(listFilledCon);
+				} else {
+					application.add(listCon);
+				}
 				mode = "find";
 			}
 			else{
@@ -224,11 +259,21 @@ var bButton = BUTTONS.Button.template(function($){ return{
 				application.remove(flyCon);
 			}
 			if (mode == "find") {
-				application.remove(listCon);
+				if (saved) {
+					application.remove(listFilledCon);
+				} else {
+					application.remove(listCon);
+				}
+				
 			}
 			if (mode == "add") {
 				application.remove(addCon);
-				application.add(listCon);
+				if (!saved) {
+					filled = false;
+					application.add(listCon);
+				} else {
+					application.add(listFilledCon);
+				}
 				mode = "find";
 				return;
 			}
@@ -246,7 +291,11 @@ var plusButton = BUTTONS.Button.template(function($){ return{
 	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
 		onTap: { value: function(content){
 		    if (mode == "find") {
-				application.remove(listCon);
+		        if (saved) {
+		        	application.remove(listFilledCon);
+				} else {
+					application.remove(listCon);
+				}
 				mode = "add";
 				application.add(addCon);
 			}
@@ -270,11 +319,16 @@ var sButton = BUTTONS.Button.template(function($){ return{
 			else if(pressed == "stop"){
 				pathCon.mainMap.url = "map.jpg";
 				content.invoke(new Message(deviceURL + "stopPath", Message.TEXT));
-			} else if (pressed == "Save & Search") {
+			} else if (pressed == "Save") {
 				application.remove(addCon);
-				mode = "fly";
+				mode = "find";
 				flyCon.chinapic.url = "china/ccenter.png";
-				application.add(flyCon);
+				if (filled) {
+					saved = true;
+					application.add(listFilledCon);
+				} else {
+					application.add(listCon);
+				}
 				content.invoke(new Message(deviceURL + "search"), Message.JSON);
 			}
 		}}
@@ -354,7 +408,6 @@ var iconButton = BUTTONS.Button.template(function($){ return{
 	})
 }});
 
-
 var bigIconButton = BUTTONS.Button.template(function($){ return{
 	left: $.left, right: $.right, top: $.top, bottom: $.bottom,
 	contents: [
@@ -388,8 +441,6 @@ var bigIconButton = BUTTONS.Button.template(function($){ return{
 		}},
 	})
 }});
-
-
 
 var myField = Container.template(function($) { return { 
 	top: $.top, width: $.width, left: $.left, right: $.right, height: $.height, skin: nameInputSkin, name: "myField", contents: [
@@ -435,7 +486,7 @@ Handler.bind("/forget", Behavior({
 Handler.bind("/updateCurr", Behavior({
 	onInvoke: function(handler, message){
 	    if (deviceURL != "") {
-			handler.invoke(new Message(deviceURL + "getData"), Message.JSON);\
+			handler.invoke(new Message(deviceURL + "getData"), Message.JSON);
 		}
 	},
 	onComplete: function(content, message, json){
@@ -482,5 +533,6 @@ pathCon.add(currX);
 
 var flyCon = new flyDroneCon();
 var listCon = new listPeopleCon();
+var listFilledCon = new listPeopleConFilled();
 var addCon = new addPeopleCon();
 application.add(main);
