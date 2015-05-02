@@ -517,7 +517,6 @@ var ApplicationBehavior = Behavior.template({
 		application.shared = true;
 	},
 	onQuit: function(application) {
-		content.invoke(new Message(deviceURL + "stopPath", Message.TEXT));
 		application.forget("prototypedevice");
 		application.shared = false;
 	},
