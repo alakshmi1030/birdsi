@@ -443,6 +443,9 @@ Handler.bind("/updateCurr", Behavior({
 			pathCon.remove(currX);
 			currX = new Picture({left: currL + json.x, top: currT - json.y, width: 20, height: 20, url:"curr.png"});
 			pathCon.add(currX);
+			if(json.x > 70 && json.x < 75 && json.y > 70 && json.y < 75){
+				trace("Kid has been found!!");
+			}
 			//pathCon.currxx.height = currT + json.y;
 			//currX.width = currT - json.y;
 		}
