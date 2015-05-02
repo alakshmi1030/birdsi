@@ -246,9 +246,9 @@ var aButton = BUTTONS.Button.template(function($) { return {
 }});
 
 var bButton = BUTTONS.Button.template(function($){ return{
-	left: 20, top: 25,
+	left: 15, top: 23,
 	contents: [
-		new Label({height:30, string: "<", style: labelStyle}),
+		new Picture({width: 35, height: 35, url: "backarrow.png", name: "back"}),
 	],
 	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
 		onTap: { value: function(content){
@@ -284,9 +284,9 @@ var bButton = BUTTONS.Button.template(function($){ return{
 }});
 
 var plusButton = BUTTONS.Button.template(function($){ return{
-	right: 20, top: 20,
+	right: 15, top: 23,
 	contents: [
-		new Label({height:40, string: "+", style: plusStyle}),
+		new Picture({width: 35, height: 35, url: "plus.png", name: "plus"}),
 	],
 	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
 		onTap: { value: function(content){
