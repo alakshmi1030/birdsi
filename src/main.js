@@ -9,6 +9,7 @@ var mode="main";
 var view="center";
 var saved=false;
 var filled=false;
+var auto=false;
 
 var nameInputSkin = new Skin({ borders: { left:2, right:2, top:2, bottom:2 }, stroke: 'gray', fill: 'white'});
 var fieldStyle = new Style({ color: 'black', font: 'bold 24px', horizontal: 'left', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
@@ -25,6 +26,7 @@ var blueS = new Skin({fill:"#99B6BC"});
 var purpleS = new Skin({fill:"#ae5dae"});
 var borderS = new Skin({ borders: {left: 2, right: 2, top: 2, bottom: 2}, stroke: "white"})
 var smLabelStyle = new Style( { font: "30px", color:"black" } );
+var rlySmLabelStyle = new Style( { font: "bold 15px", color:"black" } );
 var labelStyle = new Style( { font: "bold 40px", color:"black" } );
 var whiteLabelStyle = new Style( { font: "bold 40px", color:"white" } );
 var plusStyle = new Style( { font: "bold 50px", color:"black" } );
@@ -104,16 +106,18 @@ var flyDroneCon = Container.template(function($) { return {
 	contents: [
 		new bButton(),
 		new Label({top: 20, string: "Fly Drone", style: labelStyle}),
+		//new Label({top: 290, string: "Warning: You are still in autopilot mode.", style: rlySmLabelStyle}),
+		//new Label({top: 310, string: "Switch back to manual?", style: rlySmLabelStyle}),
 		new Line({left:0, right:0, top:80, bottom:450, skin: blackS}),
 		// to be replaced with diff pic. perhaps change width and height
 		new Picture({top: 70, width: camW, height: camH,
 		url: "china/ccenter.png", name:"chinapic"}),
 		// to replace sButtons with urlbuttons
 		// possibly need an elevation control as well
-		new iconButton({title:"forward", url: "up.png", left: centerL, bottom: centerB + 50, func: false}),
-		new iconButton({title:"back", url: "down.png", left: centerL, bottom: centerB - 50, func: false}),
-		new iconButton({title:"left", url: "left.png", left: centerL - 40, bottom: centerB, func: false}),
-		new iconButton({title:"right", url: "right.png", left: centerL + 40, bottom: centerB, func: false}),
+		new moveButton({title:"forward", url: "up.png", left: centerL, bottom: centerB + 50, func: false}),
+		new moveButton({title:"back", url: "down.png", left: centerL, bottom: centerB - 50, func: false}),
+		new moveButton({title:"left", url: "left.png", left: centerL - 40, bottom: centerB, func: false}),
+		new moveButton({title:"right", url: "right.png", left: centerL + 40, bottom: centerB, func: false}),
 		
 		//new iconButton({title: "Zin", url: "zoomin.png", right: 50, bottom: 180}),
 		//new iconButton({title: "Zout", url: "zoomout.png", right: 100, bottom: 180}),
@@ -227,6 +231,9 @@ var aButton = BUTTONS.Button.template(function($) { return {
 			else if($.action == "flyDrone") {
 				application.remove(main);
 				application.add(flyCon);
+				if (auto) {
+					//flyCon.add();
+				}
 				mode = "fly";
 			}
 			else if($.action == "findPeople") {
@@ -264,7 +271,6 @@ var bButton = BUTTONS.Button.template(function($){ return{
 				} else {
 					application.remove(listCon);
 				}
-				
 			}
 			if (mode == "add") {
 				application.remove(addCon);
@@ -315,10 +321,11 @@ var sButton = BUTTONS.Button.template(function($){ return{
 			if(pressed == "start"){
 				pathCon.mainMap.url = "maparrows.jpg";
 				content.invoke(new Message(deviceURL + "startPath", Message.TEXT));
-			}
-			else if(pressed == "stop"){
+				auto = true;
+			} else if(pressed == "stop"){
 				pathCon.mainMap.url = "map.jpg";
 				content.invoke(new Message(deviceURL + "stopPath", Message.TEXT));
+				auto = false;
 			} else if (pressed == "Save") {
 				application.remove(addCon);
 				mode = "find";
@@ -337,7 +344,7 @@ var sButton = BUTTONS.Button.template(function($){ return{
 
 //Template for button that's just an icon you click. Takes in url to icon and
 //title for button.
-var iconButton = BUTTONS.Button.template(function($){ return{
+var moveButton = BUTTONS.Button.template(function($){ return{
 	left: $.left, right: $.right, top: $.top, bottom: $.bottom,
 	contents: [
 		new Picture({width: iconWidth, height: iconHeight, url: $.url, name: "picture"}),
@@ -470,7 +477,6 @@ Handler.bind("/discover", Behavior({
 	onInvoke: function(handler, message){
 		trace("Found the device.\n");
 		deviceURL = JSON.parse(message.requestText).url;	
-		handler.invoke(new Message(deviceURL + "connect"), Message.TEXT);
 	},
 	onComplete: function(handler, message, text){
 		trace("Response was: " + text + "\n");
@@ -511,6 +517,7 @@ var ApplicationBehavior = Behavior.template({
 		application.shared = true;
 	},
 	onQuit: function(application) {
+		content.invoke(new Message(deviceURL + "stopPath", Message.TEXT));
 		application.forget("prototypedevice");
 		application.shared = false;
 	},
