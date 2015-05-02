@@ -252,6 +252,7 @@ var bButton = BUTTONS.Button.template(function($){ return{
 	],
 	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
 		onTap: { value: function(content){
+			KEYBOARD.hide()
 		    if (mode == "path") {
 				application.remove(pathCon);
 			}
