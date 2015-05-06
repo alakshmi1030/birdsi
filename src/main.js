@@ -11,6 +11,7 @@ var saved=false;
 var filled=false;
 var auto=false;
 var pfound=false;
+var high=false;
 
 var nameInputSkin = new Skin({ borders: { left:2, right:2, top:2, bottom:2 }, stroke: 'gray', fill: 'white'});
 var fieldStyle = new Style({ color: 'black', font: 'bold 24px', horizontal: 'left', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
@@ -502,18 +503,22 @@ Handler.bind("/updateCurr", Behavior({
 			pathCon.remove(currX);
 			currX = new Picture({left: currL + json.x, top: currT - json.y, width: 20, height: 20, url:"curr.png"});
 			pathCon.add(currX);
-			if(json.x > 70 && json.x < 75 && json.y > 70 && json.y < 75){
-				//trace("Kid has been found!!");
+			if (json.z > 300) {
+				updateFound("Warning, drone altitude too high. May disconnect.");
+				pfound = false;
+				high = true;
+			} else {
+				high = false;
 				if (!pfound) {
-					main.add(personFoundMain);
-					flyCon.add(personFoundFly);
-					listCon.add(personFoundList);
-					listFilledCon.add(personFoundListFilled);
-					pathCon.add(personFoundSet);
-					addCon.add(personFoundAdd);
-					var pstring = "Person found at " + Math.round(json.x * 10)/10 + ", " + Math.round(json.y * 10)/10;
-					updateFound(pstring);
-					pfound = true;
+					updateFound("");
+				}	
+			}
+			if (!pfound && !high) {
+				if(json.x > 70 && json.x < 75 && json.y > 70 && json.y < 75){
+				//trace("Kid has been found!!");
+				var pstring = "Person found at " + Math.round(json.x * 10)/10 + ", " + Math.round(json.y * 10)/10;
+				updateFound(pstring);
+				pfound = true;
 				}
 			}
 			//pathCon.currxx.height = currT + json.y;
@@ -529,6 +534,7 @@ function updateFound(text) {
 	personFoundList.string = text;
 	personFoundListFilled.string = text;
 	personFoundList.string = text;
+	personFoundMain.string = text;
 }
 
 var ApplicationBehavior = Behavior.template({
@@ -559,7 +565,7 @@ var currX = new Picture({left: currL, top: currT, width: 20, height: 20, url:"cu
 var ptop = 62;
 var pstr = " "
 var psty = rlySmLabelStyle;
-var personFoundMain = new Label({top: 20, string: pstr, style: psty});
+var personFoundMain = new Label({string: pstr, style: psty});
 var personFoundFly = new Label({top: ptop, string: pstr, style: psty});
 var personFoundSet = new Label({top: ptop, string: pstr, style: psty});
 var personFoundList = new Label({top: ptop, string: pstr, style: psty});
@@ -575,4 +581,12 @@ var flyCon = new flyDroneCon();
 var listCon = new listPeopleCon();
 var listFilledCon = new listPeopleConFilled();
 var addCon = new addPeopleCon();
+
+main.add(personFoundMain);
+flyCon.add(personFoundFly);
+listCon.add(personFoundList);
+listFilledCon.add(personFoundListFilled);
+pathCon.add(personFoundSet);
+addCon.add(personFoundAdd);
+
 application.add(main);
