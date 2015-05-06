@@ -10,6 +10,7 @@ var view="center";
 var saved=false;
 var filled=false;
 var auto=false;
+var pfound=false;
 
 var nameInputSkin = new Skin({ borders: { left:2, right:2, top:2, bottom:2 }, stroke: 'gray', fill: 'white'});
 var fieldStyle = new Style({ color: 'black', font: 'bold 24px', horizontal: 'left', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
@@ -26,7 +27,7 @@ var blueS = new Skin({fill:"#99B6BC"});
 var purpleS = new Skin({fill:"#ae5dae"});
 var borderS = new Skin({ borders: {left: 2, right: 2, top: 2, bottom: 2}, stroke: "white"})
 var smLabelStyle = new Style( { font: "30px", color:"black" } );
-var rlySmLabelStyle = new Style( { font: "bold 15px", color:"black" } );
+var rlySmLabelStyle = new Style( { font: "bold 15px", color:"black", fill:"white" } );
 var labelStyle = new Style( { font: "bold 40px", color:"black" } );
 var whiteLabelStyle = new Style( { font: "bold 40px", color:"white" } );
 var plusStyle = new Style( { font: "bold 50px", color:"black" } );
@@ -502,13 +503,33 @@ Handler.bind("/updateCurr", Behavior({
 			currX = new Picture({left: currL + json.x, top: currT - json.y, width: 20, height: 20, url:"curr.png"});
 			pathCon.add(currX);
 			if(json.x > 70 && json.x < 75 && json.y > 70 && json.y < 75){
-				trace("Kid has been found!!");
+				//trace("Kid has been found!!");
+				if (!pfound) {
+					main.add(personFoundMain);
+					flyCon.add(personFoundFly);
+					listCon.add(personFoundList);
+					listFilledCon.add(personFoundListFilled);
+					pathCon.add(personFoundSet);
+					addCon.add(personFoundAdd);
+					var pstring = "Person found at " + Math.round(json.x * 10)/10 + ", " + Math.round(json.y * 10)/10;
+					updateFound(pstring);
+					pfound = true;
+				}
 			}
 			//pathCon.currxx.height = currT + json.y;
 			//currX.width = currT - json.y;
 		}
 	}
 }));
+
+function updateFound(text) {
+	personFoundFly.string = text;
+	personFoundAdd.string = text;
+	personFoundSet.string = text;
+	personFoundList.string = text;
+	personFoundListFilled.string = text;
+	personFoundList.string = text;
+}
 
 var ApplicationBehavior = Behavior.template({
 	onDisplayed: function(application) {
@@ -534,9 +555,21 @@ var descriptionField = new myField({name: "", top: 80, width: 300, left: 10, rig
 
 var currX = new Picture({left: currL, top: currT, width: 20, height: 20, url:"curr.png"}); 
 
+
+var ptop = 62;
+var pstr = " "
+var psty = rlySmLabelStyle;
+var personFoundMain = new Label({top: 20, string: pstr, style: psty});
+var personFoundFly = new Label({top: ptop, string: pstr, style: psty});
+var personFoundSet = new Label({top: ptop, string: pstr, style: psty});
+var personFoundList = new Label({top: ptop, string: pstr, style: psty});
+var personFoundAdd = new Label({top: ptop, string: pstr, style: psty});
+var personFoundListFilled = new Label({top: ptop, string: pstr, style: psty});
+
 var main = new MainCon()
 var pathCon = new setPathCon();
 pathCon.add(currX);
+//main.add(personFound);
 
 var flyCon = new flyDroneCon();
 var listCon = new listPeopleCon();
