@@ -7,7 +7,7 @@ var KEYBOARD = require('mobile/keyboard');
 var deviceURL = "";
 var mode="main";
 var view="center";
-var saved=false;
+var saved=false; // when true, we are finding someone.
 var filled=false;
 var auto=false;
 var pfound=false;
@@ -509,11 +509,11 @@ Handler.bind("/updateCurr", Behavior({
 				high = true;
 			} else {
 				high = false;
-				if (!pfound) {
+				if (!pfound || !saved) {
 					updateFound("");
 				}	
 			}
-			if (!pfound && !high) {
+			if (!pfound && !high && saved) {
 				if(json.x > 70 && json.x < 75 && json.y > 70 && json.y < 75){
 				//trace("Kid has been found!!");
 				var pstring = "Person found at " + Math.round(json.x * 10)/10 + ", " + Math.round(json.y * 10)/10;
