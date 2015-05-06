@@ -178,6 +178,13 @@ var listPeopleConFilled = Container.template(function($) { return {
 		new Line({left:0, right:0, top:390, bottom:0, skin: yellowS}),
 		new Line({left:0, right:0, top:490, bottom:0, skin: redS}),
 		new Line({left:0, right:0, top:590, bottom:0, skin: yellowS}),
+		new smallIconButton({title: "redX", top: 100, right:10, name: "deleteX",
+	        				url: "deletex.png",
+	        				func: function(content) {
+								application.remove(listFilledCon);
+								application.add(listCon);
+								saved = false;
+	        				}})
 	],
 	behavior: Object.create(Container.prototype, {
 		onTouchEnded: { value: function(content){
@@ -417,6 +424,41 @@ var moveButton = BUTTONS.Button.template(function($){ return{
 		}},
 	})
 }});
+
+var smallIconButton = BUTTONS.Button.template(function($){ return{
+	left: $.left, right: $.right, top: $.top, bottom: $.bottom,
+	contents: [
+		new Picture({width: iconWidth * .8, height: iconHeight * .8, url: $.url, name: "picture"}),
+	],
+	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
+		onTap: { value: function(content){
+			if ($.func) {
+				$.func(content);
+			}
+			if ($.title == "ascend") {
+			    if (view == "down") {
+			        flyCon.chinapic.url = "china/ccenter.png";
+			        view = "center";
+			    } else {
+				    flyCon.chinapic.url = "china/cup.png";
+				    view = "up";
+				}
+			}
+			if ($.title == "descend") {
+			    if (view == "up") {
+			        flyCon.chinapic.url = "china/ccenter.png";
+			        view = "center";
+			    } else {
+				    flyCon.chinapic.url = "china/cdown.png";
+				    view = "down";
+				}
+			}
+			content.invoke(new Message(deviceURL + $.title), Message.JSON);
+			trace($.title + " button pressed\n");
+		}},
+	})
+}});
+
 
 var bigIconButton = BUTTONS.Button.template(function($){ return{
 	left: $.left, right: $.right, top: $.top, bottom: $.bottom,
