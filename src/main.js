@@ -457,10 +457,10 @@ var moveButton = BUTTONS.Button.template(function($){ return{
 var smallIconButton = BUTTONS.Button.template(function($){ return{
 	left: $.left, right: $.right, top: $.top, bottom: $.bottom,
 	contents: [
-		new Picture({width: iconWidth * .8, height: iconHeight * .8, url: $.url, name: "picture"}),
+		new Picture({width: iconWidth * .7, height: iconHeight * .7, url: $.url, name: "picture"}),
 	],
 	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
-		onTap: { value: function(content){
+		onTap: { value: function(content) {
 			if ($.func) {
 				$.func(content);
 			}
