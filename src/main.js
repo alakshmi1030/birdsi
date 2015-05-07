@@ -99,8 +99,8 @@ var setPathCon = Container.template(function($) { return {
 	})
 }});
 
-var camH = 250;
-var camW = 250;
+var camH = 200;
+var camW = 400;
 var centerL = 85;
 var centerB = 100;
 var flyDroneCon = Container.template(function($) { return {
@@ -112,7 +112,7 @@ var flyDroneCon = Container.template(function($) { return {
 		//new Label({top: 310, string: "Switch back to manual?", style: rlySmLabelStyle}),
 		new Line({left:0, right:0, top:80, bottom:450, skin: blackS}),
 		// to be replaced with diff pic. perhaps change width and height
-		new Picture({top: 70, width: camW, height: camH,
+		new Picture({top: 90, width: camW, height: camH,
 		url: "china/ccenter.png", name:"chinapic"}),
 		// to replace sButtons with urlbuttons
 		// possibly need an elevation control as well
@@ -434,24 +434,6 @@ var smallIconButton = BUTTONS.Button.template(function($){ return{
 		onTap: { value: function(content){
 			if ($.func) {
 				$.func(content);
-			}
-			if ($.title == "ascend") {
-			    if (view == "down") {
-			        flyCon.chinapic.url = "china/ccenter.png";
-			        view = "center";
-			    } else {
-				    flyCon.chinapic.url = "china/cup.png";
-				    view = "up";
-				}
-			}
-			if ($.title == "descend") {
-			    if (view == "up") {
-			        flyCon.chinapic.url = "china/ccenter.png";
-			        view = "center";
-			    } else {
-				    flyCon.chinapic.url = "china/cdown.png";
-				    view = "down";
-				}
 			}
 			content.invoke(new Message(deviceURL + $.title), Message.JSON);
 			trace($.title + " button pressed\n");
