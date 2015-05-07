@@ -29,6 +29,7 @@ var blueS = new Skin({fill:"#99B6BC"});
 var purpleS = new Skin({fill:"#ae5dae"});
 var borderS = new Skin({ borders: {left: 2, right: 2, top: 2, bottom: 2}, stroke: "white"})
 var smLabelStyle = new Style( { font: "30px", color:"black" } );
+var smsmLabelStyle = new Style( { font: "25px", color:"black" } );
 var rlySmLabelStyle = new Style( { font: "bold 15px", color:"black", fill:"white" } );
 var labelStyle = new Style( { font: "bold 40px", color:"black" } );
 var whiteLabelStyle = new Style( { font: "bold 40px", color:"white" } );
@@ -77,17 +78,20 @@ var MainCon = Column.template(function($) { return {
 	]
 }});
 
+var autoLabel = new Label({top: 380, string: "Drone Under Manual Control", style: smsmLabelStyle});
+
 var leftValue = 25;
 var setPathCon = Container.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: yellowS, active: true, name: "setPathContainer",
 	contents: [
 		new bButton(),
 		new Label({top: 20, string: "Set Path", style: labelStyle}),
-		new Line({left:0, right:0, top:80, bottom:450, skin: blackS}),
+		//new Line({left:0, right:0, top:80, bottom:450, skin: blackS}),
 		new Picture({top: 20,left: 20, right: 20, width: pictureWidth, height: pictureHeight, url: "map2.png", name: "mainMap"}),
 		new Label({top: 277, left: 20, string: "From:", style: fieldStyle}),
 		new Label({top: 326, left: 20, string: "To:", style: fieldStyle}),
 		fromField, toField,
+		autoLabel,
 		new sButton({title: "start", left: 40, top: 420, width: 100, skin: greenS}),
 		new sButton({title: "stop", right: 40, top: 420, width: 100, skin: redS}),
 		//new Picture({left: currL, top: currT, width: 20, height: 20, url:"curr.png", name: "currxx"})
@@ -111,7 +115,7 @@ var flyDroneCon = Container.template(function($) { return {
 		new Label({top: 20, string: "Fly Drone", style: labelStyle}),
 		//new Label({top: 290, string: "Warning: You are still in autopilot mode.", style: rlySmLabelStyle}),
 		//new Label({top: 310, string: "Switch back to manual?", style: rlySmLabelStyle}),
-		new Line({left:0, right:0, top:80, bottom:450, skin: blackS}),
+		//new Line({left:0, right:0, top:80, bottom:450, skin: blackS}),
 		// to be replaced with diff pic. perhaps change width and height
 		new Picture({top: 90, width: camW, height: camH,
 		url: "china/ccenter.png", name:"chinapic"}),
@@ -341,10 +345,12 @@ var sButton = BUTTONS.Button.template(function($){ return{
 				pathCon.mainMap.url = "map2path.png";
 				content.invoke(new Message(deviceURL + "startPath", Message.TEXT));
 				auto = true;
+				autoLabel.string = "Autopilot Engaged"
 			} else if(pressed == "stop"){
-				pathCon.mainMap.url = "map.jpg";
+				pathCon.mainMap.url = "map2.png";
 				content.invoke(new Message(deviceURL + "stopPath", Message.TEXT));
 				auto = false;
+				autoLabel.string = "Drone Under Manual Control"
 			} else if (pressed == "Save") {
 				application.remove(addCon);
 				mode = "find";
@@ -554,7 +560,7 @@ Handler.bind("/updateCurr", Behavior({
 			if (!pfound && !high && saved) {
 				if(json.x > 70 && json.x < 75 && json.y > 70 && json.y < 75){
 				//trace("Kid has been found!!");
-				var pstring = "Person found at " + Math.round(json.x * 10)/10 + ", " + Math.round(json.y * 10)/10;
+				var pstring = "Missing person located at " + Math.round(json.x * 10)/10 + ", " + Math.round(json.y * 10)/10;
 				updateFound(pstring);
 				pfound = true;
 				}
@@ -620,6 +626,7 @@ var flyCon = new flyDroneCon();
 var listCon = new listPeopleCon();
 var listFilledCon = new listPeopleConFilled();
 var addCon = new addPeopleCon();
+
 
 main.add(personFoundMain);
 flyCon.add(personFoundFly);
