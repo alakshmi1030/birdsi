@@ -14,7 +14,7 @@ var pfound=false;
 var high=false;
 var desc="";
 
-var nameInputSkin = new Skin({ borders: { left:2, right:2, top:2, bottom:2 }, stroke: 'gray', fill: 'white'});
+var nameInputSkin = new Skin({ borders: { left:2, right:2, top:2, bottom:2 }, stroke: 'black', fill: 'white'});
 var fieldStyle = new Style({ color: 'black', font: 'bold 24px', horizontal: 'left', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
 var fieldHintStyle = new Style({ color: 'black', font: '24px', horizontal: 'left', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
 var whiteS = new Skin({fill:"white"});
@@ -40,15 +40,17 @@ var whiteBorderSkin = new Skin({
   stroke:"black"
 });
 
+var bw = 2;
+
 var greenBorderSkin = new Skin({
   fill:"#b6d7a7", 
-  borders:{left:5, right:5, top:5, bottom:5}, 
+  borders:{left:bw, right:bw, top:bw, bottom:bw}, 
   stroke:"black"
 });
 
 var redBorderSkin = new Skin({
   fill:"#ea9999", 
-  borders:{left:5, right:5, top:5, bottom:5}, 
+  borders:{left:bw, right:bw, top:bw, bottom:bw}, 
   stroke:"black"
 });
 
