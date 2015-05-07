@@ -34,9 +34,11 @@ var rlySmLabelStyle = new Style( { font: "bold 15px", color:"black", fill:"white
 var labelStyle = new Style( { font: "bold 40px", color:"black" } );
 var whiteLabelStyle = new Style( { font: "bold 40px", color:"white" } );
 var plusStyle = new Style( { font: "bold 50px", color:"black" } );
+
+var bs = 3;
 var whiteBorderSkin = new Skin({
   fill:"white", 
-  borders:{left:5, right:5, top:5, bottom:5}, 
+  borders:{left:bs, right:bs, top:bs, bottom:bs}, 
   stroke:"black"
 });
 
@@ -140,8 +142,8 @@ var flyDroneCon = Container.template(function($) { return {
 		new moveButton({title:"back", url: "down.png", left: centerL, bottom: centerB - 50, func: false}),
 		new moveButton({title:"left", url: "left.png", left: centerL - 40, bottom: centerB, func: false}),
 		new moveButton({title:"right", url: "right.png", left: centerL + 40, bottom: centerB, func: false}),
-		new moveButton({title:"right", url: "turnR.png", left: centerL + 40, bottom: centerB + 50, func: false}),
-		new moveButton({title:"left", url: "turnL.png", left: centerL - 40, bottom: centerB + 50, func: false}),
+		new moveButton({title:"right", url: "turnR.png", left: centerL + 50, bottom: centerB + 50, func: false}),
+		new moveButton({title:"left", url: "turnL.png", left: centerL - 50, bottom: centerB + 50, func: false}),
 		
 		new Label({top: 20, string: "Motion", style: labelStyle}),
 		new Label({top: 20, string: "Elevation", style: labelStyle}),
@@ -227,9 +229,7 @@ var addPeopleCon = Container.template(function($) { return {
 	contents: [
 		new bButton(),
 		new Label({top: 20, string: "Add Person", style: labelStyle}),
-		new Line({left:0, right:0, top:80, skin: blackS}),
 		descriptionField,
-		,
 		new sButton({title: "Save", left: 40, top: 420, width: 250, skin: greenBorderSkin}),
 		new Line({top:130, height:230, width: 250, skin: whiteBorderSkin, name: "photo",
 	      contents:[
