@@ -7,12 +7,14 @@ var KEYBOARD = require('mobile/keyboard');
 var deviceURL = "";
 var mode="main";
 var view="center";
-var saved=false; // when true, we are finding someone.
-var filled=false;
+var saved = [false, false]; // when true, we are finding someone.
+var filled= [false, false];
 var auto=false;
 var pfound=false;
 var high=false;
 var desc="";
+var desc1 = "";
+var desc2="";
 
 var nameInputSkin = new Skin({ borders: { left:2, right:2, top:2, bottom:2 }, stroke: 'black', fill: 'white'});
 var fieldStyle = new Style({ color: 'black', font: 'bold 24px', horizontal: 'left', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
@@ -205,11 +207,46 @@ var listPeopleConFilled = Container.template(function($) { return {
 		new Line({left:0, right:0, top:490, bottom:0, skin: redS}),
 		new Line({left:0, right:0, top:590, bottom:0, skin: yellowS}),
 		new smallIconButton({title: "redX", top: 100, right:10, name: "deleteX",
-	        				url: "deletex.png",
+	        				url: "edit.png",
 	        				func: function(content) {
 								application.remove(listFilledCon);
-								application.add(listCon);
-								saved = false;
+								application.add(addCon);
+								mode = "add";
+	        				}}),
+	],
+	behavior: Object.create(Container.prototype, {
+		onTouchEnded: { value: function(content){
+			KEYBOARD.hide();
+			content.focus();
+		}}
+	})
+}});
+
+var listPeopleConFilled2 = Container.template(function($) { return {
+	left: 0, right: 0, top: 0, bottom: 0, skin: blueS, active: true, name: "flyDroneContainer",
+	contents: [
+		new bButton(),
+		new Label({top: 20, string: "Find People", style: labelStyle}),
+		new plusButton(),
+		new Picture({left: 0, top: 90, url:"person.png"}),
+		new Picture({left: 0, top: 190, url:"person2.jpg"}),
+		new Line({left:0, right:0, top:290, bottom:0, skin: redS}),
+		new Line({left:0, right:0, top:390, bottom:0, skin: yellowS}),
+		new Line({left:0, right:0, top:490, bottom:0, skin: redS}),
+		new Line({left:0, right:0, top:590, bottom:0, skin: yellowS}),
+		new smallIconButton({title: "redX", top: 100, right:10, name: "deleteX",
+	        				url: "edit.png",
+	        				func: function(content) {
+								application.remove(listFilledCon2);
+								application.add(addCon);
+								mode = "add";
+	        				}}),
+	    new smallIconButton({title: "redX", top: 200, right:10, name: "deleteX",
+	        				url: "edit.png",
+	        				func: function(content) {
+								application.remove(listFilledCon2);
+								application.add(addCon2);
+								mode = "add";
 	        				}}),
 	],
 	behavior: Object.create(Container.prototype, {
@@ -226,16 +263,46 @@ var addPeopleCon = Container.template(function($) { return {
 		new bButton(),
 		new Label({top: 20, string: "Add Person", style: labelStyle}),
 		descriptionField,
-		new sButton({title: "Save", left: 40, top: 420, width: 250, skin: greenBorderSkin}),
+		new sButton({title: "Delete", left: 40, top: 420, width: 110, skin: redBorderSkin, whichDelete: 1}),
+		new sButton({title: "Save", left: 175, top: 420, width: 110, skin: greenBorderSkin}),
 		new Line({top:130, height:230, width: 250, skin: whiteBorderSkin, name: "photo",
 	      contents:[
 	        new bigIconButton({title: "person photo", top: 0, left:0, right: 0, bottom:0, name: "missingPhoto",
 	        				url: "tapload.jpg",
 	        				func: function(content) {
-	        					filled = true;
+	        					filled[0] = true;
 	        					content.picture.width = 325;
 	        					content.picture.height = 205;
 	        					content.picture.load("kid.jpg");
+	        				}})
+	      ]
+	    })
+	],
+	behavior: Object.create(Container.prototype, {
+		onTouchEnded: { value: function(content) {
+			KEYBOARD.hide();
+			content.focus();
+		}}
+	})
+}});
+
+var addPeopleCon2 = Container.template(function($) { return {
+	left: 0, right: 0, top: 0, bottom: 0, skin: blueS, active: true, name: "flyDroneContainer",
+	contents: [
+		new bButton(),
+		new Label({top: 20, string: "Add Person", style: labelStyle}),
+		descriptionField2,
+		new sButton({title: "Delete", left: 40, top: 420, width: 110, skin: redBorderSkin, whichDelete: 2}),
+		new sButton({title: "Save", left: 175, top: 420, width: 110, skin: greenBorderSkin}),
+		new Line({top:130, height:230, width: 250, skin: whiteBorderSkin, name: "photo",
+	      contents:[
+	        new bigIconButton({title: "person photo 2", top: 0, left:0, right: 0, bottom:0, name: "missingPhoto",
+	        				url: "tapload.jpg",
+	        				func: function(content) {
+	        					filled[1] = true;
+	        					content.picture.width = 325;
+	        					content.picture.height = 205;
+	        					content.picture.load("kid2.jpg");
 	        				}})
 	      ]
 	    })
@@ -273,14 +340,19 @@ var aButton = BUTTONS.Button.template(function($) { return {
 			}
 			else if($.action == "findPeople") {
 				application.remove(main);
-				if (saved) {
+				if (saved[1]) {
+					application.add(listFilledCon2);
+				} else if (saved[0]) {
 					application.add(listFilledCon);
 				} else {
 					application.add(listCon);
 				}
-				mode = "find";
+				descBox2.string = desc2;
+				descBox1.string = desc;
 				descBox.string = desc;
-				trace("desc is " + desc);
+				mode = "find";
+				trace("descBox2 is " + descBox2.string + "\n");
+				trace("descBox is " + descBox.string + "\n");
 				//listFilledCon.remove(descBox);
 				//listFilledCon.add(descBox);
 			}
@@ -306,19 +378,32 @@ var bButton = BUTTONS.Button.template(function($){ return{
 				application.remove(flyCon);
 			}
 			if (mode == "find") {
-				if (saved) {
+				if (saved[1]) {
+					application.remove(listFilledCon2);
+				} else if (saved[0]) {
 					application.remove(listFilledCon);
 				} else {
 					application.remove(listCon);
 				}
 			}
 			if (mode == "add") {
-				application.remove(addCon);
-				if (!saved) {
+				for (var yo in application.first) {
+					trace(yo + "\n");
+					trace (application[yo] + "\n");
+				}
+				if (saved[0]) {
+					application.remove(addCon2);
+				} else {
+					application.remove(addCon);
+				}
+				trace(saved);
+				if (!(saved[0])) {
 					//filled = false;
 					application.add(listCon);
-				} else {
+				} else if (!(saved[1])) {
 					application.add(listFilledCon);
+				} else {
+					application.add(listFilledCon2);
 				}
 				mode = "find";
 				return;
@@ -337,13 +422,19 @@ var plusButton = BUTTONS.Button.template(function($){ return{
 	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
 		onTap: { value: function(content){
 		    if (mode == "find") {
-		        if (saved) {
+		        if (saved[1]) {
+		        	application.remove(listFilledCon2);
+		        } else if (saved[0]) {
 		        	application.remove(listFilledCon);
 				} else {
 					application.remove(listCon);
 				}
 				mode = "add";
-				application.add(addCon);
+				if (saved[0]) {
+					application.add(addCon2);
+				} else {
+					application.add(addCon);
+				}
 			}
 		}}
 	})
@@ -369,17 +460,56 @@ var sButton = BUTTONS.Button.template(function($){ return{
 				auto = false;
 				autoLabel.string = "Drone Under Manual Control"
 			} else if (pressed == "Save") {
-				application.remove(addCon);
-				mode = "find";
-				flyCon.chinapic.url = "china/ccenter.png";
-				if (filled) {
-					saved = true;
+				if (filled[1]) {
+					application.remove(addCon2);
+					saved[1] = true;
+					descBox2.string = desc2;
+					application.add(listFilledCon2);
+				} else if (filled[0]) {
+					saved[0] = true;
+					descBox.string = desc;
+					descBox1.string = desc;
+					application.remove(addCon);
 					application.add(listFilledCon);
 				} else {
+					application.remove(addCon);
 					application.add(listCon);
 				}
-				descBox.string = desc;
+				trace(saved);
+				mode = "find";
+				flyCon.chinapic.url = "china/ccenter.png";
 				content.invoke(new Message(deviceURL + "search"), Message.JSON);
+			} else if (pressed == "Delete") {
+				if ($.whichDelete == 2) {
+					saved[1] = false;
+					filled[1] = false;
+					application.remove(addCon2);
+					application.add(listFilledCon);
+					addCon2.photo.missingPhoto.load("tapload.jpg");
+					descriptionField2.myScroller.myLabel.string = "";
+					desc2 = "";
+					descBox2.string = ""
+					//addCon2.add(personFoundAdd2);
+				} else {
+					for (var i = 0; i < saved.length; i++) {
+						saved[i] = false;
+						filled[i] = false;
+					}
+					application.remove(addCon);
+					application.add(listCon);
+					trace(addCon.photo + "\n");
+					trace(addCon.photo.contents.missingPhoto);
+					addCon2.photo.contents.missingPhoto.load("tapload.jpg");
+					descriptionField2.myScroller.myLabel.string = "";
+					desc2 = "";
+					descBox2.string = ""
+					addCon.photo.contents.missingPhoto.load("tapload.jpg");
+					descriptionField.myScroller.myLabel.string = "";
+					desc = "";
+					descBox.string = ""
+					descBox1.string = "";
+				}
+				mode = "find";
 			}
 		}}
 	})
@@ -521,10 +651,14 @@ var myField = Container.template(function($) { return {
 				 		onEdited: { value: function(label){
 				 			var data = this.data;
 							data.name = label.string;
-							if ($.hint == "Description") {
+							if ($.type == "Description") {
 								desc = label.string;
-								trace("desc is " + desc);
+								desc1 = label.string;
+							} else if ($.type == "Description2") { 
+								desc2 = label.string;
 							}
+							trace("desc is " + desc + "\n");
+							trace("desc2 is " + desc2 + "\n");
 							label.container.hint.visible = ( data.name.length == 0 );
 				 		}}
 				 	}),
@@ -570,11 +704,11 @@ Handler.bind("/updateCurr", Behavior({
 				high = true;
 			} else {
 				high = false;
-				if (!pfound || !saved) {
+				if (!pfound || !(saved[0])) {
 					updateFound("");
 				}	
 			}
-			if (!pfound && !high && saved) {
+			if (!pfound && !high && saved[0]) {
 				if(json.x > 70 && json.x < 75 && json.y > 70 && json.y < 75){
 				//trace("Kid has been found!!");
 				var pstring = "Missing person located at " + Math.round(json.x * 10)/10 + ", " + Math.round(json.y * 10)/10;
@@ -591,9 +725,11 @@ Handler.bind("/updateCurr", Behavior({
 function updateFound(text) {
 	personFoundFly.string = text;
 	personFoundAdd.string = text;
+	personFoundAdd2.string = text;
 	personFoundSet.string = text;
 	personFoundList.string = text;
 	personFoundListFilled.string = text;
+	personFoundListFilled2.string = text;
 	personFoundList.string = text;
 	personFoundMain.string = text;
 }
@@ -616,23 +752,29 @@ application.behavior = new ApplicationBehavior();
 var currL = 20;
 var currT = 240;
 
-var fromField = new myField({ name: "", top: 270, width: 250, left: 100, right: 10, height: 44, hint: "Address" });
-var toField = new myField({ name: "", top: 320, width: 250, left: 100, right: 10, height: 44, hint: "Address" });
-var descriptionField = new myField({name: "", top: 80, width: 300, left: 10, right: 10, height: 44, hint: "Description"});
+var fromField = new myField({ name: "", top: 270, width: 250, left: 100, right: 10, height: 44, hint: "Address", type: "" });
+var toField = new myField({ name: "", top: 320, width: 250, left: 100, right: 10, height: 44, hint: "Address", type: "" });
+var descriptionField = new myField({name: "", top: 80, width: 300, left: 10, right: 10, height: 44, hint: "Description", type: "Description"});
+var descriptionField2 = new myField({name: "", top: 80, width: 300, left: 10, right: 10, height: 44, hint: "Description", type: "Description2"});
 
 var currX = new Picture({left: currL, top: currT, width: 20, height: 20, url:"curr.png"}); 
 
 
 var ptop = 62;
-var pstr = " "
+var pstr = " ";
 var psty = rlySmLabelStyle; 
 var personFoundMain = new Label({string: pstr , style: psty});
 var personFoundFly = new Label({top: ptop, string: pstr, style: psty});
 var personFoundSet = new Label({top: ptop, string: pstr, style: psty});
 var personFoundList = new Label({top: ptop, string: pstr, style: psty});
 var personFoundAdd = new Label({top: ptop, string: pstr, style: psty});
+var personFoundAdd2 = new Label({top: ptop, string: pstr, style: psty});
 var personFoundListFilled = new Label({top: ptop, string: " ", style: psty});
+var personFoundListFilled2 = new Label({top: ptop, string: " ", style: psty});
 var descBox = new Label({top: 140, left: 110, string: "", style: smLabelStyle});
+var descBox1 = new Label({top: 140, left: 110, string: "", style: smLabelStyle});
+var descBox2 = new Label({top: 240, left: 110, string: "", style: smLabelStyle});
+
 
 var main = new MainCon()
 var pathCon = new setPathCon();
@@ -642,14 +784,20 @@ pathCon.add(currX);
 var flyCon = new flyDroneCon();
 var listCon = new listPeopleCon();
 var listFilledCon = new listPeopleConFilled();
+var listFilledCon2 = new listPeopleConFilled2();
 var addCon = new addPeopleCon();
+var addCon2 = new addPeopleCon2();
 
 flyCon.add(personFoundFly);
 listCon.add(personFoundList);
 listFilledCon.add(personFoundListFilled);
+listFilledCon2.add(personFoundListFilled2);
 listFilledCon.add(descBox);
+listFilledCon2.add(descBox1);
+listFilledCon2.add(descBox2);
 
 pathCon.add(personFoundSet);
 addCon.add(personFoundAdd);
+addCon2.add(personFoundAdd2);
 main.add(personFoundMain);
 application.add(main);
