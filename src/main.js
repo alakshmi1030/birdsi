@@ -145,8 +145,8 @@ var flyDroneCon = Container.template(function($) { return {
 		new moveButton({title:"right", url: "turnR.png", left: centerL + 50, bottom: centerB + 50, func: false}),
 		new moveButton({title:"left", url: "turnL.png", left: centerL - 50, bottom: centerB + 50, func: false}),
 		
-		new Label({top: 20, string: "Motion", style: labelStyle}),
-		new Label({top: 20, string: "Elevation", style: labelStyle}),
+		new Label({left: centerL, bottom: centerB + 100, string: "Motion", style: smLabelStyle}),
+		new Label({right: 25, bottom: centerB + 100, string: "Elevation", style: smLabelStyle}),
 		
 		
 		//new iconButton({title: "Zin", url: "zoomin.png", right: 50, bottom: 180}),
