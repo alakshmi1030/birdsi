@@ -40,12 +40,25 @@ var whiteBorderSkin = new Skin({
   stroke:"black"
 });
 
+var greenBorderSkin = new Skin({
+  fill:"#b6d7a7", 
+  borders:{left:5, right:5, top:5, bottom:5}, 
+  stroke:"black"
+});
+
+var redBorderSkin = new Skin({
+  fill:"#ea9999", 
+  borders:{left:5, right:5, top:5, bottom:5}, 
+  stroke:"black"
+});
+
 var iconWidth = 50;
 var iconHeight = 50;
 var pictureWidth = 325;
 var pictureHeight = 325;
 
 var MainCon = Column.template(function($) { return {
+
 	left: 0, right: 0, top: 0, bottom: 0, skin: whiteS, active: true, name: "column", 
 	contents: [
 		Line($, {
@@ -92,8 +105,8 @@ var setPathCon = Container.template(function($) { return {
 		new Label({top: 326, left: 20, string: "To:", style: fieldStyle}),
 		fromField, toField,
 		autoLabel,
-		new sButton({title: "start", left: 40, top: 420, width: 100, skin: greenS}),
-		new sButton({title: "stop", right: 40, top: 420, width: 100, skin: redS}),
+		new sButton({title: "start", left: 40, top: 420, width: 100, skin: greenBorderSkin}),
+		new sButton({title: "stop", right: 40, top: 420, width: 100, skin: redBorderSkin}),
 		//new Picture({left: currL, top: currT, width: 20, height: 20, url:"curr.png", name: "currxx"})
 	],
 	behavior: Object.create(Container.prototype, {
@@ -209,7 +222,7 @@ var addPeopleCon = Container.template(function($) { return {
 		new Line({left:0, right:0, top:80, skin: blackS}),
 		descriptionField,
 		,
-		new sButton({title: "Save", left: 40, top: 420, width: 250, skin: greenS}),
+		new sButton({title: "Save", left: 40, top: 420, width: 250, skin: greenBorderSkin}),
 		new Line({top:130, height:230, width: 250, skin: whiteBorderSkin, name: "photo",
 	      contents:[
 	        new bigIconButton({title: "person photo", top: 0, left:0, right: 0, bottom:0, name: "missingPhoto",
@@ -504,7 +517,7 @@ var myField = Container.template(function($) { return {
 				 		onEdited: { value: function(label){
 				 			var data = this.data;
 							data.name = label.string;
-							if ($.hint == "Description" || true) {
+							if ($.hint == "Description") {
 								desc = label.string;
 								trace("desc is " + desc);
 							}
@@ -608,8 +621,8 @@ var currX = new Picture({left: currL, top: currT, width: 20, height: 20, url:"cu
 
 var ptop = 62;
 var pstr = " "
-var psty = rlySmLabelStyle;
-var personFoundMain = new Label({string: pstr, style: psty});
+var psty = rlySmLabelStyle; 
+var personFoundMain = new Label({string: pstr , style: psty});
 var personFoundFly = new Label({top: ptop, string: pstr, style: psty});
 var personFoundSet = new Label({top: ptop, string: pstr, style: psty});
 var personFoundList = new Label({top: ptop, string: pstr, style: psty});
@@ -627,8 +640,6 @@ var listCon = new listPeopleCon();
 var listFilledCon = new listPeopleConFilled();
 var addCon = new addPeopleCon();
 
-
-main.add(personFoundMain);
 flyCon.add(personFoundFly);
 listCon.add(personFoundList);
 listFilledCon.add(personFoundListFilled);
@@ -636,5 +647,5 @@ listFilledCon.add(descBox);
 
 pathCon.add(personFoundSet);
 addCon.add(personFoundAdd);
-
+main.add(personFoundMain);
 application.add(main);
