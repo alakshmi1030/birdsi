@@ -489,8 +489,8 @@ var sButton = BUTTONS.Button.template(function($){ return{
 					filled[1] = false;
 					application.remove(addCon2);
 					application.add(listFilledCon);
-					addCon2.photo.missingPhoto.load("tapload.jpg");
-					descriptionField2.myScroller.myLabel.string = "";
+					//addCon2.photo.missingPhoto.load("tapload.jpg");
+					//descriptionField2.myScroller.myLabel.string = "";
 					desc2 = "";
 					descBox2.string = ""
 					//addCon2.add(personFoundAdd2);
@@ -502,13 +502,13 @@ var sButton = BUTTONS.Button.template(function($){ return{
 					application.remove(addCon);
 					application.add(listCon);
 					trace(addCon.photo + "\n");
-					trace(addCon.photo.contents.missingPhoto);
-					addCon2.photo.contents.missingPhoto.load("tapload.jpg");
-					descriptionField2.myScroller.myLabel.string = "";
+					//trace(addCon.photo.contents.missingPhoto);
+					//addCon2.photo.contents.missingPhoto.load("tapload.jpg");
+					//descriptionField2.myScroller.myLabel.string = "";
 					desc2 = "";
 					descBox2.string = ""
-					addCon.photo.contents.missingPhoto.load("tapload.jpg");
-					descriptionField.myScroller.myLabel.string = "";
+					//addCon.photo.contents.missingPhoto.load("tapload.jpg");
+					//descriptionField.myScroller.myLabel.string = "";
 					desc = "";
 					descBox.string = ""
 					descBox1.string = "";
