@@ -12,6 +12,7 @@ var filled=false;
 var auto=false;
 var pfound=false;
 var high=false;
+var desc="";
 
 var nameInputSkin = new Skin({ borders: { left:2, right:2, top:2, bottom:2 }, stroke: 'gray', fill: 'white'});
 var fieldStyle = new Style({ color: 'black', font: 'bold 24px', horizontal: 'left', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
@@ -83,7 +84,7 @@ var setPathCon = Container.template(function($) { return {
 		new bButton(),
 		new Label({top: 20, string: "Set Path", style: labelStyle}),
 		new Line({left:0, right:0, top:80, bottom:450, skin: blackS}),
-		new Picture({top: 30,left: 20, right: 20, width: pictureWidth, height: pictureHeight, url: "map.jpg", name: "mainMap"}),
+		new Picture({top: 20,left: 20, right: 20, width: pictureWidth, height: pictureHeight, url: "map2.png", name: "mainMap"}),
 		new Label({top: 277, left: 20, string: "From:", style: fieldStyle}),
 		new Label({top: 326, left: 20, string: "To:", style: fieldStyle}),
 		fromField, toField,
@@ -101,7 +102,7 @@ var setPathCon = Container.template(function($) { return {
 
 var camH = 200;
 var camW = 400;
-var centerL = 85;
+var centerL = 70;
 var centerB = 100;
 var flyDroneCon = Container.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: redS, active: true, name: "flyDroneContainer",
@@ -166,6 +167,8 @@ var listPeopleCon = Container.template(function($) { return {
 	})
 }});
 
+
+
 var listPeopleConFilled = Container.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: blueS, active: true, name: "flyDroneContainer",
 	contents: [
@@ -184,7 +187,7 @@ var listPeopleConFilled = Container.template(function($) { return {
 								application.remove(listFilledCon);
 								application.add(listCon);
 								saved = false;
-	        				}})
+	        				}}),
 	],
 	behavior: Object.create(Container.prototype, {
 		onTouchEnded: { value: function(content){
@@ -194,7 +197,6 @@ var listPeopleConFilled = Container.template(function($) { return {
 	})
 }});
 
-
 var addPeopleCon = Container.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: blueS, active: true, name: "flyDroneContainer",
 	contents: [
@@ -202,6 +204,8 @@ var addPeopleCon = Container.template(function($) { return {
 		new Label({top: 20, string: "Add Person", style: labelStyle}),
 		new Line({left:0, right:0, top:80, skin: blackS}),
 		descriptionField,
+		,
+		new sButton({title: "Save", left: 40, top: 420, width: 250, skin: greenS}),
 		new Line({top:130, height:230, width: 250, skin: whiteBorderSkin, name: "photo",
 	      contents:[
 	        new bigIconButton({title: "person photo", top: 0, left:0, right: 0, bottom:0, name: "missingPhoto",
@@ -213,8 +217,7 @@ var addPeopleCon = Container.template(function($) { return {
 	        					content.picture.load("kid.jpg");
 	        				}})
 	      ]
-	    }),
-		new sButton({title: "Save", left: 40, top: 420, width: 250, skin: greenS}),
+	    })
 	],
 	behavior: Object.create(Container.prototype, {
 		onTouchEnded: { value: function(content) {
@@ -224,6 +227,7 @@ var addPeopleCon = Container.template(function($) { return {
 	})
 }});
 
+//				addPeopleCon.uploadpic.content.picture.load("blank.jpg");
 
 var aButton = BUTTONS.Button.template(function($) { return {
 	left: 0, right: 0, height: 170,
@@ -235,6 +239,7 @@ var aButton = BUTTONS.Button.template(function($) { return {
 			if($.action == "setPath"){
 				application.remove(main);
 				application.add(pathCon);
+				addPeopleCon.photo;
 				mode = "path";
 			}
 			else if($.action == "flyDrone") {
@@ -253,6 +258,10 @@ var aButton = BUTTONS.Button.template(function($) { return {
 					application.add(listCon);
 				}
 				mode = "find";
+				descBox.string = desc;
+				trace("desc is " + desc);
+				//listFilledCon.remove(descBox);
+				//listFilledCon.add(descBox);
 			}
 			else{
 				trace($.title + " button pressed\n");
@@ -285,7 +294,7 @@ var bButton = BUTTONS.Button.template(function($){ return{
 			if (mode == "add") {
 				application.remove(addCon);
 				if (!saved) {
-					filled = false;
+					//filled = false;
 					application.add(listCon);
 				} else {
 					application.add(listFilledCon);
@@ -329,7 +338,7 @@ var sButton = BUTTONS.Button.template(function($){ return{
 		onTap: { value: function(content){
 			var pressed = $.title;
 			if(pressed == "start"){
-				pathCon.mainMap.url = "maparrows.jpg";
+				pathCon.mainMap.url = "map2path.png";
 				content.invoke(new Message(deviceURL + "startPath", Message.TEXT));
 				auto = true;
 			} else if(pressed == "stop"){
@@ -346,6 +355,7 @@ var sButton = BUTTONS.Button.template(function($){ return{
 				} else {
 					application.add(listCon);
 				}
+				descBox.string = desc;
 				content.invoke(new Message(deviceURL + "search"), Message.JSON);
 			}
 		}}
@@ -488,6 +498,10 @@ var myField = Container.template(function($) { return {
 				 		onEdited: { value: function(label){
 				 			var data = this.data;
 							data.name = label.string;
+							if ($.hint == "Description" || true) {
+								desc = label.string;
+								trace("desc is " + desc);
+							}
 							label.container.hint.visible = ( data.name.length == 0 );
 				 		}}
 				 	}),
@@ -577,7 +591,7 @@ var ApplicationBehavior = Behavior.template({
 application.behavior = new ApplicationBehavior();
 
 var currL = 20;
-var currT = 245;
+var currT = 240;
 
 var fromField = new myField({ name: "", top: 270, width: 250, left: 100, right: 10, height: 44, hint: "Address" });
 var toField = new myField({ name: "", top: 320, width: 250, left: 100, right: 10, height: 44, hint: "Address" });
@@ -594,7 +608,8 @@ var personFoundFly = new Label({top: ptop, string: pstr, style: psty});
 var personFoundSet = new Label({top: ptop, string: pstr, style: psty});
 var personFoundList = new Label({top: ptop, string: pstr, style: psty});
 var personFoundAdd = new Label({top: ptop, string: pstr, style: psty});
-var personFoundListFilled = new Label({top: ptop, string: pstr, style: psty});
+var personFoundListFilled = new Label({top: ptop, string: " ", style: psty});
+var descBox = new Label({top: 140, left: 110, string: "", style: smLabelStyle});
 
 var main = new MainCon()
 var pathCon = new setPathCon();
@@ -610,6 +625,8 @@ main.add(personFoundMain);
 flyCon.add(personFoundFly);
 listCon.add(personFoundList);
 listFilledCon.add(personFoundListFilled);
+listFilledCon.add(descBox);
+
 pathCon.add(personFoundSet);
 addCon.add(personFoundAdd);
 
