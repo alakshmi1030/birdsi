@@ -761,8 +761,8 @@ var currT = 240;
 
 var fromField = new myField({ name: "", top: 270, width: 250, left: 100, right: 10, height: 44, hint: "Address", type: "" });
 var toField = new myField({ name: "", top: 320, width: 250, left: 100, right: 10, height: 44, hint: "Address", type: "" });
-var descriptionField = new myField({name: "", top: 80, width: 300, left: 10, right: 10, height: 44, hint: "Description", type: "Description"});
-var descriptionField2 = new myField({name: "", top: 80, width: 300, left: 10, right: 10, height: 44, hint: "Description", type: "Description2"});
+var descriptionField = new myField({name: "", top: 80, width: 300, left: 10, right: 10, height: 44, hint: "Name", type: "Description"});
+var descriptionField2 = new myField({name: "", top: 80, width: 300, left: 10, right: 10, height: 44, hint: "Name", type: "Description2"});
 
 var currX = new Picture({left: currL, top: currT, width: 20, height: 20, url:"curr.png"}); 
 
