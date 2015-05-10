@@ -264,6 +264,32 @@ var listPeopleConFilled2 = Container.template(function($) { return {
 	})
 }});
 
+var listPeopleConFilled3 = Container.template(function($) { return {
+	left: 0, right: 0, top: 0, bottom: 0, skin: blueS, active: true, name: "flyDroneContainer",
+	contents: [
+		new bButton(),
+		new Label({top: 20, string: "Find People", style: labelStyle}),
+		new plusButton(),
+		new Picture({left: 0, top: 90, url:"person2.jpg"}),
+		new Line({left:0, right:0, top:290, bottom:0, skin: blueS3}),
+		new Line({left:0, right:0, top:390, bottom:0, skin: blueS4}),
+		new Line({left:0, right:0, top:490, bottom:0, skin: blueS5}),
+		new smallIconButton({title: "redX", top: 100, right:10, name: "deleteX",
+	        				url: "edit.png",
+	        				func: function(content) {
+								application.remove(listFilledCon3);
+								application.add(addCon3);
+								mode = "add";
+	        				}}),
+	],
+	behavior: Object.create(Container.prototype, {
+		onTouchEnded: { value: function(content){
+			KEYBOARD.hide();
+			content.focus();
+		}}
+	})
+}});
+
 var addPeopleCon = Container.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: blueS, active: true, name: "flyDroneContainer",
 	contents: [
@@ -467,20 +493,25 @@ var sButton = BUTTONS.Button.template(function($){ return{
 				auto = false;
 				autoLabel.string = "Drone Under Manual Control"
 			} else if (pressed == "Save") {
-				if (filled[1]) {
-					application.remove(addCon2);
-					saved[1] = true;
-					descBox2.string = desc2;
-					application.add(listFilledCon2);
-				} else if (filled[0]) {
-					saved[0] = true;
-					descBox.string = desc;
-					descBox1.string = desc;
+				if (!saved[0]) {
 					application.remove(addCon);
-					application.add(listFilledCon);
+					if (filled[0]) {
+						application.add(listFilledCon);
+						saved[0] = true;
+						descBox.string = desc;
+						descBox1.string = desc;
+					} else {
+						application.add(listCon);
+					}
 				} else {
-					application.remove(addCon);
-					application.add(listCon);
+					application.remove(addCon2);
+					if (filled[1]) {
+						saved[1] = true;
+						descBox2.string = desc2;
+						application.add(listFilledCon2);
+					} else {
+						application.add(listFilledCon);
+					}
 				}
 				trace(saved);
 				mode = "find";
@@ -518,6 +549,7 @@ var sButton = BUTTONS.Button.template(function($){ return{
 				}
 				mode = "find";
 			}
+			trace("\ndone click\n");
 		}}
 	})
 }});
@@ -664,8 +696,6 @@ var myField = Container.template(function($) { return {
 							} else if ($.type == "Description2") { 
 								desc2 = label.string;
 							}
-							trace("desc is " + desc + "\n");
-							trace("desc2 is " + desc2 + "\n");
 							label.container.hint.visible = ( data.name.length == 0 );
 				 		}}
 				 	}),
