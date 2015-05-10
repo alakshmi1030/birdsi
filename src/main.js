@@ -218,6 +218,7 @@ var listPeopleConFilled = Container.template(function($) { return {
 		new smallIconButton({title: "redX", top: 100, right:10, name: "deleteX",
 	        				url: "edit.png",
 	        				func: function(content) {
+	        					addedit.string = "Edit Person";
 								application.remove(listFilledCon);
 								application.add(addCon);
 								mode = "add";
@@ -250,6 +251,7 @@ var listPeopleConFilled2 = Container.template(function($) { return {
 								application.add(addCon);
 								mode = "add";
 								person = 1;
+								addedit.string = "Edit Person";
 	        				}}),
 	    new smallIconButton({title: "redX", top: 200, right:10, name: "deleteX",
 	        				url: "edit.png",
@@ -258,6 +260,7 @@ var listPeopleConFilled2 = Container.template(function($) { return {
 								application.add(addCon2);
 								mode = "add";
 								person = 2;
+								addedit2.string = "Edit Person";
 	        				}}),
 	],
 	behavior: Object.create(Container.prototype, {
@@ -268,12 +271,14 @@ var listPeopleConFilled2 = Container.template(function($) { return {
 	})
 }});
 
+var addedit = new Label({top: 20, string: "Add Person", style: labelStyle});
+var addedit2 = new Label({top: 20, string: "Add Person", style: labelStyle});
 
 var addPeopleCon = Container.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: blueS, active: true, name: "flyDroneContainer",
 	contents: [
 		new bButton(),
-		new Label({top: 20, string: "Add Person", style: labelStyle}),
+		addedit,
 		descriptionField,
 		new sButton({title: "Delete", left: 40, top: 420, width: 110, skin: redBorderSkin, whichDelete: 1}),
 		new sButton({title: "Save", left: 175, top: 420, width: 110, skin: greenBorderSkin}),
@@ -302,7 +307,7 @@ var addPeopleCon2 = Container.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: blueS, active: true, name: "flyDroneContainer",
 	contents: [
 		new bButton(),
-		new Label({top: 20, string: "Add Person", style: labelStyle}),
+		addedit2,
 		descriptionField2,
 		new sButton({title: "Delete", left: 40, top: 420, width: 110, skin: redBorderSkin, whichDelete: 2}),
 		new sButton({title: "Save", left: 175, top: 420, width: 110, skin: greenBorderSkin}),
@@ -399,6 +404,8 @@ var bButton = BUTTONS.Button.template(function($){ return{
 				}
 			}
 			if (mode == "add") {
+				addedit.string = "Add Person";
+				addedit2.string = "Add Person";
 				for (var yo in application.first) {
 					trace(yo + "\n");
 					trace (application[yo] + "\n");
