@@ -264,31 +264,6 @@ var listPeopleConFilled2 = Container.template(function($) { return {
 	})
 }});
 
-var listPeopleConFilled3 = Container.template(function($) { return {
-	left: 0, right: 0, top: 0, bottom: 0, skin: blueS, active: true, name: "flyDroneContainer",
-	contents: [
-		new bButton(),
-		new Label({top: 20, string: "Find People", style: labelStyle}),
-		new plusButton(),
-		new Picture({left: 0, top: 90, url:"person2.jpg"}),
-		new Line({left:0, right:0, top:290, bottom:0, skin: blueS3}),
-		new Line({left:0, right:0, top:390, bottom:0, skin: blueS4}),
-		new Line({left:0, right:0, top:490, bottom:0, skin: blueS5}),
-		new smallIconButton({title: "redX", top: 100, right:10, name: "deleteX",
-	        				url: "edit.png",
-	        				func: function(content) {
-								application.remove(listFilledCon3);
-								application.add(addCon3);
-								mode = "add";
-	        				}}),
-	],
-	behavior: Object.create(Container.prototype, {
-		onTouchEnded: { value: function(content){
-			KEYBOARD.hide();
-			content.focus();
-		}}
-	})
-}});
 
 var addPeopleCon = Container.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: blueS, active: true, name: "flyDroneContainer",
