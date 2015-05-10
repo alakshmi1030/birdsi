@@ -513,6 +513,8 @@ var sButton = BUTTONS.Button.template(function($){ return{
 				flyCon.chinapic.url = "china/ccenter.png";
 				content.invoke(new Message(deviceURL + "search"), Message.JSON);
 			} else if (pressed == "Delete") {
+				addedit.string = "Add Person";
+				addedit2.string = "Add Person";
 				if ($.whichDelete == 2) {
 					saved[1] = false;
 					//filled[1] = false;
