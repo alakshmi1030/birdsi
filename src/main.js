@@ -26,8 +26,14 @@ var whiteS = new Skin({fill:"white"});
 var blackS = new Skin({fill:"black"});
 var redS = new Skin({fill:"#ea9999"});
 var yellowS = new Skin({fill: "#fbdd8d"});
-var greenS = new Skin({fill:"#b6d7a7"});
+var greenS = new Skin({fill:"#85f298"});
 var blueS = new Skin({fill:"#99B6BC"});
+var blueS1 = new Skin({fill:"#88acb5"});
+var blueS2 = new Skin({fill:"#7aa4b1"});
+var blueS3 = new Skin({fill:"#6c9cad"});
+var blueS4 = new Skin({fill:"#5e95a8"});
+var blueS5 = new Skin({fill:"#508da3"});
+
 var purpleS = new Skin({fill:"#ae5dae"});
 var borderS = new Skin({ borders: {left: 2, right: 2, top: 2, bottom: 2}, stroke: "white"})
 var smLabelStyle = new Style( { font: "30px", color:"black" } );
@@ -181,12 +187,11 @@ var listPeopleCon = Container.template(function($) { return {
 		new bButton(),
 		new Label({top: 20, string: "Find People", style: labelStyle}),
 		new plusButton(),
-		new Line({left:0, right:0, top:90, bottom:0, skin: greenS}),
-		new Line({left:0, right:0, top:190, bottom:0, skin: blueS}),
-		new Line({left:0, right:0, top:290, bottom:0, skin: greenS}),
-		new Line({left:0, right:0, top:390, bottom:0, skin: blueS}),
-		new Line({left:0, right:0, top:490, bottom:0, skin: greenS}),
-		new Line({left:0, right:0, top:590, bottom:0, skin: blueS}),
+		new Line({left:0, right:0, top:90, bottom:0, skin: blueS1}),
+		new Line({left:0, right:0, top:190, bottom:0, skin: blueS2}),
+		new Line({left:0, right:0, top:290, bottom:0, skin: blueS3}),
+		new Line({left:0, right:0, top:390, bottom:0, skin: blueS4}),
+		new Line({left:0, right:0, top:490, bottom:0, skin: blueS5}),
 	],
 	behavior: Object.create(Container.prototype, {
 		onTouchEnded: { value: function(content){
@@ -205,11 +210,10 @@ var listPeopleConFilled = Container.template(function($) { return {
 		new Label({top: 20, string: "Find People", style: labelStyle}),
 		new plusButton(),
 		new Picture({left: 0, top: 90, url:"person.png"}),
-		new Line({left:0, right:0, top:190, bottom:0, skin: blueS}),
-		new Line({left:0, right:0, top:290, bottom:0, skin: greenS}),
-		new Line({left:0, right:0, top:390, bottom:0, skin: blueS}),
-		new Line({left:0, right:0, top:490, bottom:0, skin: greenS}),
-		new Line({left:0, right:0, top:590, bottom:0, skin: blueS}),
+		new Line({left:0, right:0, top:190, bottom:0, skin: blueS2}),
+		new Line({left:0, right:0, top:290, bottom:0, skin: blueS3}),
+		new Line({left:0, right:0, top:390, bottom:0, skin: blueS4}),
+		new Line({left:0, right:0, top:490, bottom:0, skin: blueS5}),
 		new smallIconButton({title: "redX", top: 100, right:10, name: "deleteX",
 	        				url: "edit.png",
 	        				func: function(content) {
@@ -234,10 +238,9 @@ var listPeopleConFilled2 = Container.template(function($) { return {
 		new plusButton(),
 		new Picture({left: 0, top: 90, url:"person.png"}),
 		new Picture({left: 0, top: 190, url:"person2.jpg"}),
-		new Line({left:0, right:0, top:290, bottom:0, skin: greenS}),
-		new Line({left:0, right:0, top:390, bottom:0, skin: blueS}),
-		new Line({left:0, right:0, top:490, bottom:0, skin: greenS}),
-		new Line({left:0, right:0, top:590, bottom:0, skin: blueS}),
+		new Line({left:0, right:0, top:290, bottom:0, skin: blueS3}),
+		new Line({left:0, right:0, top:390, bottom:0, skin: blueS4}),
+		new Line({left:0, right:0, top:490, bottom:0, skin: blueS5}),
 		new smallIconButton({title: "redX", top: 100, right:10, name: "deleteX",
 	        				url: "edit.png",
 	        				func: function(content) {
@@ -486,7 +489,7 @@ var sButton = BUTTONS.Button.template(function($){ return{
 			} else if (pressed == "Delete") {
 				if ($.whichDelete == 2) {
 					saved[1] = false;
-					filled[1] = false;
+					//filled[1] = false;
 					application.remove(addCon2);
 					application.add(listFilledCon);
 					//addCon2.photo.missingPhoto.load("tapload.jpg");
@@ -497,7 +500,7 @@ var sButton = BUTTONS.Button.template(function($){ return{
 				} else {
 					for (var i = 0; i < saved.length; i++) {
 						saved[i] = false;
-						filled[i] = false;
+						//filled[i] = false;
 					}
 					application.remove(addCon);
 					application.add(listCon);
