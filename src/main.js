@@ -15,6 +15,7 @@ var high=false;
 var desc="";
 var desc1 = "";
 var desc2="";
+var person = 0;
 
 var nameInputSkin = new Skin({ borders: { left:2, right:2, top:2, bottom:2 }, stroke: 'black', fill: 'white'});
 var fieldStyle = new Style({ color: 'black', font: 'bold 24px', horizontal: 'left', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
@@ -220,6 +221,7 @@ var listPeopleConFilled = Container.template(function($) { return {
 								application.remove(listFilledCon);
 								application.add(addCon);
 								mode = "add";
+								person = 1;
 	        				}}),
 	],
 	behavior: Object.create(Container.prototype, {
@@ -247,6 +249,7 @@ var listPeopleConFilled2 = Container.template(function($) { return {
 								application.remove(listFilledCon2);
 								application.add(addCon);
 								mode = "add";
+								person = 1;
 	        				}}),
 	    new smallIconButton({title: "redX", top: 200, right:10, name: "deleteX",
 	        				url: "edit.png",
@@ -254,6 +257,7 @@ var listPeopleConFilled2 = Container.template(function($) { return {
 								application.remove(listFilledCon2);
 								application.add(addCon2);
 								mode = "add";
+								person = 2;
 	        				}}),
 	],
 	behavior: Object.create(Container.prototype, {
@@ -399,7 +403,7 @@ var bButton = BUTTONS.Button.template(function($){ return{
 					trace(yo + "\n");
 					trace (application[yo] + "\n");
 				}
-				if (saved[0]) {
+				if (person == 2) {
 					application.remove(addCon2);
 				} else {
 					application.remove(addCon);
@@ -439,8 +443,10 @@ var plusButton = BUTTONS.Button.template(function($){ return{
 				}
 				mode = "add";
 				if (saved[0]) {
+					person = 2;
 					application.add(addCon2);
 				} else {
+					person = 1;
 					application.add(addCon);
 				}
 			}
@@ -468,8 +474,14 @@ var sButton = BUTTONS.Button.template(function($){ return{
 				auto = false;
 				autoLabel.string = "Drone Under Manual Control"
 			} else if (pressed == "Save") {
-				if (!saved[0]) {
+				if (person == 2) {
+					application.remove(addCon2);
+				} else {
+					descBox.string = desc;
+					descBox1.string = desc;
 					application.remove(addCon);
+				}
+				if (!saved[0]) {
 					if (filled[0]) {
 						application.add(listFilledCon);
 						saved[0] = true;
@@ -479,12 +491,13 @@ var sButton = BUTTONS.Button.template(function($){ return{
 						application.add(listCon);
 					}
 				} else {
-					application.remove(addCon2);
 					if (filled[1]) {
 						saved[1] = true;
 						descBox2.string = desc2;
 						application.add(listFilledCon2);
 					} else {
+						descBox.string = desc;
+						descBox1.string = desc;
 						application.add(listFilledCon);
 					}
 				}
