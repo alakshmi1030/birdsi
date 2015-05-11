@@ -389,7 +389,6 @@ var aButton = BUTTONS.Button.template(function($) { return {
 			else if($.action == "flyDrone") {
 				application.remove(main);
 				application.add(flyCon);
-				content.invoke(new Message(deviceURL + "fly"), Message.JSON);
 				mode = "fly";
 			}
 			else if($.action == "findPeople") {
