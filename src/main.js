@@ -316,7 +316,7 @@ var addPeopleCon = Container.template(function($) { return {
 		descriptionField,
 		new sButton({title: "REMOVE", left: 20, top: 420, width: rsw, skin: redBorderSkin, whichDelete: 1}),
 		new sButton({title: "SAVE", left: 175, top: 420, width: rsw, skin: greenBorderSkin}),
-		new Line({top:130, height:230, width: 250, skin: whiteBorderSkin, name: "photo",
+		new Line({top:150, height:230, width: 250, skin: whiteBorderSkin, name: "photo",
 	      contents:[
 	        new bigIconButton({title: "person photo", top: 0, left:0, right: 0, bottom:0, name: "missingPhoto",
 	        				url: "tapload.jpg",
@@ -350,7 +350,7 @@ var addPeopleCon2 = Container.template(function($) { return {
 		descriptionField2,
 		new sButton({title: "REMOVE", left: 20, top: 420, width: rsw, skin: redBorderSkin, whichDelete: 2}),
 		new sButton({title: "SAVE", left: 175, top: 420, width: rsw, skin: greenBorderSkin}),
-		new Line({top:130, height:230, width: 250, skin: whiteBorderSkin, name: "photo",
+		new Line({top:150, height:230, width: 250, skin: whiteBorderSkin, name: "photo",
 	      contents:[
 	        new bigIconButton({title: "person photo 2", top: 0, left:0, right: 0, bottom:0, name: "missingPhoto",
 	        				url: "tapload.jpg",
@@ -844,9 +844,9 @@ var personFoundAdd = new Label({top: ptop, string: pstr, style: psty});
 var personFoundAdd2 = new Label({top: ptop, string: pstr, style: psty});
 var personFoundListFilled = new Label({top: ptop, string: " ", style: psty});
 var personFoundListFilled2 = new Label({top: ptop, string: " ", style: psty});
-var descBox = new Label({top: 140, left: 110, string: "", style: smLabelStyle});
-var descBox1 = new Label({top: 140, left: 110, string: "", style: smLabelStyle});
-var descBox2 = new Label({top: 240, left: 110, string: "", style: smLabelStyle});
+var descBox = new Label({top: 130, left: 110, string: "", style: smLabelStyle});
+var descBox1 = new Label({top: 130, left: 110, string: "", style: smLabelStyle});
+var descBox2 = new Label({top: 230, left: 110, string: "", style: smLabelStyle});
 
 
 var main = new MainCon()
