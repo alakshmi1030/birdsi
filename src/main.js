@@ -139,7 +139,7 @@ var flyDroneCon = Container.template(function($) { return {
 	contents: [
 		new bButton(),
 		Line($, {
-			left:0, right:0, top:0, height:90, skin: blackS, name: "lineF",
+			left:0, right:0, top:0, height:60, skin: blackS, name: "lineF",
 			contents: [
 				new Label({left: 80, top: 0, string: "Fly Drone", style: whiteLabelStyle})
 			]
@@ -148,7 +148,7 @@ var flyDroneCon = Container.template(function($) { return {
 		//new Label({top: 310, string: "Switch back to manual?", style: rlySmLabelStyle}),
 		//new Line({left:0, right:0, top:80, bottom:450, skin: blackS}),
 		// to be replaced with diff pic. perhaps change width and height
-		new Picture({top: 90, width: camW, height: camH,
+		new Picture({top: 60, width: camW, height: camH,
 		url: "china/ccenter.png", name:"chinapic"}),
 		// to replace sButtons with urlbuttons
 		// possibly need an elevation control as well
