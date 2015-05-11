@@ -389,9 +389,7 @@ var aButton = BUTTONS.Button.template(function($) { return {
 			else if($.action == "flyDrone") {
 				application.remove(main);
 				application.add(flyCon);
-				if (auto) {
-					//flyCon.add();
-				}
+				content.invoke(new Message(deviceURL + "fly"), Message.JSON);
 				mode = "fly";
 			}
 			else if($.action == "findPeople") {
@@ -715,7 +713,6 @@ var medIconButton = BUTTONS.Button.template(function($){ return{
 }});
 
 
-
 var bigIconButton = BUTTONS.Button.template(function($){ return{
 	left: $.left, right: $.right, top: $.top, bottom: $.bottom,
 	contents: [
@@ -800,15 +797,12 @@ Handler.bind("/updateCurr", Behavior({
 				}	
 			}
 			if (!pfound && !high && saved[0]) {
-				if(json.x > 70 && json.x < 75 && json.y > 70 && json.y < 75){
-				//trace("Kid has been found!!");
-				var pstring = "Missing person located at " + Math.round(json.x * 10)/10 + ", " + Math.round(json.y * 10)/10;
-				updateFound(pstring);
-				pfound = true;
+				if (json.x > 70 && json.x < 75 && json.y > 70 && json.y < 75) {
+					var pstring = "Missing person located at " + Math.round(json.x * 10)/10 + ", " + Math.round(json.y * 10)/10;
+					updateFound(pstring);
+					pfound = true;
 				}
 			}
-			//pathCon.currxx.height = currT + json.y;
-			//currX.width = currT - json.y;
 		}
 	}
 }));
@@ -870,7 +864,6 @@ var descBox2 = new Label({top: 220, left: 110, string: "", style: smLabelStyle})
 var main = new MainCon()
 var pathCon = new setPathCon();
 pathCon.add(currX);
-//main.add(personFound);
 
 var flyCon = new flyDroneCon();
 var listCon = new listPeopleCon();
