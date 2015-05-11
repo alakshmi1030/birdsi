@@ -75,7 +75,7 @@ var MainCon = Column.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: whiteS, active: true, name: "column", 
 	contents: [
 		Line($, {
-			left:0, right:0, top:0, bottom:0, height:90, skin: blackS, name: "lineF",
+			left:0, right:0, top:0, bottom:0, height:60, skin: blackS, name: "lineF",
 			contents: [
 				new Label({left: 105, right: 0, string: "BIRDSi", style: whiteLabelStyle})
 			]
