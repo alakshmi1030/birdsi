@@ -224,20 +224,20 @@ var listPeopleCon = Container.template(function($) { return {
 var listPeopleConFilled = Container.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: blueS, active: true, name: "flyDroneContainer",
 	contents: [
-		new bButton(),
 		Line($, {
-			left:0, right:0, top:0, height:90, skin: blackS, name: "lineF",
+			left:0, right:0, top:0, height:70, skin: blackS, name: "lineF",
 			contents: [
-				new Label({left: 80, top: 0, string: "Find People", style: whiteLabelStyle})
+				new Label({left: 60, top: 18, string: "FIND PEOPLE", style: whiteLabelStyle2})
 			]
 		}),
+		new bButton(),
 		new plusButton(),
-		new Picture({left: 0, top: 90, url:"person.png"}),
-		new Line({left:0, right:0, top:190, bottom:0, skin: blueS2}),
-		new Line({left:0, right:0, top:290, bottom:0, skin: blueS3}),
-		new Line({left:0, right:0, top:390, bottom:0, skin: blueS4}),
-		new Line({left:0, right:0, top:490, bottom:0, skin: blueS5}),
-		new smallIconButton({title: "redX", top: 100, right:10, name: "deleteX",
+		new Picture({left: 0, top: 70, url:"person.png"}),
+		new Line({left:0, right:0, top:170, bottom:0, skin: blueS2}),
+		new Line({left:0, right:0, top:270, bottom:0, skin: blueS3}),
+		new Line({left:0, right:0, top:370, bottom:0, skin: blueS4}),
+		new Line({left:0, right:0, top:470, bottom:0, skin: blueS5}),
+		new smallIconButton({title: "redX", top: 80, right:10, name: "deleteX",
 	        				url: "edit.png",
 	        				func: function(content) {
 	        					addedit.string = "EDIT PERSON";
@@ -258,15 +258,20 @@ var listPeopleConFilled = Container.template(function($) { return {
 var listPeopleConFilled2 = Container.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: blueS, active: true, name: "flyDroneContainer",
 	contents: [
+		Line($, {
+			left:0, right:0, top:0, height:70, skin: blackS, name: "lineF",
+			contents: [
+				new Label({left: 60, top: 18, string: "FIND PEOPLE", style: whiteLabelStyle2})
+			]
+		}),
 		new bButton(),
-		new Label({top: 20, string: "Find People", style: labelStyle}),
 		new plusButton(),
-		new Picture({left: 0, top: 90, url:"person.png"}),
-		new Picture({left: 0, top: 190, url:"person2.jpg"}),
-		new Line({left:0, right:0, top:290, bottom:0, skin: blueS3}),
-		new Line({left:0, right:0, top:390, bottom:0, skin: blueS4}),
-		new Line({left:0, right:0, top:490, bottom:0, skin: blueS5}),
-		new smallIconButton({title: "redX", top: 100, right:10, name: "deleteX",
+		new Picture({left: 0, top: 70, url:"person.png"}),
+		new Picture({left: 0, top: 170, url:"person2.jpg"}),
+		new Line({left:0, right:0, top:270, bottom:0, skin: blueS3}),
+		new Line({left:0, right:0, top:370, bottom:0, skin: blueS4}),
+		new Line({left:0, right:0, top:470, bottom:0, skin: blueS5}),
+		new smallIconButton({title: "redX", top: 80, right:10, name: "deleteX",
 	        				url: "edit.png",
 	        				func: function(content) {
 								application.remove(listFilledCon2);
@@ -275,7 +280,7 @@ var listPeopleConFilled2 = Container.template(function($) { return {
 								person = 1;
 								addedit.string = "EDIT PERSON";
 	        				}}),
-	    new smallIconButton({title: "redX", top: 200, right:10, name: "deleteX",
+	    new smallIconButton({title: "redX", top: 180, right:10, name: "deleteX",
 	        				url: "edit.png",
 	        				func: function(content) {
 								application.remove(listFilledCon2);
@@ -293,16 +298,21 @@ var listPeopleConFilled2 = Container.template(function($) { return {
 	})
 }});
 
-var addedit = new Label({top: 20, string: "ADD PERSON", style: labelStyle});
-var addedit2 = new Label({top: 20, string: "ADD PERSON", style: labelStyle});
+var addedit = new Label({left: 60, top: 18, string: "ADD PERSON", style: whiteLabelStyle2});
+var addedit2 = new Label({left: 60, top: 18, string: "ADD PERSON", style: whiteLabelStyle2});
 
 var rsw = 130;
 
 var addPeopleCon = Container.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: blueS, active: true, name: "flyDroneContainer",
 	contents: [
+		Line($, {
+			left:0, right:0, top:0, height:70, skin: blackS, name: "lineF",
+			contents: [
+				addedit
+			]
+		}),
 		new bButton(),
-		addedit,
 		descriptionField,
 		new sButton({title: "REMOVE", left: 20, top: 420, width: rsw, skin: redBorderSkin, whichDelete: 1}),
 		new sButton({title: "SAVE", left: 175, top: 420, width: rsw, skin: greenBorderSkin}),
@@ -330,8 +340,13 @@ var addPeopleCon = Container.template(function($) { return {
 var addPeopleCon2 = Container.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: blueS, active: true, name: "flyDroneContainer",
 	contents: [
+		Line($, {
+			left:0, right:0, top:0, height:70, skin: blackS, name: "lineF",
+			contents: [
+				addedit2
+			]
+		}),
 		new bButton(),
-		addedit2,
 		descriptionField2,
 		new sButton({title: "REMOVE", left: 20, top: 420, width: rsw, skin: redBorderSkin, whichDelete: 2}),
 		new sButton({title: "SAVE", left: 175, top: 420, width: rsw, skin: greenBorderSkin}),
