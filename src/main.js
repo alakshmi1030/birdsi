@@ -833,7 +833,7 @@ var descriptionField2 = new myField({name: "", top: 80, width: 300, left: 10, ri
 var currX = new Picture({left: currL, top: currT, width: 20, height: 20, url:"curr.png"}); 
 
 
-var ptop = 71;
+var ptop = 521;
 var pstr = " ";
 var psty = rlySmLabelStyle; 
 var personFoundMain = new Label({string: pstr , style: psty});
