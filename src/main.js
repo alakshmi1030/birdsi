@@ -75,7 +75,7 @@ var MainCon = Column.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: whiteS, active: true, name: "column", 
 	contents: [
 		Line($, {
-			left:0, right:0, top:0, bottom:0, height:60, skin: blackS, name: "lineF",
+			left:0, right:0, top:0, bottom:0, height:90, skin: blackS, name: "lineF",
 			contents: [
 				new Label({left: 105, right: 0, string: "BIRDSi", style: whiteLabelStyle})
 			]
@@ -84,42 +84,48 @@ var MainCon = Column.template(function($) { return {
 			left:0, right:0, top:0, bottom:0, skin: redS, name: "lineF",
 			contents: [
 				new Picture({left: leftValue, width: iconWidth, height: iconHeight, url:"locicon.png"}),
-				new aButton({title: "Fly Drone", action: "flyDrone"})
+				new aButton({title: "FLY DRONE", action: "flyDrone"})
 			]
 		}),
 		Line($, {
 			left:0, right:0, top:0, bottom:0, skin: yellowS, name: "lineC",
 			contents: [
 				new Picture({left: leftValue, width: iconWidth, height: iconHeight, url:"globe.png"}),
-				new aButton({title: "Set Path", action: "setPath"})
+				new aButton({title: "SET PATH", action: "setPath"})
 			]
 		}),
 		Line($, {
 			left:0, right:0, top:0, bottom:0, skin: blueS, name: "lineK",
 			contents: [
 				new Picture({left: leftValue, width: iconWidth, height: iconHeight, url: "people.png"}),
-				new aButton({title: "Find People", action: "findPeople"}),
+				new aButton({title: "FIND PEOPLE", action: "findPeople"}),
 			]
 		}),
 	]
 }});
 
-var autoLabel = new Label({top: 380, string: "Drone Under Manual Control", style: smsmLabelStyle});
+var autoLabel = new Label({top: 470, string: "Drone Under Manual Control", style: smsmLabelStyle});
 
 var leftValue = 25;
 var setPathCon = Container.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: yellowS, active: true, name: "setPathContainer",
 	contents: [
+	 	Line($, {
+			left:0, right:0, top:0, height:70, skin: blackS, name: "lineF",
+			contents: [
+				new Label({left: 80, top: 15, string: "SET PATH", style: whiteLabelStyle})
+			]
+		}),
 		new bButton(),
-		new Label({top: 20, string: "Set Path", style: labelStyle}),
+		//new Label({top: 20, string: "SET PATH", style: labelStyle}),
 		//new Line({left:0, right:0, top:80, bottom:450, skin: blackS}),
-		new Picture({top: 20,left: 20, right: 20, width: pictureWidth, height: pictureHeight, url: "map2.png", name: "mainMap"}),
-		new Label({top: 277, left: 20, string: "From:", style: fieldStyle}),
-		new Label({top: 326, left: 20, string: "To:", style: fieldStyle}),
+		new Picture({top: 0,left: 20, right: 20, width: pictureWidth, height: pictureHeight, url: "map2.png", name: "mainMap"}),
+		new Label({top: 277, left: 20, string: "FROM:", style: fieldStyle}),
+		new Label({top: 326, left: 20, string: "TO:", style: fieldStyle}),
 		fromField, toField,
 		autoLabel,
-		new sButton({title: "start", left: 40, top: 420, width: 100, skin: greenBorderSkin}),
-		new sButton({title: "stop", right: 40, top: 420, width: 100, skin: redBorderSkin}),
+		new sButton({title: "START", left: 30, top: 395, width: 120, skin: greenBorderSkin}),
+		new sButton({title: "STOP", right: 30, top: 395, width: 120, skin: redBorderSkin}),
 		//new Picture({left: currL, top: currT, width: 20, height: 20, url:"curr.png", name: "currxx"})
 	],
 	behavior: Object.create(Container.prototype, {
@@ -138,9 +144,9 @@ var flyDroneCon = Container.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: redS, active: true, name: "flyDroneContainer",
 	contents: [
 		Line($, {
-			left:0, right:0, top:0, height:90, skin: blackS, name: "lineF",
+			left:0, right:0, top:0, height:70, skin: blackS, name: "lineF",
 			contents: [
-				new Label({left: 80, top: 20, string: "Fly Drone", style: whiteLabelStyle})
+				new Label({left: 70, top: 15, string: "FLY DRONE", style: whiteLabelStyle})
 			]
 		}),
 		new bButton(),
@@ -159,8 +165,8 @@ var flyDroneCon = Container.template(function($) { return {
 		new moveButton({title:"right", url: "turnR.png", left: centerL + 50, bottom: centerB + 50, func: false}),
 		new moveButton({title:"left", url: "turnL.png", left: centerL - 50, bottom: centerB + 50, func: false}),
 		
-		new Label({left: centerL - 15, bottom: centerB + 100, string: "Motion", style: smLabelStyle}),
-		new Label({right: 25, bottom: centerB + 100, string: "Elevation", style: smLabelStyle}),
+		new Label({left: centerL + 0, bottom: centerB + 100, string: "MOTION", style: rlySmLabelStyle}),
+		new Label({right: 37, bottom: centerB + 100, string: "ELEVATION", style: rlySmLabelStyle}),
 		
 		
 		//new iconButton({title: "Zin", url: "zoomin.png", right: 50, bottom: 180}),
@@ -233,7 +239,7 @@ var listPeopleConFilled = Container.template(function($) { return {
 		new smallIconButton({title: "redX", top: 100, right:10, name: "deleteX",
 	        				url: "edit.png",
 	        				func: function(content) {
-	        					addedit.string = "Edit Person";
+	        					addedit.string = "EDIT PERSON";
 								application.remove(listFilledCon);
 								application.add(addCon);
 								mode = "add";
@@ -266,7 +272,7 @@ var listPeopleConFilled2 = Container.template(function($) { return {
 								application.add(addCon);
 								mode = "add";
 								person = 1;
-								addedit.string = "Edit Person";
+								addedit.string = "EDIT PERSON";
 	        				}}),
 	    new smallIconButton({title: "redX", top: 200, right:10, name: "deleteX",
 	        				url: "edit.png",
@@ -275,7 +281,7 @@ var listPeopleConFilled2 = Container.template(function($) { return {
 								application.add(addCon2);
 								mode = "add";
 								person = 2;
-								addedit2.string = "Edit Person";
+								addedit2.string = "EDIT PERSON";
 	        				}}),
 	],
 	behavior: Object.create(Container.prototype, {
@@ -286,8 +292,8 @@ var listPeopleConFilled2 = Container.template(function($) { return {
 	})
 }});
 
-var addedit = new Label({top: 20, string: "Add Person", style: labelStyle});
-var addedit2 = new Label({top: 20, string: "Add Person", style: labelStyle});
+var addedit = new Label({top: 20, string: "ADD PERSON", style: labelStyle});
+var addedit2 = new Label({top: 20, string: "ADD PERSON", style: labelStyle});
 
 var addPeopleCon = Container.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: blueS, active: true, name: "flyDroneContainer",
@@ -295,8 +301,8 @@ var addPeopleCon = Container.template(function($) { return {
 		new bButton(),
 		addedit,
 		descriptionField,
-		new sButton({title: "Delete", left: 40, top: 420, width: 110, skin: redBorderSkin, whichDelete: 1}),
-		new sButton({title: "Save", left: 175, top: 420, width: 110, skin: greenBorderSkin}),
+		new sButton({title: "REMOVE", left: 40, top: 420, width: 110, skin: redBorderSkin, whichDelete: 1}),
+		new sButton({title: "SAVE", left: 175, top: 420, width: 110, skin: greenBorderSkin}),
 		new Line({top:130, height:230, width: 250, skin: whiteBorderSkin, name: "photo",
 	      contents:[
 	        new bigIconButton({title: "person photo", top: 0, left:0, right: 0, bottom:0, name: "missingPhoto",
@@ -324,8 +330,8 @@ var addPeopleCon2 = Container.template(function($) { return {
 		new bButton(),
 		addedit2,
 		descriptionField2,
-		new sButton({title: "Delete", left: 40, top: 420, width: 110, skin: redBorderSkin, whichDelete: 2}),
-		new sButton({title: "Save", left: 175, top: 420, width: 110, skin: greenBorderSkin}),
+		new sButton({title: "REMOVE", left: 40, top: 420, width: 110, skin: redBorderSkin, whichDelete: 2}),
+		new sButton({title: "SAVE", left: 175, top: 420, width: 110, skin: greenBorderSkin}),
 		new Line({top:130, height:230, width: 250, skin: whiteBorderSkin, name: "photo",
 	      contents:[
 	        new bigIconButton({title: "person photo 2", top: 0, left:0, right: 0, bottom:0, name: "missingPhoto",
@@ -396,7 +402,7 @@ var aButton = BUTTONS.Button.template(function($) { return {
 }});
 
 var bButton = BUTTONS.Button.template(function($){ return{
-	left: 15, top: 23,
+	left: 15, top: 18,
 	contents: [
 		new Picture({width: 35, height: 35, url: "backarrow.png", name: "back"}),
 	],
@@ -419,8 +425,8 @@ var bButton = BUTTONS.Button.template(function($){ return{
 				}
 			}
 			if (mode == "add") {
-				addedit.string = "Add Person";
-				addedit2.string = "Add Person";
+				addedit.string = "ADD PERSON";
+				addedit2.string = "ADD PERSON";
 				for (var yo in application.first) {
 					trace(yo + "\n");
 					trace (application[yo] + "\n");
@@ -485,17 +491,17 @@ var sButton = BUTTONS.Button.template(function($){ return{
 	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
 		onTap: { value: function(content){
 			var pressed = $.title;
-			if(pressed == "start"){
+			if(pressed == "START"){
 				pathCon.mainMap.url = "map2path.png";
 				content.invoke(new Message(deviceURL + "startPath", Message.TEXT));
 				auto = true;
 				autoLabel.string = "Autopilot Engaged"
-			} else if(pressed == "stop"){
+			} else if(pressed == "STOP"){
 				pathCon.mainMap.url = "map2.png";
 				content.invoke(new Message(deviceURL + "stopPath", Message.TEXT));
 				auto = false;
 				autoLabel.string = "Drone Under Manual Control"
-			} else if (pressed == "Save") {
+			} else if (pressed == "SAVE") {
 				if (person == 2) {
 					application.remove(addCon2);
 				} else {
@@ -527,9 +533,9 @@ var sButton = BUTTONS.Button.template(function($){ return{
 				mode = "find";
 				flyCon.chinapic.url = "china/ccenter.png";
 				content.invoke(new Message(deviceURL + "search"), Message.JSON);
-			} else if (pressed == "Delete") {
-				addedit.string = "Add Person";
-				addedit2.string = "Add Person";
+			} else if (pressed == "REMOVE") {
+				addedit.string = "ADD PERSON";
+				addedit2.string = "ADD PERSON";
 				if ($.whichDelete == 2) {
 					saved[1] = false;
 					//filled[1] = false;
@@ -799,17 +805,17 @@ var ApplicationBehavior = Behavior.template({
 application.behavior = new ApplicationBehavior();
 
 var currL = 20;
-var currT = 240;
+var currT = 220;
 
-var fromField = new myField({ name: "", top: 270, width: 250, left: 100, right: 10, height: 44, hint: "Address", type: "" });
-var toField = new myField({ name: "", top: 320, width: 250, left: 100, right: 10, height: 44, hint: "Address", type: "" });
-var descriptionField = new myField({name: "", top: 80, width: 300, left: 10, right: 10, height: 44, hint: "Name", type: "Description"});
-var descriptionField2 = new myField({name: "", top: 80, width: 300, left: 10, right: 10, height: 44, hint: "Name", type: "Description2"});
+var fromField = new myField({ name: "", top: 270, width: 250, left: 100, right: 10, height: 44, hint: "ADDRESS", type: "" });
+var toField = new myField({ name: "", top: 320, width: 250, left: 100, right: 10, height: 44, hint: "ADDRESS", type: "" });
+var descriptionField = new myField({name: "", top: 80, width: 300, left: 10, right: 10, height: 44, hint: "NAME", type: "Description"});
+var descriptionField2 = new myField({name: "", top: 80, width: 300, left: 10, right: 10, height: 44, hint: "NAME", type: "Description2"});
 
 var currX = new Picture({left: currL, top: currT, width: 20, height: 20, url:"curr.png"}); 
 
 
-var ptop = 62;
+var ptop = 71;
 var pstr = " ";
 var psty = rlySmLabelStyle; 
 var personFoundMain = new Label({string: pstr , style: psty});
