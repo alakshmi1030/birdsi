@@ -280,7 +280,7 @@ var listPeopleConFilled2 = Container.template(function($) { return {
 								person = 1;
 								addedit.string = "EDIT PERSON";
 	        				}}),
-	    new smallIconButton({title: "redX", top: 200, right:10, name: "deleteX",
+	    new smallIconButton({title: "redX", top: 180, right:10, name: "deleteX",
 	        				url: "edit.png",
 	        				func: function(content) {
 								application.remove(listFilledCon2);
@@ -298,18 +298,23 @@ var listPeopleConFilled2 = Container.template(function($) { return {
 	})
 }});
 
-var addedit = new Label({top: 20, string: "ADD PERSON", style: labelStyle});
-var addedit2 = new Label({top: 20, string: "ADD PERSON", style: labelStyle});
+var addedit = new Label({left: 60, top: 18, string: "ADD PERSON", style: whiteLabelStyle2});
+var addedit2 = new Label({left: 60, top: 18, string: "ADD PERSON", style: whiteLabelStyle2});
 
 var addPeopleCon = Container.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: blueS, active: true, name: "flyDroneContainer",
 	contents: [
+		Line($, {
+			left:0, right:0, top:0, height:70, skin: blackS, name: "lineF",
+			contents: [
+				addedit
+			]
+		}),
 		new bButton(),
-		addedit,
 		descriptionField,
 		new sButton({title: "REMOVE", left: 40, top: 420, width: 110, skin: redBorderSkin, whichDelete: 1}),
 		new sButton({title: "SAVE", left: 175, top: 420, width: 110, skin: greenBorderSkin}),
-		new Line({top:130, height:230, width: 250, skin: whiteBorderSkin, name: "photo",
+		new Line({top:150, height:230, width: 250, skin: whiteBorderSkin, name: "photo",
 	      contents:[
 	        new bigIconButton({title: "person photo", top: 0, left:0, right: 0, bottom:0, name: "missingPhoto",
 	        				url: "tapload.jpg",
@@ -333,12 +338,17 @@ var addPeopleCon = Container.template(function($) { return {
 var addPeopleCon2 = Container.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: blueS, active: true, name: "flyDroneContainer",
 	contents: [
+		Line($, {
+			left:0, right:0, top:0, height:70, skin: blackS, name: "lineF",
+			contents: [
+				addedit2
+			]
+		}),
 		new bButton(),
-		addedit2,
 		descriptionField2,
 		new sButton({title: "REMOVE", left: 40, top: 420, width: 110, skin: redBorderSkin, whichDelete: 2}),
 		new sButton({title: "SAVE", left: 175, top: 420, width: 110, skin: greenBorderSkin}),
-		new Line({top:130, height:230, width: 250, skin: whiteBorderSkin, name: "photo",
+		new Line({top:150, height:230, width: 250, skin: whiteBorderSkin, name: "photo",
 	      contents:[
 	        new bigIconButton({title: "person photo 2", top: 0, left:0, right: 0, bottom:0, name: "missingPhoto",
 	        				url: "tapload.jpg",
