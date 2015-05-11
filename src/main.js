@@ -138,7 +138,12 @@ var flyDroneCon = Container.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: redS, active: true, name: "flyDroneContainer",
 	contents: [
 		new bButton(),
-		new Label({top: 20, string: "Fly Drone", style: labelStyle}),
+		Line($, {
+			left:0, right:0, top:0, height:90, skin: blackS, name: "lineF",
+			contents: [
+				new Label({left: 80, top: 0, string: "Fly Drone", style: whiteLabelStyle})
+			]
+		}),
 		//new Label({top: 290, string: "Warning: You are still in autopilot mode.", style: rlySmLabelStyle}),
 		//new Label({top: 310, string: "Switch back to manual?", style: rlySmLabelStyle}),
 		//new Line({left:0, right:0, top:80, bottom:450, skin: blackS}),
@@ -186,7 +191,13 @@ var listPeopleCon = Container.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: blueS, active: true, name: "flyDroneContainer",
 	contents: [
 		new bButton(),
-		new Label({top: 20, string: "Find People", style: labelStyle}),
+		Line($, {
+			left:0, right:0, top:0, height:90, skin: blackS, name: "lineF",
+			contents: [
+				new Label({left: 80, top: 0, string: "Find People", style: whiteLabelStyle})
+			]
+		}),
+		
 		new plusButton(),
 		new Line({left:0, right:0, top:90, bottom:0, skin: blueS1}),
 		new Line({left:0, right:0, top:190, bottom:0, skin: blueS2}),
@@ -208,7 +219,12 @@ var listPeopleConFilled = Container.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: blueS, active: true, name: "flyDroneContainer",
 	contents: [
 		new bButton(),
-		new Label({top: 20, string: "Find People", style: labelStyle}),
+		Line($, {
+			left:0, right:0, top:0, height:90, skin: blackS, name: "lineF",
+			contents: [
+				new Label({left: 80, top: 0, string: "Find People", style: whiteLabelStyle})
+			]
+		}),
 		new plusButton(),
 		new Picture({left: 0, top: 90, url:"person.png"}),
 		new Line({left:0, right:0, top:190, bottom:0, skin: blueS2}),
