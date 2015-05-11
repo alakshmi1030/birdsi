@@ -75,7 +75,7 @@ var MainCon = Column.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: whiteS, active: true, name: "column", 
 	contents: [
 		Line($, {
-			left:0, right:0, top:0, bottom:0, height:75, skin: blackS, name: "lineF",
+			left:0, right:0, top:0, bottom:0, height:90, skin: blackS, name: "lineF",
 			contents: [
 				new Label({left: 105, right: 0, string: "BIRDSi", style: whiteLabelStyle})
 			]
@@ -137,13 +137,13 @@ var centerB = 100;
 var flyDroneCon = Container.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: redS, active: true, name: "flyDroneContainer",
 	contents: [
-		new bButton(),
 		Line($, {
 			left:0, right:0, top:0, height:90, skin: blackS, name: "lineF",
 			contents: [
 				new Label({left: 80, top: 20, string: "Fly Drone", style: whiteLabelStyle})
 			]
 		}),
+		new bButton(),
 		//new Label({top: 290, string: "Warning: You are still in autopilot mode.", style: rlySmLabelStyle}),
 		//new Label({top: 310, string: "Switch back to manual?", style: rlySmLabelStyle}),
 		//new Line({left:0, right:0, top:80, bottom:450, skin: blackS}),
@@ -190,14 +190,13 @@ var topLine = new Line({
 var listPeopleCon = Container.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: blueS, active: true, name: "flyDroneContainer",
 	contents: [
-		new bButton(),
 		Line($, {
 			left:0, right:0, top:0, height:90, skin: blackS, name: "lineF",
 			contents: [
 				new Label({left: 65, top: 20, string: "Find People", style: whiteLabelStyle})
 			]
 		}),
-		
+		new bButton(),
 		new plusButton(),
 		new Line({left:0, right:0, top:90, bottom:0, skin: blueS1}),
 		new Line({left:0, right:0, top:190, bottom:0, skin: blueS2}),
