@@ -166,15 +166,15 @@ var flyDroneCon = Container.template(function($) { return {
 		new moveButton({title:"right", url: "turnR.png", left: centerL + 50, bottom: centerB + 50, func: false}),
 		new moveButton({title:"left", url: "turnL.png", left: centerL - 50, bottom: centerB + 50, func: false}),
 		
-		new Label({left: centerL + 0, bottom: centerB + 110, string: "MOTION", style: rlySmLabelStyle}),
-		new Label({right: 37, bottom: centerB + 110, string: "ELEVATION", style: rlySmLabelStyle}),
+		new Label({left: centerL + 1, bottom: centerB + 110, string: "MOTION", style: rlySmLabelStyle}),
+		new Label({right: 41, bottom: centerB + 110, string: "ELEVATION", style: rlySmLabelStyle}),
 		
 		
 		//new iconButton({title: "Zin", url: "zoomin.png", right: 50, bottom: 180}),
 		//new iconButton({title: "Zout", url: "zoomout.png", right: 100, bottom: 180}),
 		
-		new medIconButton({title: "ascend", url:"ascendwhite.png", right: 30, bottom: centerB - 25 + 45, skin: greenS, func: false}),
-		new medIconButton({title: "descend", url:"descendwhite.png", right: 30, bottom: centerB - 25 - 25, skin: greenS, func: false}),
+		new medIconButton({title: "ascend", url:"ascendwhite.png", right: 35, bottom: centerB - 25 + 45, skin: greenS, func: false}),
+		new medIconButton({title: "descend", url:"descendwhite.png", right: 35, bottom: centerB - 25 - 25, skin: greenS, func: false}),
 		
 		
 		//new sButton({title: "Fwd", left: 40, bottom: 80, width: 100, skin: greenS})
