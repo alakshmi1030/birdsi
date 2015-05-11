@@ -141,7 +141,7 @@ var flyDroneCon = Container.template(function($) { return {
 		Line($, {
 			left:0, right:0, top:0, height:90, skin: blackS, name: "lineF",
 			contents: [
-				new Label({left: 80, top: 0, string: "Fly Drone", style: whiteLabelStyle})
+				new Label({left: 80, top: 20, string: "Fly Drone", style: whiteLabelStyle})
 			]
 		}),
 		//new Label({top: 290, string: "Warning: You are still in autopilot mode.", style: rlySmLabelStyle}),
@@ -194,7 +194,7 @@ var listPeopleCon = Container.template(function($) { return {
 		Line($, {
 			left:0, right:0, top:0, height:90, skin: blackS, name: "lineF",
 			contents: [
-				new Label({left: 80, top: 0, string: "Find People", style: whiteLabelStyle})
+				new Label({left: 65, top: 20, string: "Find People", style: whiteLabelStyle})
 			]
 		}),
 		
