@@ -237,7 +237,7 @@ var listPeopleConFilled = Container.template(function($) { return {
 		new Line({left:0, right:0, top:270, bottom:0, skin: blueS3}),
 		new Line({left:0, right:0, top:370, bottom:0, skin: blueS4}),
 		new Line({left:0, right:0, top:470, bottom:0, skin: blueS5}),
-		new smallIconButton({title: "redX", top: 80, right:10, name: "deleteX",
+		new smallIconButton({title: "redX", top: 75, right: 4, name: "deleteX",
 	        				url: "edit.png",
 	        				func: function(content) {
 	        					addedit.string = "EDIT PERSON";
@@ -271,7 +271,7 @@ var listPeopleConFilled2 = Container.template(function($) { return {
 		new Line({left:0, right:0, top:270, bottom:0, skin: blueS3}),
 		new Line({left:0, right:0, top:370, bottom:0, skin: blueS4}),
 		new Line({left:0, right:0, top:470, bottom:0, skin: blueS5}),
-		new smallIconButton({title: "redX", top: 80, right:10, name: "deleteX",
+		new smallIconButton({title: "redX", top: 75, right:4, name: "deleteX",
 	        				url: "edit.png",
 	        				func: function(content) {
 								application.remove(listFilledCon2);
@@ -280,7 +280,7 @@ var listPeopleConFilled2 = Container.template(function($) { return {
 								person = 1;
 								addedit.string = "EDIT PERSON";
 	        				}}),
-	    new smallIconButton({title: "redX", top: 180, right:10, name: "deleteX",
+	    new smallIconButton({title: "redX", top: 175, right:4, name: "deleteX",
 	        				url: "edit.png",
 	        				func: function(content) {
 								application.remove(listFilledCon2);
@@ -666,7 +666,7 @@ var moveButton = BUTTONS.Button.template(function($){ return{
 var smallIconButton = BUTTONS.Button.template(function($){ return{
 	left: $.left, right: $.right, top: $.top, bottom: $.bottom,
 	contents: [
-		new Picture({width: iconWidth * .7, height: iconHeight * .7, url: $.url, name: "picture"}),
+		new Picture({width: iconWidth * 1.05, height: iconHeight * 1.05, url: $.url, name: "picture"}),
 	],
 	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
 		onTap: { value: function(content) {
@@ -862,9 +862,9 @@ var personFoundAdd = new Label({top: ptop, string: pstr, style: psty});
 var personFoundAdd2 = new Label({top: ptop, string: pstr, style: psty});
 var personFoundListFilled = new Label({top: ptop, string: " ", style: psty});
 var personFoundListFilled2 = new Label({top: ptop, string: " ", style: psty});
-var descBox = new Label({top: 130, left: 110, string: "", style: smLabelStyle});
-var descBox1 = new Label({top: 130, left: 110, string: "", style: smLabelStyle});
-var descBox2 = new Label({top: 230, left: 110, string: "", style: smLabelStyle});
+var descBox = new Label({top: 120, left: 110, string: "", style: smLabelStyle});
+var descBox1 = new Label({top: 120, left: 110, string: "", style: smLabelStyle});
+var descBox2 = new Label({top: 220, left: 110, string: "", style: smLabelStyle});
 
 
 var main = new MainCon()
