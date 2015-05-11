@@ -296,14 +296,16 @@ var listPeopleConFilled2 = Container.template(function($) { return {
 var addedit = new Label({top: 20, string: "ADD PERSON", style: labelStyle});
 var addedit2 = new Label({top: 20, string: "ADD PERSON", style: labelStyle});
 
+var rsw = 130;
+
 var addPeopleCon = Container.template(function($) { return {
 	left: 0, right: 0, top: 0, bottom: 0, skin: blueS, active: true, name: "flyDroneContainer",
 	contents: [
 		new bButton(),
 		addedit,
 		descriptionField,
-		new sButton({title: "REMOVE", left: 40, top: 420, width: 110, skin: redBorderSkin, whichDelete: 1}),
-		new sButton({title: "SAVE", left: 175, top: 420, width: 110, skin: greenBorderSkin}),
+		new sButton({title: "REMOVE", left: 20, top: 420, width: rsw, skin: redBorderSkin, whichDelete: 1}),
+		new sButton({title: "SAVE", left: 175, top: 420, width: rsw, skin: greenBorderSkin}),
 		new Line({top:130, height:230, width: 250, skin: whiteBorderSkin, name: "photo",
 	      contents:[
 	        new bigIconButton({title: "person photo", top: 0, left:0, right: 0, bottom:0, name: "missingPhoto",
@@ -331,8 +333,8 @@ var addPeopleCon2 = Container.template(function($) { return {
 		new bButton(),
 		addedit2,
 		descriptionField2,
-		new sButton({title: "REMOVE", left: 40, top: 420, width: 110, skin: redBorderSkin, whichDelete: 2}),
-		new sButton({title: "SAVE", left: 175, top: 420, width: 110, skin: greenBorderSkin}),
+		new sButton({title: "REMOVE", left: 20, top: 420, width: rsw, skin: redBorderSkin, whichDelete: 2}),
+		new sButton({title: "SAVE", left: 175, top: 420, width: rsw, skin: greenBorderSkin}),
 		new Line({top:130, height:230, width: 250, skin: whiteBorderSkin, name: "photo",
 	      contents:[
 	        new bigIconButton({title: "person photo 2", top: 0, left:0, right: 0, bottom:0, name: "missingPhoto",
@@ -456,7 +458,7 @@ var bButton = BUTTONS.Button.template(function($){ return{
 }});
 
 var plusButton = BUTTONS.Button.template(function($){ return{
-	right: 15, top: 23,
+	right: 10, top: 18,
 	contents: [
 		new Picture({width: 35, height: 35, url: "plus.png", name: "plus"}),
 	],
