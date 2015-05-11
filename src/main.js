@@ -166,15 +166,15 @@ var flyDroneCon = Container.template(function($) { return {
 		new moveButton({title:"right", url: "turnR.png", left: centerL + 50, bottom: centerB + 50, func: false}),
 		new moveButton({title:"left", url: "turnL.png", left: centerL - 50, bottom: centerB + 50, func: false}),
 		
-		new Label({left: centerL + 0, bottom: centerB + 100, string: "MOTION", style: rlySmLabelStyle}),
-		new Label({right: 37, bottom: centerB + 100, string: "ELEVATION", style: rlySmLabelStyle}),
+		new Label({left: centerL + 0, bottom: centerB + 110, string: "MOTION", style: rlySmLabelStyle}),
+		new Label({right: 37, bottom: centerB + 110, string: "ELEVATION", style: rlySmLabelStyle}),
 		
 		
 		//new iconButton({title: "Zin", url: "zoomin.png", right: 50, bottom: 180}),
 		//new iconButton({title: "Zout", url: "zoomout.png", right: 100, bottom: 180}),
 		
-		new bigIconButton({title: "ascend", url:"ascendwhite.png", right: 25, bottom: centerB - 25 + 35, skin: greenS, func: false}),
-		new bigIconButton({title: "descend", url:"descendwhite.png", right: 25, bottom: centerB - 25 - 35, skin: greenS, func: false}),
+		new medIconButton({title: "ascend", url:"ascendwhite.png", right: 30, bottom: centerB - 25 + 45, skin: greenS, func: false}),
+		new medIconButton({title: "descend", url:"descendwhite.png", right: 30, bottom: centerB - 25 - 25, skin: greenS, func: false}),
 		
 		
 		//new sButton({title: "Fwd", left: 40, bottom: 80, width: 100, skin: greenS})
@@ -680,10 +680,10 @@ var smallIconButton = BUTTONS.Button.template(function($){ return{
 }});
 
 
-var bigIconButton = BUTTONS.Button.template(function($){ return{
+var medIconButton = BUTTONS.Button.template(function($){ return{
 	left: $.left, right: $.right, top: $.top, bottom: $.bottom,
 	contents: [
-		new Picture({width: iconWidth*2, height: iconHeight*2, url: $.url, name: "picture"}),
+		new Picture({width: iconWidth*1.5, height: iconHeight*1.5, url: $.url, name: "picture"}),
 	],
 	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
 		onTap: { value: function(content){
@@ -707,6 +707,24 @@ var bigIconButton = BUTTONS.Button.template(function($){ return{
 				    flyCon.chinapic.url = "china/cdown.png";
 				    view = "down";
 				}
+			}
+			content.invoke(new Message(deviceURL + $.title), Message.JSON);
+			trace($.title + " button pressed\n");
+		}},
+	})
+}});
+
+
+
+var bigIconButton = BUTTONS.Button.template(function($){ return{
+	left: $.left, right: $.right, top: $.top, bottom: $.bottom,
+	contents: [
+		new Picture({width: iconWidth*2, height: iconHeight*2, url: $.url, name: "picture"}),
+	],
+	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
+		onTap: { value: function(content){
+			if ($.func) {
+				$.func(content);
 			}
 			content.invoke(new Message(deviceURL + $.title), Message.JSON);
 			trace($.title + " button pressed\n");
