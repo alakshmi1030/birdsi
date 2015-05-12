@@ -118,8 +118,6 @@ var setPathCon = Container.template(function($) { return {
 			]
 		}),
 		new bButton(),
-		//new Label({top: 20, string: "SET PATH", style: labelStyle}),
-		//new Line({left:0, right:0, top:80, bottom:450, skin: blackS}),
 		new Picture({top: 0,left: 20, right: 20, width: pictureWidth, height: pictureHeight, url: "map2.png", name: "mainMap"}),
 		new Label({top: 277, left: 20, string: "FROM:", style: fieldStyle}),
 		new Label({top: 326, left: 20, string: "TO:", style: fieldStyle}),
@@ -127,7 +125,6 @@ var setPathCon = Container.template(function($) { return {
 		autoLabel,
 		new sButton({title: "START", left: 30, top: 395, width: 120, skin: greenBorderSkin}),
 		new sButton({title: "STOP", right: 30, top: 395, width: 120, skin: redBorderSkin}),
-		//new Picture({left: currL, top: currT, width: 20, height: 20, url:"curr.png", name: "currxx"})
 	],
 	behavior: Object.create(Container.prototype, {
 		onTouchEnded: { value: function(content){
@@ -151,14 +148,8 @@ var flyDroneCon = Container.template(function($) { return {
 			]
 		}),
 		new bButton(),
-		//new Label({top: 290, string: "Warning: You are still in autopilot mode.", style: rlySmLabelStyle}),
-		//new Label({top: 310, string: "Switch back to manual?", style: rlySmLabelStyle}),
-		//new Line({left:0, right:0, top:80, bottom:450, skin: blackS}),
-		// to be replaced with diff pic. perhaps change width and height
 		new Picture({top: 90, width: camW, height: camH,
 		url: "china/ccenter.png", name:"chinapic"}),
-		// to replace sButtons with urlbuttons
-		// possibly need an elevation control as well
 		new moveButton({title:"forward", url: "up.png", left: centerL, bottom: centerB + 50, func: false}),
 		new moveButton({title:"back", url: "down.png", left: centerL, bottom: centerB - 50, func: false}),
 		new moveButton({title:"left", url: "left.png", left: centerL - 40, bottom: centerB, func: false}),
@@ -169,15 +160,9 @@ var flyDroneCon = Container.template(function($) { return {
 		new Label({left: centerL + 1, bottom: centerB + 110, string: "MOTION", style: rlySmLabelStyle}),
 		new Label({right: 41, bottom: centerB + 110, string: "ELEVATION", style: rlySmLabelStyle}),
 		
-		
-		//new iconButton({title: "Zin", url: "zoomin.png", right: 50, bottom: 180}),
-		//new iconButton({title: "Zout", url: "zoomout.png", right: 100, bottom: 180}),
-		
 		new medIconButton({title: "ascend", url:"ascendwhite.png", right: 35, bottom: centerB - 25 + 45, skin: greenS, func: false}),
 		new medIconButton({title: "descend", url:"descendwhite.png", right: 35, bottom: centerB - 25 - 25, skin: greenS, func: false}),
-		
-		
-		//new sButton({title: "Fwd", left: 40, bottom: 80, width: 100, skin: greenS})
+
 	],
 	behavior: Object.create(Container.prototype, {
 		onTouchEnded: { value: function(content){
@@ -371,8 +356,6 @@ var addPeopleCon2 = Container.template(function($) { return {
 	})
 }});
 
-//				addPeopleCon.uploadpic.content.picture.load("blank.jpg");
-
 var aButton = BUTTONS.Button.template(function($) { return {
 	left: 0, right: 0, height: 170,
 	contents: [
@@ -404,13 +387,6 @@ var aButton = BUTTONS.Button.template(function($) { return {
 				descBox1.string = desc;
 				descBox.string = desc;
 				mode = "find";
-				trace("descBox2 is " + descBox2.string + "\n");
-				trace("descBox is " + descBox.string + "\n");
-				//listFilledCon.remove(descBox);
-				//listFilledCon.add(descBox);
-			}
-			else{
-				trace($.title + " button pressed\n");
 			}
 		}},
 	})
@@ -442,18 +418,12 @@ var bButton = BUTTONS.Button.template(function($){ return{
 			if (mode == "add") {
 				addedit.string = "ADD PERSON";
 				addedit2.string = "ADD PERSON";
-				for (var yo in application.first) {
-					trace(yo + "\n");
-					trace (application[yo] + "\n");
-				}
 				if (person == 2) {
 					application.remove(addCon2);
 				} else {
 					application.remove(addCon);
 				}
-				trace(saved);
 				if (!(saved[0])) {
-					//filled = false;
 					application.add(listCon);
 				} else if (!(saved[1])) {
 					application.add(listFilledCon);
@@ -497,7 +467,7 @@ var plusButton = BUTTONS.Button.template(function($){ return{
 	})
 }});
 
-/*start / stop button*/
+/*start and stop button*/
 var sButton = BUTTONS.Button.template(function($){ return{
 	left: $.left, right: $.right, top : $.top, bottom: $.bottom, height: 50, width: $.width, skin:$.skin,
 	contents: [
@@ -544,23 +514,16 @@ var sButton = BUTTONS.Button.template(function($){ return{
 						application.add(listFilledCon);
 					}
 				}
-				trace(saved);
 				mode = "find";
-				flyCon.chinapic.url = "china/ccenter.png";
-				content.invoke(new Message(deviceURL + "search"), Message.JSON);
 			} else if (pressed == "REMOVE") {
 				addedit.string = "ADD PERSON";
 				addedit2.string = "ADD PERSON";
 				if ($.whichDelete == 2) {
 					saved[1] = false;
-					//filled[1] = false;
 					application.remove(addCon2);
 					application.add(listFilledCon);
-					//addCon2.photo.missingPhoto.load("tapload.jpg");
-					//descriptionField2.myScroller.myLabel.string = "";
 					desc2 = "";
 					descBox2.string = ""
-					//addCon2.add(personFoundAdd2);
 				} else {
 					for (var i = 0; i < saved.length; i++) {
 						saved[i] = false;
@@ -568,21 +531,14 @@ var sButton = BUTTONS.Button.template(function($){ return{
 					}
 					application.remove(addCon);
 					application.add(listCon);
-					trace(addCon.photo + "\n");
-					//trace(addCon.photo.contents.missingPhoto);
-					//addCon2.photo.contents.missingPhoto.load("tapload.jpg");
-					//descriptionField2.myScroller.myLabel.string = "";
 					desc2 = "";
 					descBox2.string = ""
-					//addCon.photo.contents.missingPhoto.load("tapload.jpg");
-					//descriptionField.myScroller.myLabel.string = "";
 					desc = "";
 					descBox.string = ""
 					descBox1.string = "";
 				}
 				mode = "find";
 			}
-			trace("\ndone click\n");
 		}}
 	})
 }});
@@ -655,7 +611,6 @@ var moveButton = BUTTONS.Button.template(function($){ return{
 				}
 			}
 			content.invoke(new Message(deviceURL + $.title), Message.JSON);
-			trace($.title + " button pressed\n");
 		}},
 	})
 }});
@@ -671,7 +626,6 @@ var smallIconButton = BUTTONS.Button.template(function($){ return{
 				$.func(content);
 			}
 			content.invoke(new Message(deviceURL + $.title), Message.JSON);
-			trace($.title + " button pressed\n");
 		}},
 	})
 }});
@@ -706,7 +660,6 @@ var medIconButton = BUTTONS.Button.template(function($){ return{
 				}
 			}
 			content.invoke(new Message(deviceURL + $.title), Message.JSON);
-			trace($.title + " button pressed\n");
 		}},
 	})
 }});
@@ -723,7 +676,6 @@ var bigIconButton = BUTTONS.Button.template(function($){ return{
 				$.func(content);
 			}
 			content.invoke(new Message(deviceURL + $.title), Message.JSON);
-			trace($.title + " button pressed\n");
 		}},
 	})
 }});
