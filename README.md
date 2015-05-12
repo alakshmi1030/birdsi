@@ -6,4 +6,4 @@ There is a mobile application that is used to commandeer the device - the drone 
 
 This app was built for the CS160 class on UI/UX Design at UC Berkeley in the Spring of 2015. It was made in Kinoma Studio and is a prototype - not a finished real-world application.
 
-This repo contains the mobile application prototype of BIRDSi. The device (drone) can be found in the *birdsidevice* repo.
+This repo contains the mobile application prototype of BIRDSi. The device (drone) can be found in the [birdsidevice](https://github.com/alakshmi1030/birdsidevice) repo.
