@@ -513,6 +513,7 @@ var sButton = BUTTONS.Button.template(function($){ return{
 						descBox1.string = desc;
 						application.add(listFilledCon);
 					}
+				saved[0] = true;
 				}
 				mode = "find";
 			} else if (pressed == "REMOVE") {
@@ -747,7 +748,7 @@ Handler.bind("/updateCurr", Behavior({
 					updateFound("");
 				}	
 			}
-			if (!pfound && !high && saved[0]) {
+			if (!high && (saved[0] || saved[1])) {
 				if (json.x > 70 && json.x < 75 && json.y > 70 && json.y < 75) {
 					var pstring = "Missing person located at " + Math.round(json.x * 10)/10 + ", " + Math.round(json.y * 10)/10;
 					updateFound(pstring);
